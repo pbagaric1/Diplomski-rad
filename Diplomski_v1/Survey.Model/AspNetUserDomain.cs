@@ -1,18 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Survey.Model.Common;
 
-namespace Survey.DAL.Models
+namespace Survey.Model
 {
-    public partial class AspNetUser
+    public class AspNetUserDomain : IAspNetUserDomain
     {
-        public AspNetUser()
-        {
-            this.AspNetUserClaims = new List<AspNetUserClaim>();
-            this.AspNetUserLogins = new List<AspNetUserLogin>();
-            this.AspNetRoles = new List<AspNetRole>();
-            this.Polls = new List<Poll>();
-        }
-
         public string Id { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
@@ -30,9 +26,10 @@ namespace Survey.DAL.Models
         public int Age { get; set; }
         public string Address { get; set; }
         public string Place { get; set; }
-        public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        public virtual ICollection<Poll> Polls { get; set; }
+
+        public virtual ICollection<IAspNetUserClaimDomain> AspNetUserClaims { get; set; }
+        public virtual ICollection<IAspNetUserLoginDomain> AspNetUserLogins { get; set; }
+        public virtual ICollection<IAspNetRoleDomain> AspNetRoles { get; set; }
+        public virtual ICollection<IPollDomain> Polls { get; set; }
     }
 }

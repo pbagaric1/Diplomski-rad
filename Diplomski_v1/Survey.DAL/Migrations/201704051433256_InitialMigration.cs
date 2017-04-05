@@ -3,19 +3,50 @@ namespace Survey.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class migration1 : DbMigration
+    public partial class InitialMigration : DbMigration
     {
         public override void Up()
         {
-            //CreateTable(
-            //    "dbo.AspNetRoles",
-            //    c => new
-            //        {
-            //            Id = c.String(nullable: false, maxLength: 128),
-            //            Name = c.String(nullable: false, maxLength: 256),
-            //        })
-            //    .PrimaryKey(t => t.Id);
-
+            CreateTable(
+                "dbo.Answers",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        QuestionId = c.Guid(nullable: false),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
+                .Index(t => t.QuestionId);
+            
+            CreateTable(
+                "dbo.Questions",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        PollId = c.Guid(nullable: false),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Polls", t => t.PollId, cascadeDelete: true)
+                .Index(t => t.PollId);
+            
+            CreateTable(
+                "dbo.Polls",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        PollTypeId = c.Guid(nullable: false),
+                        Name = c.String(),
+                        Location = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.PollTypes", t => t.PollTypeId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.PollTypeId);
+            
             //CreateTable(
             //    "dbo.AspNetUsers",
             //    c => new
@@ -39,7 +70,16 @@ namespace Survey.DAL.Migrations
             //            Place = c.String(),
             //        })
             //    .PrimaryKey(t => t.Id);
-
+            
+            //CreateTable(
+            //    "dbo.AspNetRoles",
+            //    c => new
+            //        {
+            //            Id = c.String(nullable: false, maxLength: 128),
+            //            Name = c.String(nullable: false, maxLength: 256),
+            //        })
+            //    .PrimaryKey(t => t.Id);
+            
             //CreateTable(
             //    "dbo.AspNetUserClaims",
             //    c => new
@@ -52,7 +92,7 @@ namespace Survey.DAL.Migrations
             //    .PrimaryKey(t => t.Id)
             //    .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
             //    .Index(t => t.UserId);
-
+            
             //CreateTable(
             //    "dbo.AspNetUserLogins",
             //    c => new
@@ -64,19 +104,16 @@ namespace Survey.DAL.Migrations
             //    .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
             //    .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
             //    .Index(t => t.UserId);
-
+            
             CreateTable(
-                "dbo.Surveys",
+                "dbo.PollTypes",
                 c => new
-                {
-                    Id = c.String(nullable: false, maxLength: 128),
-                    UserId = c.String(nullable: false, maxLength: 128),
-                    Name = c.String(),
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-
+                    {
+                        Id = c.Guid(nullable: false),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             //CreateTable(
             //    "dbo.AspNetUserRoles",
             //    c => new
@@ -89,27 +126,36 @@ namespace Survey.DAL.Migrations
             //    .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
             //    .Index(t => t.RoleId)
             //    .Index(t => t.UserId);
-
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Surveys", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Answers", "QuestionId", "dbo.Questions");
+            DropForeignKey("dbo.Questions", "PollId", "dbo.Polls");
+            DropForeignKey("dbo.Polls", "PollTypeId", "dbo.PollTypes");
+            DropForeignKey("dbo.Polls", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.Surveys", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.Polls", new[] { "PollTypeId" });
+            DropIndex("dbo.Polls", new[] { "UserId" });
+            DropIndex("dbo.Questions", new[] { "PollId" });
+            DropIndex("dbo.Answers", new[] { "QuestionId" });
             DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.Surveys");
+            DropTable("dbo.PollTypes");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Polls");
+            DropTable("dbo.Questions");
+            DropTable("dbo.Answers");
         }
     }
 }

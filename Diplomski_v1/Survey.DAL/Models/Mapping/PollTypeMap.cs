@@ -7,21 +7,20 @@ using System.Threading.Tasks;
 
 namespace Survey.DAL.Models.Mapping
 {
-    public class SurveyTypeMap : EntityTypeConfiguration<SurveyType>
+    public class PollTypeMap : EntityTypeConfiguration<PollType>
     {
-        public SurveyTypeMap()
+        public PollTypeMap()
         {
             // Primary Key
             this.HasKey(t => t.Id);
 
             // Properties
             this.Property(t => t.Id)
-                .IsRequired()
-                .HasMaxLength(128);
+                .IsRequired();
 
 
             // Table & Column Mappings
-            this.ToTable("SurveyTypes");
+            this.ToTable("PollTypes");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Name).HasColumnName("Name");
 

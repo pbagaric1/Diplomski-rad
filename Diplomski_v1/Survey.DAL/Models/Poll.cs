@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace Survey.DAL.Models
 {
-    public class Survey
+    public class Poll
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string UserId { get; set; }
-        public string SurveyTypeId { get; set; }
+        public Guid PollTypeId { get; set; }
         public string Name { get; set; }
+        public string Location { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }
-        public virtual SurveyType SurveyType { get; set; }
-        public ICollection <Question> Questions { get; set; }
+        public virtual PollType PollType { get; set; }
+        public ICollection<Question> Questions { get; set; }
     }
 }

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Survey.DAL.Models.Mapping 
+namespace Survey.DAL.Models.Mapping
 {
-    class AnswerMap : EntityTypeConfiguration<Answer>
+    public class AnswerMap : EntityTypeConfiguration<Answer>
     {
         public AnswerMap()
         {
@@ -16,12 +16,10 @@ namespace Survey.DAL.Models.Mapping
 
             // Properties
             this.Property(t => t.Id)
-                .IsRequired()
-                .HasMaxLength(128);
+                .IsRequired();
 
             this.Property(t => t.QuestionId)
-                .IsRequired()
-                .HasMaxLength(128);
+                .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("Answers");
@@ -38,4 +36,3 @@ namespace Survey.DAL.Models.Mapping
 
     }
 }
-

@@ -16,23 +16,21 @@ namespace Survey.DAL.Models.Mapping
 
             // Properties
             this.Property(t => t.Id)
-                .IsRequired()
-                .HasMaxLength(128);
+                .IsRequired();
 
-            this.Property(t => t.SurveyId)
-                .IsRequired()
-                .HasMaxLength(128);
+            this.Property(t => t.PollId)
+                .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("Questions");
             this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.SurveyId).HasColumnName("SurveyId");
+            this.Property(t => t.PollId).HasColumnName("PollId");
             this.Property(t => t.Name).HasColumnName("Name");
 
             // Relationships
-            this.HasRequired(t => t.Survey)
+            this.HasRequired(t => t.Poll)
                 .WithMany(t => t.Questions)
-                .HasForeignKey(d => d.SurveyId);
+                .HasForeignKey(d => d.PollId);
 
         }
     }

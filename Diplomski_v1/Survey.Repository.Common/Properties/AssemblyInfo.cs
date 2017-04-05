@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Survey.DAL")]
+[assembly: AssemblyTitle("Survey.Repository.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Survey.DAL")]
+[assembly: AssemblyProduct("Survey.Repository.Common")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("67a75a20-db8b-4810-9225-e0ec1bc62198")]
+[assembly: Guid("97b81f60-57a3-4cdd-8019-a9887c3595fa")]
 
 // Version information for an assembly consists of the following four values:
 //

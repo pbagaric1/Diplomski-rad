@@ -17,7 +17,7 @@ namespace Survey.DAL.Common
         IEnumerable<DbEntityValidationResult> GetValidationErrors();
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         DbEntityEntry Entry(object entity);
-        bool AutoDetectChangedEnabled { get; set; }
+        //bool AutoDetectChangedEnabled { get; set; }
         Task<int> SaveChangesAsync();
     }
 }

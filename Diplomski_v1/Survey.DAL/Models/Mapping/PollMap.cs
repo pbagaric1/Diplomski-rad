@@ -7,36 +7,35 @@ using System.Threading.Tasks;
 
 namespace Survey.DAL.Models.Mapping
 {
-    public class SurveyMap : EntityTypeConfiguration<Survey>
+    public class PollMap : EntityTypeConfiguration<Poll>
     {
-        public SurveyMap()
+        public PollMap()
         {
             // Primary Key
             this.HasKey(t => t.Id);
 
             // Properties
             this.Property(t => t.Id)
-                .IsRequired()
-                .HasMaxLength(128);
+                .IsRequired();
 
             this.Property(t => t.UserId)
-                .IsRequired()
-                .HasMaxLength(128);
+                .IsRequired();
 
             // Table & Column Mappings
-            this.ToTable("Surveys");
+            this.ToTable("Polls");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.UserId).HasColumnName("UserId");
             this.Property(t => t.Name).HasColumnName("Name");
+            this.Property(t => t.Location).HasColumnName("Location");
 
             // Relationships
             this.HasRequired(t => t.AspNetUser)
-                .WithMany(t => t.Surveys)
+                .WithMany(t => t.Polls)
                 .HasForeignKey(d => d.UserId);
 
-            this.HasRequired(t => t.SurveyType)
-                .WithMany(t => t.Surveys)
-                .HasForeignKey(d => d.SurveyTypeId);
+            this.HasRequired(t => t.PollType)
+                .WithMany(t => t.Polls)
+                .HasForeignKey(d => d.PollTypeId);
 
         }
     }
