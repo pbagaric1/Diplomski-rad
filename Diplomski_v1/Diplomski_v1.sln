@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey.Repository.Common", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey.DAL", "Survey.DAL\Survey.DAL.csproj", "{67A75A20-DB8B-4810-9225-E0EC1BC62198}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey.Service", "Survey.Service\Survey.Service.csproj", "{2CF6FE92-84E2-4046-820B-83F64030F99E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey.Service.Common", "Survey.Service.Common\Survey.Service.Common.csproj", "{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{67A75A20-DB8B-4810-9225-E0EC1BC62198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67A75A20-DB8B-4810-9225-E0EC1BC62198}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67A75A20-DB8B-4810-9225-E0EC1BC62198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF6FE92-84E2-4046-820B-83F64030F99E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF6FE92-84E2-4046-820B-83F64030F99E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF6FE92-84E2-4046-820B-83F64030F99E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF6FE92-84E2-4046-820B-83F64030F99E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
