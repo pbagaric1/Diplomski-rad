@@ -53,7 +53,7 @@ namespace Survey.Repository.Repositories
         {
             try
             {
-                var entity = GenericRepository.Get<Poll>(id);
+                var entity = await GenericRepository.Get<Poll>(id);
 
                 if (entity == null)
                     return 0;
@@ -110,7 +110,7 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IPollDomain>> GetSurveysByType(Guid pollTypeId)
+        public async Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId)
         {
             try
             {

@@ -15,7 +15,7 @@ namespace Survey.Service.Common
         Task<int> Update(IPollDomain entity);
         Task<IPollDomain> Get(Guid id);
         Task<IEnumerable<IPollDomain>> GetAll();
-        Task<IEnumerable<IPollDomain>> GetSurveysByType(Guid pollTypeId);
+        Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId);
         Task<IEnumerable<IPollDomain>> GetByUsername(string username);
     }
 }

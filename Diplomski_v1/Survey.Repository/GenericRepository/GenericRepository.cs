@@ -17,10 +17,9 @@ namespace Survey.Repository.GenericRepository
         private readonly ISurveyContext Context;
         private readonly IUnitOfWork UnitOfWork;
 
-        public GenericRepository(ISurveyContext _context, IUnitOfWork _unitOfWork)
+        public GenericRepository(ISurveyContext _context)
         {
             this.Context = _context;
-            this.UnitOfWork = _unitOfWork;
         }
 
         public async Task<int> Add<T>(T entity) where T : class

@@ -81,15 +81,43 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -133,6 +161,10 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -194,11 +226,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="AutoMapperConfig\Mapping.cs" />
+    <Compile Include="AutoMapperConfig\MappingInit.cs" />
+    <Compile Include="ControllersAPI\AnswerController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="ControllersAPI\AspNetUserController.cs" />
+    <Compile Include="ControllersAPI\PollController.cs" />
+    <Compile Include="ControllersAPI\PollTypeController.cs" />
+    <Compile Include="ControllersAPI\QuestionController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -211,6 +252,14 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AnswerView.cs" />
+    <Compile Include="ViewModels\AspNetRoleView.cs" />
+    <Compile Include="ViewModels\AspNetUserClaimView.cs" />
+    <Compile Include="ViewModels\AspNetUserLoginView.cs" />
+    <Compile Include="ViewModels\AspNetUserView.cs" />
+    <Compile Include="ViewModels\PollTypeView.cs" />
+    <Compile Include="ViewModels\PollView.cs" />
+    <Compile Include="ViewModels\QuestionView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -283,6 +332,40 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Survey.DAL.Common\Survey.DAL.Common.csproj">
+      <Project>{5fd9deff-2c23-4179-80e7-91e72e720cb6}</Project>
+      <Name>Survey.DAL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.DependencyInjection\Survey.DependencyInjection.csproj">
+      <Project>{c89bc7b3-efd5-4f9e-b968-bbb0d2d43fd0}</Project>
+      <Name>Survey.DependencyInjection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.Model.Common\Survey.Model.Common.csproj">
+      <Project>{9680381b-1e9c-4ef9-91e9-c34e9715acd5}</Project>
+      <Name>Survey.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.Model\Survey.Model.csproj">
+      <Project>{7C99B2F4-9F1E-48B0-AC9A-AD69BADA14A9}</Project>
+      <Name>Survey.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.Repository.Common\Survey.Repository.Common.csproj">
+      <Project>{97b81f60-57a3-4cdd-8019-a9887c3595fa}</Project>
+      <Name>Survey.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.Repository\Survey.Repository.csproj">
+      <Project>{6d70192e-acda-49ec-befa-a2df1cc8d0f8}</Project>
+      <Name>Survey.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.Service.Common\Survey.Service.Common.csproj">
+      <Project>{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}</Project>
+      <Name>Survey.Service.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.Service\Survey.Service.csproj">
+      <Project>{2cf6fe92-84e2-4046-820b-83f64030f99e}</Project>
+      <Name>Survey.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

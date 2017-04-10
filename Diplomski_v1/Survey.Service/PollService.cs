@@ -54,9 +54,9 @@ namespace Survey.Service
             return response;
         }
 
-        public async Task<IEnumerable<IPollDomain>> GetSurveysByType(Guid pollTypeId)
+        public async Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId)
         {
-            var response = await PollRepository.GetSurveysByType(pollTypeId);
+            var response = await PollRepository.GetPollsByType(pollTypeId);
             return response;
         }
 

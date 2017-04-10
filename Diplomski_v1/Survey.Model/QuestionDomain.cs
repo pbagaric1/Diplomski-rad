@@ -13,7 +13,7 @@ namespace Survey.Model
         public Guid PollId { get; set; }
         public string Name { get; set; }
 
-        public virtual IPollDomain Poll { get; set; }
+        //public virtual IPollDomain Poll { get; set; }
         public ICollection <IAnswerDomain> Answers { get; set; }
     }
 }

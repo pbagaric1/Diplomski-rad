@@ -51,12 +51,13 @@ namespace Survey.Repository.Repositories
         {
             try
             {
-                var entity = GenericRepository.Get<Answer>(id);
+                var entity = await GenericRepository.Get<Answer>(id);
 
                 if (entity == null)
                     return 0;
 
                 return await GenericRepository.Delete(entity);
+                //return await GenericRepository.Delete<Answer>(id);
             }
 
             catch (Exception ex)

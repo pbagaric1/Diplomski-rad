@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey.Service", "Survey.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey.Service.Common", "Survey.Service.Common\Survey.Service.Common.csproj", "{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Survey.DependencyInjection", "Survey.DependencyInjection\Survey.DependencyInjection.csproj", "{C89BC7B3-EFD5-4F9E-B968-BBB0D2D43FD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C89BC7B3-EFD5-4F9E-B968-BBB0D2D43FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C89BC7B3-EFD5-4F9E-B968-BBB0D2D43FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C89BC7B3-EFD5-4F9E-B968-BBB0D2D43FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C89BC7B3-EFD5-4F9E-B968-BBB0D2D43FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

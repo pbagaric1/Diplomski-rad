@@ -52,7 +52,7 @@ namespace Survey.Repository.Repositories
         {
             try
             {
-                var entity = GenericRepository.Get<PollType>(id);
+                var entity = await GenericRepository.Get<PollType>(id);
 
                 if (entity == null)
                     return 0;

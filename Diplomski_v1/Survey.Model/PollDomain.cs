@@ -14,8 +14,8 @@ namespace Survey.Model
         public Guid PollTypeId { get; set; }
         public string Name { get; set; }
 
-        public virtual IAspNetUserDomain AspNetUser { get; set; }
-        public virtual IPollTypeDomain PollType { get; set; }
+        //public virtual IAspNetUserDomain AspNetUser { get; set; }
+        //public virtual IPollTypeDomain PollType { get; set; }
         public ICollection<IQuestionDomain> Questions { get; set; }
     }
 }

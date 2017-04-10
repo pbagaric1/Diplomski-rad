@@ -12,7 +12,7 @@ namespace Survey.Model.Common
         Guid PollId { get; set; }
         string Name { get; set; }
 
-        IPollDomain Poll { get; set; }
+        //IPollDomain Poll { get; set; }
         ICollection <IAnswerDomain> Answers { get; set; }
     }
 }

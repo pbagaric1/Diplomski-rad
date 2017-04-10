@@ -52,7 +52,7 @@ namespace Survey.Repository.Repositories
         {
             try
             {
-                var entity = GenericRepository.Get<AspNetUser>(id);
+                var entity = await GenericRepository.Get<AspNetUser>(id);
 
                 if (entity == null)
                     return 0;

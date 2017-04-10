@@ -48,9 +48,9 @@ namespace Survey.Service
             return response;
         }
 
-        public async Task<IEnumerable<IQuestionDomain>> GetQuestionsBySurvey(Guid pollId)
+        public async Task<IEnumerable<IQuestionDomain>> GetQuestionsByPoll(Guid pollId)
         {
-            var response = await QuestionRepository.GetQuestionsBySurvey(pollId);
+            var response = await QuestionRepository.GetQuestionsByPoll(pollId);
             return response;
         }
 
