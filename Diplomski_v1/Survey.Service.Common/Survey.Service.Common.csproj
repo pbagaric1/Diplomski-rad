@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAnswerService.cs" />
+    <Compile Include="IAspNetRoleService.cs" />
     <Compile Include="IAspNetUserLoginService.cs" />
     <Compile Include="IAspNetUserService.cs" />
     <Compile Include="IPollService.cs" />

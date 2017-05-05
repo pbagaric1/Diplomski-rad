@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Survey.Model.Common;
+using Survey.MVC_WebApi.Models;
 using Survey.MVC_WebApi.ViewModels;
 using Survey.Service.Common;
 using System;
@@ -17,11 +20,15 @@ namespace Survey.MVC_WebApi.ControllersAPI
     {
         private IAspNetUserService AspNetUserService;
 
-        public AspNetUserController(IAspNetUserService _aspNetUserService)
+        private ApplicationDbContext context;
+
+        public AspNetUserController(IAspNetUserService _aspNetUserService, ApplicationDbContext _context)
         {
             this.AspNetUserService = _aspNetUserService;
+            this.context = _context;
         }
 
+        [Authorize(Roles = "Admin, Ispitivac")]
         [Route("getall")]
         [HttpGet]
         public async Task<HttpResponseMessage> GetAll()
@@ -29,6 +36,36 @@ namespace Survey.MVC_WebApi.ControllersAPI
             try
             {
                 var entity = Mapper.Map<IEnumerable<AspNetUserView>>(await AspNetUserService.GetAll());
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+            }
+        }
+
+        [Route("getallusernames")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetAllUsernames()
+        {
+            try
+            {
+                var entity = Mapper.Map<IEnumerable<AspNetUserView>>(await AspNetUserService.GetAllUsernames());
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+            }
+        }
+
+        [Route("getallemails")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetAllEmails()
+        {
+            try
+            {
+                var entity = Mapper.Map<IEnumerable<AspNetUserView>>(await AspNetUserService.GetAllEmails());
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -73,8 +110,16 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 aspNetUser.Id = Guid.NewGuid().ToString();
-                var entity = await AspNetUserService.Add(Mapper.Map<IAspNetUserDomain>(aspNetUser));
+                aspNetUser.SecurityStamp = Guid.NewGuid().ToString();
+
+                //hash the password using the microsoft identity password hasher
+                var hashedPassword = UserManager.PasswordHasher.HashPassword(aspNetUser.PasswordHash);
+                aspNetUser.PasswordHash = hashedPassword;
+
+                var addToRole = UserManager.AddToRole(aspNetUser.Id, aspNetUser.UserRole);
+                var entity = await AspNetUserService.Add(Mapper.Map<IAspNetUserDomain>(aspNetUser)); 
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)

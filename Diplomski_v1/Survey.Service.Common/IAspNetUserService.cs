@@ -15,6 +15,8 @@ namespace Survey.Service.Common
         Task<int> Update(IAspNetUserDomain entity);
         Task<IAspNetUserDomain> Get(string id);
         Task<IEnumerable<IAspNetUserDomain>> GetAll();
+        Task<IEnumerable<IAspNetUserDomain>> GetAllUsernames();
+        Task<IEnumerable<IAspNetUserDomain>> GetAllEmails();
         Task<IAspNetUserDomain> GetByUsername(string username);
     }
 }

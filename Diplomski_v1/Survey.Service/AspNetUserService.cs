@@ -49,6 +49,18 @@ namespace Survey.Service
             return response;
         }
 
+        public async Task<IEnumerable<IAspNetUserDomain>> GetAllEmails()
+        {
+            var response = await AspNetUserRepository.GetAllEmails();
+            return response;
+        }
+
+        public async Task<IEnumerable<IAspNetUserDomain>> GetAllUsernames()
+        {
+            var response = await AspNetUserRepository.GetAllUsernames();
+            return response;
+        }
+
         public async Task<IAspNetUserDomain> GetByUsername(string username)
         {
             var response = await AspNetUserRepository.GetByUsername(username);

@@ -10,6 +10,7 @@ namespace Survey.Model
     public class AspNetUserDomain : IAspNetUserDomain
     {
         public string Id { get; set; }
+        public string UserRole { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
@@ -29,7 +30,7 @@ namespace Survey.Model
 
         public virtual ICollection<IAspNetUserClaimDomain> AspNetUserClaims { get; set; }
         public virtual ICollection<IAspNetUserLoginDomain> AspNetUserLogins { get; set; }
-        public virtual ICollection<IAspNetRoleDomain> AspNetRoles { get; set; }
+        //public virtual ICollection<IAspNetRoleDomain> AspNetRoles { get; set; }
         public virtual ICollection<IPollDomain> Polls { get; set; }
     }
 }

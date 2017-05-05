@@ -94,6 +94,38 @@ namespace Survey.Repository.Repositories
             }
         }
 
+        public async Task<IEnumerable<IAspNetUserDomain>> GetAllEmails()
+        {
+            try
+            {
+                var response = (await GenericRepository.GetQueryable<AspNetUser>()
+                    .ToListAsync());
+                var responseEmails = response.Select(a => new AspNetUser { Email = a.Email }).ToList();
+
+                return Mapper.Map<IEnumerable<IAspNetUserDomain>>(responseEmails);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<IAspNetUserDomain>> GetAllUsernames()
+        {
+            try
+            {
+                var response = (await GenericRepository.GetQueryable<AspNetUser>().ToListAsync());
+
+                var usernames = response.Select(a => new AspNetUser{ UserName = a.UserName }).ToList();
+
+                return Mapper.Map<IEnumerable<IAspNetUserDomain>>(usernames);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<IAspNetUserDomain> GetByUsername(string username)
         {
             try

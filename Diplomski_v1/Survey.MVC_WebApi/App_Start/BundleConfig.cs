@@ -26,6 +26,19 @@ namespace Survey.MVC_WebApi
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                      "~/app/Vendors/angular.js",
+                      "~/app/Vendors/angular-ui-router.js",
+                      "~/app/Vendors/angular-route.js",
+                      "~/app/Vendors/angular-local-storage.js",
+                      "~/app/Vendors/ngStorage.js",
+                      "~/app/Vendors/md5.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/surveyApp").Include(
+                      "~/app/app.js",
+                      "~/app/Controllers/*Controller.js",
+                      "~/app/Services/*Service.js"));
         }
     }
 }

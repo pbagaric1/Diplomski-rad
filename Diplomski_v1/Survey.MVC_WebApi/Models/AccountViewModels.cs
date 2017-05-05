@@ -74,6 +74,7 @@ namespace Survey.MVC_WebApi.Models
         public int Age { get; set; }
         public string Address { get; set; }
         public string Place { get; set; }
+        public string UserRole { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

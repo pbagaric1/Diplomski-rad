@@ -9,6 +9,7 @@ namespace Survey.Model.Common
     public interface IAspNetUserDomain
     {
         string Id { get; set; }
+        string UserRole { get; set; }
         string Email { get; set; }
         bool EmailConfirmed { get; set; }
         string PasswordHash { get; set; }
@@ -28,7 +29,7 @@ namespace Survey.Model.Common
 
         ICollection<IAspNetUserClaimDomain> AspNetUserClaims { get; set; }
         ICollection<IAspNetUserLoginDomain> AspNetUserLogins { get; set; }
-        ICollection<IAspNetRoleDomain> AspNetRoles { get; set; }
+        //ICollection<IAspNetRoleDomain> AspNetRoles { get; set; }
         ICollection<IPollDomain> Polls { get; set; }
     }
 }

@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="IRepositories\IAnswerRepository.cs" />
     <Compile Include="IGenericRepository\IGenericRepository.cs" />
+    <Compile Include="IRepositories\IAspNetRoleRepository.cs" />
     <Compile Include="IRepositories\IAspNetUserLoginRepository.cs" />
     <Compile Include="IRepositories\IAspNetUserRepository.cs" />
     <Compile Include="IRepositories\IQuestionRepository.cs" />

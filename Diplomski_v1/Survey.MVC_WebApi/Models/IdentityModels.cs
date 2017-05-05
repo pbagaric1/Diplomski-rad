@@ -14,6 +14,7 @@ namespace Survey.MVC_WebApi.Models
         public int Age { get; set; }
         public string Address { get; set; }
         public string Place { get; set; }
+        public string UserRole { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

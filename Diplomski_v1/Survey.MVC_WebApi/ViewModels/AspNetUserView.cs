@@ -9,6 +9,7 @@ namespace Survey.MVC_WebApi.ViewModels
     {
         public string Id { get; set; }
         public string Email { get; set; }
+        public string UserRole { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }

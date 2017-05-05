@@ -60,6 +60,7 @@
     <Compile Include="GenericRepository\GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AnswerRepository.cs" />
+    <Compile Include="Repositories\AspNetRoleRepository.cs" />
     <Compile Include="Repositories\AspNetUserLoginRepository.cs" />
     <Compile Include="Repositories\AspNetUserRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
@@ -80,6 +81,10 @@
     <ProjectReference Include="..\Survey.Model.Common\Survey.Model.Common.csproj">
       <Project>{9680381b-1e9c-4ef9-91e9-c34e9715acd5}</Project>
       <Name>Survey.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Survey.Model\Survey.Model.csproj">
+      <Project>{7C99B2F4-9F1E-48B0-AC9A-AD69BADA14A9}</Project>
+      <Name>Survey.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Survey.Repository.Common\Survey.Repository.Common.csproj">
       <Project>{97b81f60-57a3-4cdd-8019-a9887c3595fa}</Project>

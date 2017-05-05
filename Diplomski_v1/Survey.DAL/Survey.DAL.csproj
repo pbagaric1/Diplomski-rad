@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201704051433256_InitialMigration.Designer.cs">
       <DependentUpon>201704051433256_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704281136538_RolesToUserTable.cs" />
+    <Compile Include="Migrations\201704281136538_RolesToUserTable.Designer.cs">
+      <DependentUpon>201704281136538_RolesToUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AspNetRole.cs" />
@@ -99,6 +103,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704051433256_InitialMigration.resx">
       <DependentUpon>201704051433256_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704281136538_RolesToUserTable.resx">
+      <DependentUpon>201704281136538_RolesToUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
