@@ -29,9 +29,6 @@ namespace Survey.DependencyInjection.AutoMapperConfig
             CreateMap<Poll, IPollDomain>().ReverseMap();
             CreateMap<Poll, PollDomain>().ReverseMap();
 
-            CreateMap<PollType, IPollTypeDomain>().ReverseMap();
-            CreateMap<PollType, PollTypeDomain>().ReverseMap();
-
             CreateMap<Question, IQuestionDomain>().ReverseMap();
             CreateMap<Question, QuestionDomain>().ReverseMap();
 

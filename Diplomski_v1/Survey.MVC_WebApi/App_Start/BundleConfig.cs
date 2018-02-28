@@ -28,17 +28,13 @@ namespace Survey.MVC_WebApi
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                      "~/app/Vendors/angular.js",
-                      "~/app/Vendors/angular-ui-router.js",
-                      "~/app/Vendors/angular-route.js",
-                      "~/app/Vendors/angular-local-storage.js",
-                      "~/app/Vendors/ngStorage.js",
-                      "~/app/Vendors/md5.js"));
+                      "~/Scripts/justgage.js",
+                      "~/Scripts/raphael-2.1.4.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/surveyApp").Include(
-                      "~/app/app.js",
-                      "~/app/Controllers/*Controller.js",
-                      "~/app/Services/*Service.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/surveyApp").Include(
+            //          "~/app/app.js",
+            //          "~/app/Controllers/*Controller.js",
+            //          "~/app/Services/*Service.js"));
         }
     }
 }

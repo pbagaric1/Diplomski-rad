@@ -95,35 +95,35 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IPollDomain>> GetByUsername(string username)
-        {
-            try
-            {
-                var response = Mapper.Map<IEnumerable<IPollDomain>>(await GenericRepository
-                    .GetQueryable<Poll>().Where(x => x.AspNetUser.UserName == username)
-                    .ToListAsync());
-                return response;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //public async Task<IEnumerable<IPollDomain>> GetByUsername(string username)
+        //{
+        //    try
+        //    {
+        //        var response = Mapper.Map<IEnumerable<IPollDomain>>(await GenericRepository
+        //            .GetQueryable<Poll>().Where(x => x.AspNetUser.UserName == username)
+        //            .ToListAsync());
+        //        return response;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
-        public async Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId)
-        {
-            try
-            {
-                var response = Mapper.Map<IEnumerable<IPollDomain>>(await GenericRepository
-                    .GetQueryable<Poll>().Where(x => x.PollTypeId == pollTypeId)
-                    .ToListAsync());
-                return response;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //public async Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId)
+        //{
+        //    try
+        //    {
+        //        var response = Mapper.Map<IEnumerable<IPollDomain>>(await GenericRepository
+        //            .GetQueryable<Poll>().Where(x => x.PollTypeId == pollTypeId)
+        //            .ToListAsync());
+        //        return response;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         public async Task<int> Update(IPollDomain entity)
         {

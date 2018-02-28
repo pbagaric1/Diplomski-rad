@@ -12,9 +12,10 @@ namespace Survey.Model.Common
         string UserId { get; set; }
         Guid PollTypeId { get; set; }
         string Name { get; set; }
+        string Location { get; set; }
 
         //IAspNetUserDomain AspNetUser { get; set; }
         //ISurveyTypeDomain SurveyType { get; set; }
-        ICollection<IQuestionDomain> Questions { get; set; }
+        //ICollection<IQuestionDomain> Questions { get; set; }
     }
 }

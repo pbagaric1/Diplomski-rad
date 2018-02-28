@@ -37,18 +37,60 @@ namespace Survey.MVC_WebApi.Providers
                 return;
             }
 
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
+
+            var props = new AuthenticationProperties(new Dictionary<string, string>
+            {
+                {  "username", context.UserName }
+            });
+
+            var ticket = new AuthenticationTicket(oAuthIdentity, props);
+
+            context.Validated(ticket);
+
+            //check if admin or normal user
+            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //if (context.UserName == "admin")
+            //{
+            //    identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+            //    identity.AddClaim(new Claim("username", "admin"));
+            //}
+            //else
+            //{
+            //    identity.AddClaim(new Claim("sub", context.UserName));
+            //    identity.AddClaim(new Claim("role", "user"));
+            //}
+
+            //add username to token
+            //var props = new AuthenticationProperties(new Dictionary<string, string>
+            //{
+            //    {  "username", context.UserName }
+            //});
+
+            //var ticket = new AuthenticationTicket(identity, props);
+            //context.Validated(ticket);
+
             //if (!user.EmailConfirmed)
             //{
             //    context.SetError("invalid_grant", "User did not confirm email.");
             //    return;
             //}
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
+            //ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
 
-            var ticket = new AuthenticationTicket(oAuthIdentity, null);
+            //var ticket = new AuthenticationTicket(oAuthIdentity, null);
 
-            context.Validated(ticket);
+            //context.Validated(ticket);
 
+        }
+
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+            {
+                context.AdditionalResponseParameters.Add(property.Key, property.Value);
+            }
+            return Task.FromResult<object>(null);
         }
     }
 }

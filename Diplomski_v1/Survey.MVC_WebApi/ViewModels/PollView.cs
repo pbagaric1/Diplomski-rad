@@ -11,6 +11,7 @@ namespace Survey.MVC_WebApi.ViewModels
         public string UserId { get; set; }
         public Guid PollTypeId { get; set; }
         public string Name { get; set; }
+        public string Location { get; set; }
 
         //public virtual AspNetUserView AspNetUser { get; set; }
         //public virtual PollTypeView PollType { get; set; }

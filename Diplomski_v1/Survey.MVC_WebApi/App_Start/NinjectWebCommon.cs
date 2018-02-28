@@ -13,7 +13,6 @@ namespace Survey.MVC_WebApi.App_Start
     using System.Linq;
     using System.Web.Http;
 
-
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();

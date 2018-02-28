@@ -10,7 +10,7 @@ namespace Survey.Model.Common
     {
         Guid Id { get; set; }
         Guid QuestionId { get; set; }
-        string Name { get; set; }
+        string Text { get; set; }
 
         //IQuestionDomain Question { get; set; }
     }

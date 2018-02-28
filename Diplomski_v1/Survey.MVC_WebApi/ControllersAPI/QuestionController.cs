@@ -12,114 +12,112 @@ using System.Web.Http;
 
 namespace Survey.MVC_WebApi.ControllersAPI
 {
-        [RoutePrefix("api/question")]
-        public class QuestionController : ApiController
+    [RoutePrefix("api/question")]
+    public class QuestionController : ApiController
+    {
+        private IQuestionService QuestionService;
+
+        public QuestionController(IQuestionService _questionService)
         {
-            private IQuestionService QuestionService;
+            this.QuestionService = _questionService;
+        }
 
-            public QuestionController(IQuestionService _questionService)
+        [Route("getall")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetAll()
+        {
+            try
             {
-                this.QuestionService = _questionService;
+                var entity = Mapper.Map<IEnumerable<QuestionView>>(await QuestionService.GetAll());
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
-
-            [Route("getall")]
-            [HttpGet]
-            public async Task<HttpResponseMessage> GetAll()
+            catch (Exception e)
             {
-                try
-                {
-                    var entity = Mapper.Map<IEnumerable<QuestionView>>(await QuestionService.GetAll());
-                    return Request.CreateResponse(HttpStatusCode.OK, entity);
-                }
-                catch (Exception e)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-                }
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
             }
+        }
 
-            [Route("get")]
-            [HttpGet]
-            public async Task<HttpResponseMessage> Get(Guid id)
+        [Route("get")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> Get(Guid id)
+        {
+            try
             {
-                try
-                {
-                    var entity = Mapper.Map<QuestionView>(await QuestionService.Get(id));
-                    return Request.CreateResponse(HttpStatusCode.OK, entity);
-                }
-                catch (Exception e)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-                }
+                var entity = Mapper.Map<QuestionView>(await QuestionService.Get(id));
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
-
-            [Route("getbysurvey")]
-            [HttpGet]
-            public async Task<HttpResponseMessage> GetQuestionsBySurvey(Guid pollId)
+            catch (Exception e)
             {
-                try
-                {
-                    var entity = Mapper.Map<IEnumerable<QuestionView>>(await QuestionService.GetQuestionsByPoll(pollId));
-                    return Request.CreateResponse(HttpStatusCode.OK, entity);
-                }
-                catch (Exception e)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-                }
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
             }
+        }
 
-            [Route("add")]
-            [HttpPost]
-            public async Task<HttpResponseMessage> Add(QuestionView poll)
+        [Route("getbysurvey")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetQuestionsBySurvey(Guid pollId)
+        {
+            try
             {
-                try
-                {
-                    poll.Id = Guid.NewGuid();
-                    var entity = await QuestionService.Add(Mapper.Map<IQuestionDomain>(poll));
-                    return Request.CreateResponse(HttpStatusCode.OK, entity);
-                }
-                catch (Exception e)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
-                }
-
+                var entity = Mapper.Map<IEnumerable<QuestionView>>(await QuestionService.GetQuestionsByPoll(pollId));
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
-
-            [Route("delete")]
-            [HttpDelete]
-            public async Task<HttpResponseMessage> Delete(Guid id)
+            catch (Exception e)
             {
-                try
-                {
-                    var entity = await QuestionService.Delete(id);
-                    return Request.CreateResponse(HttpStatusCode.OK, entity);
-                }
-                catch (Exception e)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
-                }
-
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
             }
+        }
 
-            [Route("edit")]
-            [HttpPut]
-            public async Task<HttpResponseMessage> Edit(QuestionView question)
+        [Route("add")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Add(QuestionView poll)
+        {
+            try
             {
-                try
-                {
-                    var toBeUpdated = Mapper.Map<QuestionView>(await QuestionService.Get(question.Id));
+                poll.Id = Guid.NewGuid();
+                var entity = await QuestionService.Add(Mapper.Map<IQuestionDomain>(poll));
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+            }
+        }
 
-                    if (toBeUpdated == null)
-                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Entry not found");
+        [Route("delete")]
+        [HttpDelete]
+        public async Task<HttpResponseMessage> Delete(Guid id)
+        {
+            try
+            {
+                var entity = await QuestionService.Delete(id);
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+            }
+        }
 
-                    toBeUpdated.Name = question.Name;
+        [Route("edit")]
+        [HttpPut]
+        public async Task<HttpResponseMessage> Edit(QuestionView question)
+        {
+            try
+            {
+                var toBeUpdated = Mapper.Map<QuestionView>(await QuestionService.Get(question.Id));
 
-                    var response = await QuestionService.Update(Mapper.Map<IQuestionDomain>(toBeUpdated));
-                    return Request.CreateResponse(HttpStatusCode.OK, response);
-                }
-                catch (Exception e)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Wrong input.");
-                }
+                if (toBeUpdated == null)
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Entry not found");
+
+                toBeUpdated.Name = question.Name;
+
+                var response = await QuestionService.Update(Mapper.Map<IQuestionDomain>(toBeUpdated));
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Wrong input.");
             }
         }
     }
+}

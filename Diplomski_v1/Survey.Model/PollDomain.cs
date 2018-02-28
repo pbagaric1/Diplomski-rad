@@ -13,6 +13,7 @@ namespace Survey.Model
         public string UserId { get; set; }
         public Guid PollTypeId { get; set; }
         public string Name { get; set; }
+        public string Location { get; set; }
 
         //public virtual IAspNetUserDomain AspNetUser { get; set; }
         //public virtual IPollTypeDomain PollType { get; set; }

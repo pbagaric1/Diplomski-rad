@@ -132,7 +132,7 @@ namespace Survey.Repository.Repositories
             {
                 var response = Mapper.Map<IAspNetUserDomain>(await GenericRepository
                     .GetQueryable<AspNetUser>().Where(x => x.UserName == username)
-                    .Include(s => s.Polls).FirstOrDefaultAsync());
+                    .FirstOrDefaultAsync());
                 return response;
             }
             catch (Exception ex)

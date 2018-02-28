@@ -22,10 +22,10 @@ namespace Survey.DAL.Models.Mapping
                 .IsRequired();
 
             // Table & Column Mappings
-            this.ToTable("Questions");
-            this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.PollId).HasColumnName("PollId");
-            this.Property(t => t.Name).HasColumnName("Name");
+            //this.ToTable("Questions");
+            //this.Property(t => t.Id).HasColumnName("Id");
+            //this.Property(t => t.PollId).HasColumnName("PollId");
+            //this.Property(t => t.Name).HasColumnName("Name");
 
             // Relationships
             this.HasRequired(t => t.Poll)

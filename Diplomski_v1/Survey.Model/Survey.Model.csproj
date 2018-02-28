@@ -58,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnswerDomain.cs" />
+    <Compile Include="AnswerTypes\CheckboxAnswer.cs" />
+    <Compile Include="AnswerTypes\CommentAnswer.cs" />
+    <Compile Include="AnswerTypes\MatrixAnswer.cs" />
+    <Compile Include="AnswerTypes\RadioAnswer.cs" />
+    <Compile Include="AnswerTypes\RatingAnswer.cs" />
+    <Compile Include="AnswerTypes\TextAnswer.cs" />
     <Compile Include="AspNetRoleDomain.cs" />
     <Compile Include="AspNetUserClaimDomain.cs" />
     <Compile Include="AspNetUserDomain.cs" />
@@ -65,7 +71,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionDomain.cs" />
     <Compile Include="PollDomain.cs" />
-    <Compile Include="PollTypeDomain.cs" />
+    <Compile Include="QuestionTypes\QuestionTypeCheckbox.cs" />
+    <Compile Include="QuestionTypes\QuestionTypeComment.cs" />
+    <Compile Include="QuestionTypes\QuestionTypeMatrix.cs" />
+    <Compile Include="QuestionTypes\QuestionTypeRadiogroup.cs" />
+    <Compile Include="QuestionTypes\QuestionTypeRating.cs" />
+    <Compile Include="QuestionTypes\QuestionTypeText.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Survey.Model.Common\Survey.Model.Common.csproj">

@@ -94,20 +94,20 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IAnswerDomain>> GetAnswersByQuestion(Guid questionId)
-        {
-            try
-            {
-                var response = Mapper.Map<IEnumerable<IAnswerDomain>>(await GenericRepository
-                    .GetQueryable<Answer>().Where(x => x.QuestionId == questionId)
-                    .ToListAsync());
-                return response;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //public async Task<IEnumerable<IAnswerDomain>> GetAnswersByQuestion(Guid questionId)
+        //{
+        //    try
+        //    {
+        //        var response = Mapper.Map<IEnumerable<IAnswerDomain>>(await GenericRepository
+        //            .GetQueryable<Answer>().Where(x => x.QuestionId == questionId)
+        //            .ToListAsync());
+        //        return response;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         public async Task<int> Update(IAnswerDomain entity)
         {

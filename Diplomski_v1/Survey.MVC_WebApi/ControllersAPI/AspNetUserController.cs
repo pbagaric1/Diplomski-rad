@@ -110,17 +110,29 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 aspNetUser.Id = Guid.NewGuid().ToString();
                 aspNetUser.SecurityStamp = Guid.NewGuid().ToString();
 
-                //hash the password using the microsoft identity password hasher
-                var hashedPassword = UserManager.PasswordHasher.HashPassword(aspNetUser.PasswordHash);
-                aspNetUser.PasswordHash = hashedPassword;
+                ApplicationUser user = new ApplicationUser()
+                {
+                    Id = aspNetUser.Id,
+                    UserName = aspNetUser.UserName,
+                    Age = aspNetUser.Age,
+                    Address = aspNetUser.Address,
+                    Place = aspNetUser.Place,
+                    UserRole = aspNetUser.UserRole  
+                };
 
-                var addToRole = UserManager.AddToRole(aspNetUser.Id, aspNetUser.UserRole);
-                var entity = await AspNetUserService.Add(Mapper.Map<IAspNetUserDomain>(aspNetUser)); 
-                return Request.CreateResponse(HttpStatusCode.OK, entity);
+
+                //hash the password using the microsoft identity password hasher
+                //var hashedPassword = UserManager.PasswordHasher.HashPassword(aspNetUser.PasswordHash);
+                //aspNetUser.PasswordHash = hashedPassword;
+
+                var result = await userManager.CreateAsync(user, aspNetUser.PasswordHash);
+                var addToRole = userManager.AddToRole(user.Id, aspNetUser.UserRole);
+                //var entity = await AspNetUserService.Add(Mapper.Map<IAspNetUserDomain>(aspNetUser)); 
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception e)
             {

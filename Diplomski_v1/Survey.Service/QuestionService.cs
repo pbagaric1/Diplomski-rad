@@ -20,6 +20,7 @@ namespace Survey.Service
 
         public async Task<int> Add(IQuestionDomain entity)
         {
+            entity.Answers = null;
             var response = await QuestionRepository.Add(entity);
             return response;
         }

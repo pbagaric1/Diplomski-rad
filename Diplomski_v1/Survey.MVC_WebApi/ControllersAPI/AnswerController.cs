@@ -52,20 +52,20 @@ namespace Survey.MVC_WebApi.APIControllers
             }
         }
 
-        [Route("getanswersbyquestion")]
-        [HttpGet]
-        public async Task<HttpResponseMessage> GetAnswersByQuestion(Guid questionId)
-        {
-            try
-            {
-                var entity = Mapper.Map<IEnumerable<AnswerView>>(await AnswerService.GetAnswersByQuestion(questionId));
-                return Request.CreateResponse(HttpStatusCode.OK, entity);
-            }
-            catch (Exception e)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-            }
-        }
+        //[Route("getanswersbyquestion")]
+        //[HttpGet]
+        //public async Task<HttpResponseMessage> GetAnswersByQuestion(Guid questionId)
+        //{
+        //    try
+        //    {
+        //        var entity = Mapper.Map<IEnumerable<AnswerView>>(await AnswerService.GetAnswersByQuestion(questionId));
+        //        return Request.CreateResponse(HttpStatusCode.OK, entity);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+        //    }
+        //}
 
         [Route("add")]
         [HttpPost]
@@ -111,7 +111,7 @@ namespace Survey.MVC_WebApi.APIControllers
                 if (toBeUpdated == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Entry not found");
 
-                toBeUpdated.Name = answer.Name;
+                toBeUpdated.Text = answer.Text;
 
                 var response = await AnswerService.Update(Mapper.Map<IAnswerDomain>(toBeUpdated));
                 return Request.CreateResponse(HttpStatusCode.OK, response);

@@ -59,13 +59,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201704051433256_InitialMigration.cs" />
-    <Compile Include="Migrations\201704051433256_InitialMigration.Designer.cs">
-      <DependentUpon>201704051433256_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201801191001237_initial.cs" />
+    <Compile Include="Migrations\201801191001237_initial.Designer.cs">
+      <DependentUpon>201801191001237_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704281136538_RolesToUserTable.cs" />
-    <Compile Include="Migrations\201704281136538_RolesToUserTable.Designer.cs">
-      <DependentUpon>201704281136538_RolesToUserTable.cs</DependentUpon>
+    <Compile Include="Migrations\201801301035515_Name changed to Text.cs" />
+    <Compile Include="Migrations\201801301035515_Name changed to Text.Designer.cs">
+      <DependentUpon>201801301035515_Name changed to Text.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802261420513_DatabaseRedesign.cs" />
+    <Compile Include="Migrations\201802261420513_DatabaseRedesign.Designer.cs">
+      <DependentUpon>201802261420513_DatabaseRedesign.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -79,12 +83,16 @@
     <Compile Include="Models\Mapping\AspNetUserLoginMap.cs" />
     <Compile Include="Models\Mapping\AspNetUserMap.cs" />
     <Compile Include="Models\Mapping\PollMap.cs" />
-    <Compile Include="Models\Mapping\PollTypeMap.cs" />
     <Compile Include="Models\Mapping\QuestionMap.cs" />
+    <Compile Include="Models\OptionChoice.cs" />
+    <Compile Include="Models\OptionGroup.cs" />
+    <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Poll.cs" />
-    <Compile Include="Models\PollType.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\InputType.cs" />
+    <Compile Include="Models\QuestionOption.cs" />
     <Compile Include="Models\SurveyDatabaseContext.cs" />
+    <Compile Include="Models\UserPoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,11 +109,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704051433256_InitialMigration.resx">
-      <DependentUpon>201704051433256_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801191001237_initial.resx">
+      <DependentUpon>201801191001237_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704281136538_RolesToUserTable.resx">
-      <DependentUpon>201704281136538_RolesToUserTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801301035515_Name changed to Text.resx">
+      <DependentUpon>201801301035515_Name changed to Text.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802261420513_DatabaseRedesign.resx">
+      <DependentUpon>201802261420513_DatabaseRedesign.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

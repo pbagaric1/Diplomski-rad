@@ -1,0 +1,42 @@
+<div class="container">
+    <form [formGroup]="surveyForm">
+    <h3>Add survey</h3>
+    <br />
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" formControlName="title">
+    </div>
+    <!--<div class="form-group">
+        <label>Location</label>
+        <input type="text" class="form-control" formControlName="location">
+    </div>-->
+    <!--questions-->
+    <div formArrayName="pages">
+        <div [formGroupName]="i" *ngFor="let page of getPages(surveyForm); let i = index" class="panel panel-default" >
+
+            <div class="panel-body" formArrayName="questions">
+                <div *ngFor="let question of getQuestions(page); let j = index" class="panel panel-default">
+                    <div class="panel-heading">
+                        <span>Question {{j + 1}}</span>
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer"></span>
+                    </div>
+                    <app-question [group]="question"></app-question>
+                </div>
+            </div>
+            <div class="margin-20">
+                <button (click)="addQuestion(i)" class="btn btn-primary">
+                    Add question +
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <button type="submit" class="btn btn-success" style="float: right"
+            [disabled]="!surveyForm.valid" (click)="onSubmit()">Submit</button>
+        <!--<button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>-->
+    </div>
+    </form>
+
+    <h5>Details</h5>
+    <pre>{{ surveyForm.value | json }}</pre>
+</div>

@@ -15,6 +15,6 @@ namespace Survey.Repository.Common.IGenericRepository
         Task<int> Update(IAnswerDomain entity);
         Task<IAnswerDomain> Get(Guid id);
         Task<IEnumerable<IAnswerDomain>> GetAll();
-        Task<IEnumerable<IAnswerDomain>> GetAnswersByQuestion(Guid questionId);
+        //Task<IEnumerable<IAnswerDomain>> GetAnswersByQuestion(Guid questionId);
     }
 }

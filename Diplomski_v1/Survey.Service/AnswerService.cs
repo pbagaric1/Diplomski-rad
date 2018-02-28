@@ -48,11 +48,11 @@ namespace Survey.Service
             return response;
         }
 
-        public async Task<IEnumerable<IAnswerDomain>> GetAnswersByQuestion(Guid questionId)
-        {
-            var response = await AnswerRepository.GetAnswersByQuestion(questionId);
-            return response;
-        }
+        //public async Task<IEnumerable<IAnswerDomain>> GetAnswersByQuestion(Guid questionId)
+        //{
+        //    var response = await AnswerRepository.GetAnswersByQuestion(questionId);
+        //    return response;
+        //}
 
         public async Task<int> Update(IAnswerDomain entity)
         {

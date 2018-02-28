@@ -1,0 +1,16 @@
+﻿<div [formGroup]="answerGroup">
+    <div [ngSwitch]="questionType">
+        <div class="form-group" *ngSwitchCase="'Text'">
+            <label>Text</label>
+            <input type="text" class="form-control" formControlName="text">
+        </div>
+
+        <div class="form-group" *ngSwitchCase="'Radio group'">
+            <label>Radio group</label>
+            <input type="text" class="form-control" formControlName="text">
+            <label>Choices</label>
+            <input type="text" class="form-control" formControlName="text">
+        </div>
+    </div>
+
+</div>

@@ -24,7 +24,6 @@ namespace Survey.DependencyInjection.DIConfig
             Bind<IAnswerDomain>().To<AnswerDomain>();
             Bind<IQuestionDomain>().To<QuestionDomain>();
             Bind<IPollDomain>().To<PollDomain>();
-            Bind<IPollTypeDomain>().To<PollTypeDomain>();
 
         }
     }

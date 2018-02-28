@@ -42,6 +42,8 @@ namespace Survey.MVC_WebApi.Providers
 
             var token = new JwtSecurityToken(_issuer, audienceId, data.Identity.Claims, issued.Value.UtcDateTime, expires.Value.UtcDateTime, signingKey);
 
+            token.Payload["username"] = data.Identity.Name;
+
             var handler = new JwtSecurityTokenHandler();
 
             var jwt = handler.WriteToken(token);

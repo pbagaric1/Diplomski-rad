@@ -11,8 +11,8 @@ namespace Survey.Model
     {
         public Guid Id { get; set; }
         public Guid QuestionId { get; set; }
-        public string Name { get; set; }
+        public string Text { get; set; }
 
-       // public virtual IQuestionDomain Question { get; set; }
+        //public virtual IQuestionDomain Question { get; set; }
     }
 }

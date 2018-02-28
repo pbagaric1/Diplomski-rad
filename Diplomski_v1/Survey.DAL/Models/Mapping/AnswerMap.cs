@@ -18,19 +18,19 @@ namespace Survey.DAL.Models.Mapping
             this.Property(t => t.Id)
                 .IsRequired();
 
-            this.Property(t => t.QuestionId)
-                .IsRequired();
+            //this.Property(t => t.QuestionId)
+            //    .IsRequired();
 
-            // Table & Column Mappings
-            this.ToTable("Answers");
-            this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.QuestionId).HasColumnName("QuestionId");
-            this.Property(t => t.Name).HasColumnName("Name");
+            //// Table & Column Mappings
+            //this.ToTable("Answers");
+            //this.Property(t => t.Id).HasColumnName("Id");
+            //this.Property(t => t.QuestionId).HasColumnName("QuestionId");
+            //this.Property(t => t.Text).HasColumnName("Text");
 
-            // Relationships
-            this.HasRequired(t => t.Question)
-                .WithMany(t => t.Answers)
-                .HasForeignKey(d => d.QuestionId);
+            //// Relationships
+            //this.HasRequired(t => t.Question)
+            //    .WithMany(t => t.Answers)
+            //    .HasForeignKey(d => d.QuestionId);
 
         }
 

@@ -64,7 +64,6 @@
     <Compile Include="IRepositories\IAspNetUserRepository.cs" />
     <Compile Include="IRepositories\IQuestionRepository.cs" />
     <Compile Include="IRepositories\IPollRepository.cs" />
-    <Compile Include="IRepositories\IPollTypeRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

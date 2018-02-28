@@ -12,14 +12,21 @@ namespace Survey.Service
     public class PollService : IPollService
     {
         private readonly IPollRepository PollRepository;
+        private readonly IAspNetUserRepository AspNetUserRepository;
 
-        public PollService(IPollRepository _pollRepository)
+        public PollService(IPollRepository _pollRepository, IAspNetUserRepository _aspNetUserRepository)
         {
             this.PollRepository = _pollRepository;
+            this.AspNetUserRepository = _aspNetUserRepository;
         }
 
         public async Task<int> Add(IPollDomain entity)
         {
+            var user = await AspNetUserRepository.GetByUsername(entity.UserId);
+            var userId = user.Id;
+
+            entity.UserId = userId;
+
             var response = await PollRepository.Add(entity);
             return response;
         }
@@ -48,17 +55,17 @@ namespace Survey.Service
             return response;
         }
 
-        public async Task<IEnumerable<IPollDomain>> GetByUsername(string username)
-        {
-            var response = await PollRepository.GetByUsername(username);
-            return response;
-        }
+        //public async Task<IEnumerable<IPollDomain>> GetByUsername(string username)
+        //{
+        //    var response = await PollRepository.GetByUsername(username);
+        //    return response;
+        //}
 
-        public async Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId)
-        {
-            var response = await PollRepository.GetPollsByType(pollTypeId);
-            return response;
-        }
+        //public async Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId)
+        //{
+        //    var response = await PollRepository.GetPollsByType(pollTypeId);
+        //    return response;
+        //}
 
         public async Task<int> Update(IPollDomain entity)
         {

@@ -23,9 +23,14 @@ namespace Survey.DAL.Models
         public DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public DbSet<AspNetUser> AspNetUsers { get; set; }
         public DbSet<Poll> Polls { get; set; }
-        public DbSet<PollType> PollTypes { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<InputType> InputTypes { get; set; }
+        public DbSet<OptionChoice> OptionChoices { get; set; }
+        public DbSet<OptionGroup> OptionGroups { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<QuestionOption> QuestionOptions { get; set; }
+        public DbSet<UserPoll> UserPolls { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,7 +42,6 @@ namespace Survey.DAL.Models
             modelBuilder.Configurations.Add(new AnswerMap());
             modelBuilder.Configurations.Add(new QuestionMap());
             modelBuilder.Configurations.Add(new PollMap());
-            modelBuilder.Configurations.Add(new PollTypeMap());
         }
     }
 }

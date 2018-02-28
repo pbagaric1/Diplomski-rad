@@ -18,24 +18,24 @@ namespace Survey.DAL.Models.Mapping
             this.Property(t => t.Id)
                 .IsRequired();
 
-            this.Property(t => t.UserId)
-                .IsRequired();
+            //this.Property(t => t.UserId)
+            //    .IsRequired();
 
-            // Table & Column Mappings
-            this.ToTable("Polls");
-            this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.UserId).HasColumnName("UserId");
-            this.Property(t => t.Name).HasColumnName("Name");
-            this.Property(t => t.Location).HasColumnName("Location");
+            //// Table & Column Mappings
+            //this.ToTable("Polls");
+            //this.Property(t => t.Id).HasColumnName("Id");
+            //this.Property(t => t.UserId).HasColumnName("UserId");
+            //this.Property(t => t.Name).HasColumnName("Name");
+            //this.Property(t => t.Location).HasColumnName("Location");
 
-            // Relationships
-            this.HasRequired(t => t.AspNetUser)
-                .WithMany(t => t.Polls)
-                .HasForeignKey(d => d.UserId);
+            ////Relationships
+            //this.HasRequired(t => t.AspNetUser)
+            //    .WithMany(t => t.Polls)
+            //    .HasForeignKey(d => d.UserId);
 
-            this.HasRequired(t => t.PollType)
-                .WithMany(t => t.Polls)
-                .HasForeignKey(d => d.PollTypeId);
+            //this.HasRequired(t => t.PollType)
+            //    .WithMany(t => t.Polls)
+            //    .HasForeignKey(d => d.PollTypeId);
 
         }
     }

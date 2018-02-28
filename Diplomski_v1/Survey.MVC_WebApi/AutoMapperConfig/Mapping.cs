@@ -31,9 +31,6 @@ namespace Survey.MVC_WebApi.AutoMapperConfig
             CreateMap<PollView, IPollDomain>().ReverseMap();
             CreateMap<PollView, PollDomain>().ReverseMap();
 
-            CreateMap<PollTypeView, IPollTypeDomain>().ReverseMap();
-            CreateMap<PollTypeView, PollTypeDomain>().ReverseMap();
-
             CreateMap<QuestionView, IQuestionDomain>().ReverseMap();
             CreateMap<QuestionView, QuestionDomain>().ReverseMap();
 

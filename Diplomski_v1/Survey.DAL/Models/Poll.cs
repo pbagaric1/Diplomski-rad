@@ -9,13 +9,15 @@ namespace Survey.DAL.Models
     public class Poll
     {
         public Guid Id { get; set; }
-        public string UserId { get; set; }
-        public Guid PollTypeId { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
+        public string AspNetUserId { get; set; }
+        public Guid OrganizationId { get; set; }
 
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual PollType PollType { get; set; }
+        public string Name { get; set; }
+        public string Instructions { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        //public virtual AspNetUser AspNetUser { get; set; }
+        public ICollection<UserPoll> UserPolls { get; set; }
         public ICollection<Question> Questions { get; set; }
     }
 }

@@ -18,7 +18,6 @@ namespace Survey.DependencyInjection.DIConfig
             Bind<IAspNetUserService>().To<AspNetUserService>();
             Bind<IAspNetRoleService>().To<AspNetRoleService>();
             Bind<IPollService>().To<PollService>();
-            Bind<IPollTypeService>().To<PollTypeService>();
             Bind<IQuestionService>().To<QuestionService>();
         }
     }

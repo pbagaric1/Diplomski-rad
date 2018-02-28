@@ -16,10 +16,14 @@ namespace Survey.MVC_WebApi.ControllersAPI
     public class PollController : ApiController
     {
         private IPollService PollService;
+        private IQuestionService QuestionService;
+        private IAnswerService AnswerService;
 
-        public PollController(IPollService _pollService)
+        public PollController(IPollService _pollService, IQuestionService _questionService, IAnswerService _answerService)
         {
             this.PollService = _pollService;
+            this.QuestionService = _questionService;
+            this.AnswerService = _answerService;
         }
 
         [Route("getall")]
@@ -52,36 +56,37 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
         }
 
-        [Route("getbyusername")]
-        [HttpGet]
-        public async Task<HttpResponseMessage> GetByUsername(string username)
-        {
-            try
-            {
-                var entity = Mapper.Map<IEnumerable<PollView>>(await PollService.GetByUsername(username));
-                return Request.CreateResponse(HttpStatusCode.OK, entity);
-            }
-            catch (Exception e)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-            }
-        }
+        //[Route("getbyusername")]
+        //[HttpGet]
+        //public async Task<HttpResponseMessage> GetByUsername(string username)
+        //{
+        //    try
+        //    {
+        //        var entity = Mapper.Map<IEnumerable<PollView>>(await PollService.GetByUsername(username));
+        //        return Request.CreateResponse(HttpStatusCode.OK, entity);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+        //    }
+        //}
 
-        [Route("getbytype")]
-        [HttpGet]
-        public async Task<HttpResponseMessage> GetByType(Guid pollTypeId)
-        {
-            try
-            {
-                var entity = Mapper.Map<IEnumerable<PollView>>(await PollService.GetPollsByType(pollTypeId));
-                return Request.CreateResponse(HttpStatusCode.OK, entity);
-            }
-            catch (Exception e)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-            }
-        }
+        //[Route("getbytype")]
+        //[HttpGet]
+        //public async Task<HttpResponseMessage> GetByType(Guid pollTypeId)
+        //{
+        //    try
+        //    {
+        //        var entity = Mapper.Map<IEnumerable<PollView>>(await PollService.GetPollsByType(pollTypeId));
+        //        return Request.CreateResponse(HttpStatusCode.OK, entity);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+        //    }
+        //}
 
+        [Authorize(Roles="Admin, Ispitivac")]
         [Route("add")]
         [HttpPost]
         public async Task<HttpResponseMessage> Add(PollView poll)
@@ -89,12 +94,27 @@ namespace Survey.MVC_WebApi.ControllersAPI
             try
             {
                 poll.Id = Guid.NewGuid();
+                poll.PollTypeId = new Guid("38396c4a-be53-4cbc-b685-354d046911ae");
                 var entity = await PollService.Add(Mapper.Map<IPollDomain>(poll));
+                foreach (QuestionView question in poll.Questions)
+                {
+                    question.Id = Guid.NewGuid();
+                    question.PollId = poll.Id;
+                    await QuestionService.Add(Mapper.Map<IQuestionDomain>(question));
+                    foreach (AnswerView answer in question.Answers)
+                    {
+                        answer.Id = Guid.NewGuid();
+                        answer.QuestionId = question.Id;
+                        await AnswerService.Add(Mapper.Map<IAnswerDomain>(answer));
+                    }
+                    
+                }
+                
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error adding poll");
             }
 
         }

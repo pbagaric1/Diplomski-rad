@@ -64,7 +64,6 @@
     <Compile Include="IAspNetUserLoginDomain.cs" />
     <Compile Include="IQuestionDomain.cs" />
     <Compile Include="IPollDomain.cs" />
-    <Compile Include="IPollTypeDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
