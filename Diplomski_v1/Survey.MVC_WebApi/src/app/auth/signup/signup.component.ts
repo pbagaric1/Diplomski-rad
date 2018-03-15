@@ -7,9 +7,14 @@ import { AuthService } from '../auth.service';
     templateUrl: './signup.component.html'
 })
 export class SignupComponent implements OnInit {
+
+    userRoles: string[] = ['Ispitivac', 'Ispitanik'];
+
     localUser = {
         userName: '',
-        password: ''
+        passwordHash: '',
+        email: '',
+        userRole: ''
     }
     constructor(private authService: AuthService) { }
 

@@ -27,6 +27,7 @@ namespace Survey.DependencyInjection.DIConfig
             Bind<IPollRepository>().To<PollRepository>();
             Bind<IQuestionRepository>().To<QuestionRepository>();
             Bind<IAspNetRoleRepository>().To<AspNetRoleRepository>();
+            Bind<IInputTypeRepository>().To<InputTypeRepository>();
         }
     }
 }

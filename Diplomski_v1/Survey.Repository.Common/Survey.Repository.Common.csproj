@@ -62,20 +62,21 @@
     <Compile Include="IRepositories\IAspNetRoleRepository.cs" />
     <Compile Include="IRepositories\IAspNetUserLoginRepository.cs" />
     <Compile Include="IRepositories\IAspNetUserRepository.cs" />
+    <Compile Include="IRepositories\IInputTypeRepository.cs" />
+    <Compile Include="IRepositories\IOptionChoiceRepository.cs" />
+    <Compile Include="IRepositories\IOrganizationRepository.cs" />
+    <Compile Include="IRepositories\IQuestionOptionRepository.cs" />
     <Compile Include="IRepositories\IQuestionRepository.cs" />
     <Compile Include="IRepositories\IPollRepository.cs" />
+    <Compile Include="IRepositories\IUserPollRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Survey.DAL.Common\Survey.DAL.Common.csproj">
-      <Project>{5fd9deff-2c23-4179-80e7-91e72e720cb6}</Project>
-      <Name>Survey.DAL.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Survey.Model.Common\Survey.Model.Common.csproj">
-      <Project>{9680381B-1E9C-4EF9-91E9-C34E9715ACD5}</Project>
-      <Name>Survey.Model.Common</Name>
+    <ProjectReference Include="..\Survey.DAL\Survey.DAL.csproj">
+      <Project>{67a75a20-db8b-4810-9225-e0ec1bc62198}</Project>
+      <Name>Survey.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -48,16 +48,16 @@ namespace Survey.DAL.Migrations
                     {
                         Id = c.Guid(nullable: false),
                         QuestionId = c.Guid(nullable: false),
-                        OptionChoiceId = c.Guid(nullable: false),
+                        QuestionChoiceId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.OptionChoices", t => t.OptionChoiceId, cascadeDelete: true)
+                .ForeignKey("dbo.QuestionChoices", t => t.QuestionChoiceId, cascadeDelete: true)
                 .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
                 .Index(t => t.QuestionId)
-                .Index(t => t.OptionChoiceId);
+                .Index(t => t.QuestionChoiceId);
             
             CreateTable(
-                "dbo.OptionChoices",
+                "dbo.QuestionChoices",
                 c => new
                     {
                         Id = c.Guid(nullable: false),
@@ -155,15 +155,15 @@ namespace Survey.DAL.Migrations
             DropForeignKey("dbo.UserPolls", "PollId", "dbo.Polls");
             DropForeignKey("dbo.UserPolls", "AspNetUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.QuestionOptions", "QuestionId", "dbo.Questions");
-            DropForeignKey("dbo.QuestionOptions", "OptionChoiceId", "dbo.OptionChoices");
-            DropForeignKey("dbo.OptionChoices", "OptionGroupId", "dbo.OptionGroups");
+            DropForeignKey("dbo.QuestionOptions", "QuestionChoiceId", "dbo.QuestionChoices");
+            DropForeignKey("dbo.QuestionChoices", "OptionGroupId", "dbo.OptionGroups");
             DropForeignKey("dbo.Answers", "QuestionOptionId", "dbo.QuestionOptions");
             DropForeignKey("dbo.Questions", "OptionGroupId", "dbo.OptionGroups");
             DropForeignKey("dbo.Questions", "InputTypeId", "dbo.InputTypes");
             DropIndex("dbo.UserPolls", new[] { "PollId" });
             DropIndex("dbo.UserPolls", new[] { "AspNetUserId" });
-            DropIndex("dbo.OptionChoices", new[] { "OptionGroupId" });
-            DropIndex("dbo.QuestionOptions", new[] { "OptionChoiceId" });
+            DropIndex("dbo.QuestionChoices", new[] { "OptionGroupId" });
+            DropIndex("dbo.QuestionOptions", new[] { "QuestionChoiceId" });
             DropIndex("dbo.QuestionOptions", new[] { "QuestionId" });
             DropIndex("dbo.Questions", new[] { "OptionGroupId" });
             DropIndex("dbo.Questions", new[] { "InputTypeId" });
@@ -185,7 +185,7 @@ namespace Survey.DAL.Migrations
             DropColumn("dbo.Answers", "QuestionOptionId");
             DropTable("dbo.Organizations");
             DropTable("dbo.UserPolls");
-            DropTable("dbo.OptionChoices");
+            DropTable("dbo.QuestionChoices");
             DropTable("dbo.QuestionOptions");
             DropTable("dbo.OptionGroups");
             DropTable("dbo.InputTypes");

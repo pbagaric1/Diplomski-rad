@@ -39,8 +39,8 @@ namespace Survey.DAL.Models.Mapping
             this.Property(t => t.FirstName).HasColumnName("FirstName");
             this.Property(t => t.LastName).HasColumnName("LastName");
             this.Property(t => t.Age).HasColumnName("Age");
-            this.Property(t => t.Address).HasColumnName("Address");
-            this.Property(t => t.Place).HasColumnName("Place");
+            //this.Property(t => t.Address).HasColumnName("Address");
+            this.Property(t => t.City).HasColumnName("City");
             this.Property(t => t.UserRole).HasColumnName("UserRole");
         }
     }

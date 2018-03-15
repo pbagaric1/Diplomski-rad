@@ -1,5 +1,7 @@
 ﻿import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { InputType } from './models/input-type.model';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
     selector: 'app-question',
@@ -7,29 +9,25 @@ import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 })
 export class QuestionComponent implements OnInit {
     @Input('group') questionGroup: FormGroup;
-    questionTypes: string[] = ['text', 'radiogroup', 'checkbox', 'matrix', 'rating', 'comment'];
-    selectedType: string;
+    questionTypes: InputType[];
+    selectedType: InputType;
     choices: FormArray[];
 
-    constructor(private fb: FormBuilder) { }
+    constructor(private fb: FormBuilder, private dataStorageService: DataStorageService) { }
 
     ngOnInit() {
+        this.dataStorageService.getInputTypes().subscribe(
+            (res) => {
+                this.questionTypes = res;
+                console.log(this.questionTypes);
+            }
+        );
+
         this.questionGroup.addControl("title", new FormControl(""));
         //console.log(this.questionGroup)
     }
 
-    addAnswer() {
-        const answerArray = <FormArray>this.questionGroup.controls['answers'];
-        const newAnswer = this.initAnswer();
-
-        answerArray.push(newAnswer);
-        console.log(this.selectedType);
-    }
-
-    removeAnswer(idx: number) {
-        const answerArray = <FormArray>this.questionGroup.controls['answers'];
-        answerArray.removeAt(idx);
-    }
+    
 
     //CHOICES
     initChoices() {
@@ -103,9 +101,9 @@ export class QuestionComponent implements OnInit {
     onChange(selectedType: string) {
         this.questionGroup.controls['title'].reset();
         switch (selectedType) {
-        case 'radiogroup':
+        case 'Radiogroup':
         {
-            this.questionGroup.removeControl("mininumRateDescription");
+            this.questionGroup.removeControl("minimumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
@@ -114,23 +112,23 @@ export class QuestionComponent implements OnInit {
 
             break;
         }
-        case 'rating':
+        case 'Rating':
         {
 
-            this.questionGroup.removeControl("mininumRateDescription");
+            this.questionGroup.removeControl("minimumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
             this.questionGroup.removeControl("choices");
-            this.questionGroup.addControl("mininumRateDescription", new FormControl(""));
+            this.questionGroup.addControl("minimumRateDescription", new FormControl(""));
             this.questionGroup.addControl("maximumRateDescription", new FormControl(""));
             break;
         }
 
-        case 'comment':
+        case 'Comment':
         {
 
-            this.questionGroup.removeControl("mininumRateDescription");
+            this.questionGroup.removeControl("minimumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
@@ -138,10 +136,10 @@ export class QuestionComponent implements OnInit {
             break;
         }
 
-        case 'checkbox':
+        case 'Checkbox':
         {
 
-            this.questionGroup.removeControl("mininumRateDescription");
+            this.questionGroup.removeControl("minimumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
@@ -150,16 +148,27 @@ export class QuestionComponent implements OnInit {
             break;
         }
 
-        case 'matrix':
+        case 'Matrix':
         {
 
-            this.questionGroup.removeControl("mininumRateDescription");
+            this.questionGroup.removeControl("minimumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
             this.questionGroup.removeControl("choices");
             this.questionGroup.addControl("columns", new FormArray([]));
             this.questionGroup.addControl("rows", new FormArray([]));
+            break;
+                }
+
+        case 'Text':
+        {
+
+            this.questionGroup.removeControl("minimumRateDescription");
+            this.questionGroup.removeControl("maximumRateDescription");
+            this.questionGroup.removeControl("columns");
+            this.questionGroup.removeControl("rows");
+            this.questionGroup.removeControl("choices");
             break;
         }
         }

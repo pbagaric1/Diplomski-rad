@@ -15,7 +15,7 @@ namespace Survey.DAL.Models
 
         public DateTime CompletedOn { get; set; }
 
-        public virtual Poll Poll { get; set; }
-        public virtual AspNetUser AspNetUser { get; set; }
+        //public virtual Poll Poll { get; set; }
+        //public virtual AspNetUser AspNetUser { get; set; }
     }
 }

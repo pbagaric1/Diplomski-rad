@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Survey.Model.Common;
 using Survey.Repository.Common.IGenericRepository;
 using AutoMapper;
 using Survey.DAL.Models;
@@ -23,11 +22,11 @@ namespace Survey.Repository.Repositories
         }
 
 
-        public async Task<int> Add(IQuestionDomain entity)
+        public async Task<int> Add(Question entity)
         {
             try
             {
-                return await GenericRepository.Add(Mapper.Map<Question>(entity));
+                return await GenericRepository.Add((entity));
             }
 
             catch (Exception ex)
@@ -36,11 +35,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<int> Delete(IQuestionDomain entity)
+        public async Task<int> Delete(Question entity)
         {
             try
             {
-                return await GenericRepository.Delete(Mapper.Map<Question>(entity));
+                return await GenericRepository.Delete((entity));
             }
 
             catch (Exception ex)
@@ -67,11 +66,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IQuestionDomain> Get(Guid id)
+        public async Task<Question> Get(Guid id)
         {
             try
             {
-                var response = Mapper.Map<IQuestionDomain>(await GenericRepository.Get<Question>(id));
+                var response = (await GenericRepository.Get<Question>(id));
                 return response;
             }
 
@@ -81,11 +80,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IQuestionDomain>> GetAll()
+        public async Task<IEnumerable<Question>> GetAll()
         {
             try
             {
-                var response = Mapper.Map<IEnumerable<IQuestionDomain>>(await GenericRepository.GetAll<Question>());
+                var response = (await GenericRepository.GetAll<Question>());
                 return response;
             }
 
@@ -95,11 +94,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IQuestionDomain>> GetQuestionsByPoll(Guid pollId)
+        public async Task<IEnumerable<Question>> GetQuestionsByPoll(Guid pollId)
         {
             try
             {
-                var response = Mapper.Map<IEnumerable<IQuestionDomain>>(await GenericRepository
+                var response = Mapper.Map<IEnumerable<Question>>(await GenericRepository
                     .GetQueryable<Question>().Where(x => x.PollId == pollId)
                     .ToListAsync());
                 return response;
@@ -110,11 +109,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<int> Update(IQuestionDomain entity)
+        public async Task<int> Update(Question entity)
         {
             try
             {
-                return await GenericRepository.Update(Mapper.Map<Question>(entity));
+                return await GenericRepository.Update((entity));
             }
 
             catch (Exception ex)

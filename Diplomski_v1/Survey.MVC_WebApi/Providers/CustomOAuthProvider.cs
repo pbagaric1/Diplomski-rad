@@ -37,11 +37,13 @@ namespace Survey.MVC_WebApi.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");         
 
+            //add user to token
             var props = new AuthenticationProperties(new Dictionary<string, string>
             {
-                {  "username", context.UserName }
+                {  "username", context.UserName },
+                {  "userId", user.Id }
             });
 
             var ticket = new AuthenticationTicket(oAuthIdentity, props);

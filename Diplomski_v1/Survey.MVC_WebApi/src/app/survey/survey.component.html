@@ -1,24 +1,31 @@
 <div class="container">
     <form [formGroup]="surveyForm">
     <h3>Add survey</h3>
-    <br />
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" formControlName="title">
+    <hr />
+    <div class="form-group" style="margin-bottom: 10%">
+        <div class="col-xs-6">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="title">
+        </div>
+        <div class="col-xs-6">
+            <label>Organization</label>
+            <input type="text" class="form-control" formControlName="organization">
+        </div>
     </div>
     <!--<div class="form-group">
         <label>Location</label>
         <input type="text" class="form-control" formControlName="location">
     </div>-->
     <!--questions-->
-    <div formArrayName="pages">
+    <div formArrayName="pages" class="col-xs-12">
         <div [formGroupName]="i" *ngFor="let page of getPages(surveyForm); let i = index" class="panel panel-default" >
 
             <div class="panel-body" formArrayName="questions">
                 <div *ngFor="let question of getQuestions(page); let j = index" class="panel panel-default">
                     <div class="panel-heading">
                         <span>Question {{j + 1}}</span>
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer"></span>
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer"
+                            (click)="removeQuestion(i)"></span>
                     </div>
                     <app-question [group]="question"></app-question>
                 </div>

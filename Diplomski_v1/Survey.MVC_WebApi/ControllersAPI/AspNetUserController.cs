@@ -1,30 +1,28 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Survey.Model.Common;
 using Survey.MVC_WebApi.Models;
-using Survey.MVC_WebApi.ViewModels;
-using Survey.Service.Common;
+using Survey.Repository.Common.IRepositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Survey.DAL.Models;
 
 namespace Survey.MVC_WebApi.ControllersAPI
 {
     [RoutePrefix("api/user")]
     public class AspNetUserController : ApiController
     {
-        private IAspNetUserService AspNetUserService;
+        private IAspNetUserRepository AspNetUserRepository;
 
         private ApplicationDbContext context;
 
-        public AspNetUserController(IAspNetUserService _aspNetUserService, ApplicationDbContext _context)
+        public AspNetUserController(IAspNetUserRepository _AspNetUserRepository, ApplicationDbContext _context)
         {
-            this.AspNetUserService = _aspNetUserService;
+            this.AspNetUserRepository = _AspNetUserRepository;
             this.context = _context;
         }
 
@@ -35,7 +33,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = Mapper.Map<IEnumerable<AspNetUserView>>(await AspNetUserService.GetAll());
+                var entity = (await AspNetUserRepository.GetAll());
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -50,7 +48,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = Mapper.Map<IEnumerable<AspNetUserView>>(await AspNetUserService.GetAllUsernames());
+                var entity = (await AspNetUserRepository.GetAllUsernames());
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -65,7 +63,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = Mapper.Map<IEnumerable<AspNetUserView>>(await AspNetUserService.GetAllEmails());
+                var entity = (await AspNetUserRepository.GetAllEmails());
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -80,7 +78,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = Mapper.Map<AspNetUserView>(await AspNetUserService.Get(id));
+                var entity = (await AspNetUserRepository.Get(id));
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -95,7 +93,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = Mapper.Map<AspNetUserView>(await AspNetUserService.GetByUsername(username));
+                var entity = await AspNetUserRepository.GetByUsername(username);
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -106,7 +104,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
 
         [Route("add")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Add(AspNetUserView aspNetUser)
+        public async Task<HttpResponseMessage> Add(AspNetUser aspNetUser)
         {
             try
             {
@@ -117,11 +115,11 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 ApplicationUser user = new ApplicationUser()
                 {
                     Id = aspNetUser.Id,
-                    UserName = aspNetUser.UserName,
                     Age = aspNetUser.Age,
-                    Address = aspNetUser.Address,
-                    Place = aspNetUser.Place,
-                    UserRole = aspNetUser.UserRole  
+                    City = aspNetUser.City,
+                    UserRole = aspNetUser.UserRole,
+                    Email = aspNetUser.Email,
+                    UserName = aspNetUser.UserName
                 };
 
 
@@ -130,13 +128,17 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 //aspNetUser.PasswordHash = hashedPassword;
 
                 var result = await userManager.CreateAsync(user, aspNetUser.PasswordHash);
-                var addToRole = userManager.AddToRole(user.Id, aspNetUser.UserRole);
-                //var entity = await AspNetUserService.Add(Mapper.Map<IAspNetUserDomain>(aspNetUser)); 
+
+                if(result.Succeeded)
+                    result = userManager.AddToRole(user.Id, aspNetUser.UserRole);
+                //var entity = await AspNetUserRepository.Add(Mapper.Map<IAspNetUserDomain>(aspNetUser)); 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+                Console.WriteLine(e);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+
             }
 
         }
@@ -147,7 +149,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = await AspNetUserService.Delete(id);
+                var entity = await AspNetUserRepository.Delete(id);
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -159,23 +161,22 @@ namespace Survey.MVC_WebApi.ControllersAPI
 
         [Route("edit")]
         [HttpPut]
-        public async Task<HttpResponseMessage> Edit(AspNetUserView aspNetUser)
+        public async Task<HttpResponseMessage> Edit(AspNetUser aspNetUser)
         {
             try
             {
-                var toBeUpdated = Mapper.Map<AspNetUserView>(await AspNetUserService.Get(aspNetUser.Id));
+                var toBeUpdated = (await AspNetUserRepository.Get(aspNetUser.Id));
 
                 if (toBeUpdated == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Entry not found");
 
-                toBeUpdated.Address = aspNetUser.Address;
                 toBeUpdated.Age = aspNetUser.Age;
                 toBeUpdated.Email = aspNetUser.Email;
                 toBeUpdated.FirstName = aspNetUser.FirstName;
                 toBeUpdated.LastName = aspNetUser.LastName;
-                toBeUpdated.Place = aspNetUser.Place;
+                toBeUpdated.City = aspNetUser.City;
 
-                var response = await AspNetUserService.Update(Mapper.Map<IAspNetUserDomain>(toBeUpdated));
+                var response = await AspNetUserRepository.Update((toBeUpdated));
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (Exception e)

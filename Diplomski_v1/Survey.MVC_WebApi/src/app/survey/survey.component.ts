@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { Survey } from "./survey.model";
+import { Survey } from "./models/survey.model";
 import { DataStorageService } from '../shared/data-storage.service';
 import { Question } from "./question/question.model";
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-survey',
@@ -16,13 +17,14 @@ export class SurveyComponent implements OnInit{
     pollTypeId: string = '';
     selectedQuestion: string;
 
-    constructor(private fb: FormBuilder, private dataStorageService: DataStorageService, private router: Router) { }
+    constructor(private fb: FormBuilder, private dataStorageService: DataStorageService,
+        private router: Router, private datePipe: DatePipe) { }
 
     ngOnInit() {
         this.dataStorageService.currentSurvey.subscribe(survey => this.surveyForm = survey);
         this.surveyForm = this.fb.group({
             title: '',
-            //location: '',
+            organization: '',
             pages: this.fb.array([this.initPages()])
         });
     }
@@ -35,8 +37,8 @@ export class SurveyComponent implements OnInit{
 
     initQuestion() {
         return this.fb.group({
-            //name: '',
             type: '',
+            isRequired: false
             //answers: this.fb.array([])
         });
     }
@@ -44,14 +46,14 @@ export class SurveyComponent implements OnInit{
     addQuestion(j: any) {
         //const questionArray = <FormArray>this.surveyForm.get['pages'].value[j].get['questions'];
         const questionArray = <FormArray>this.surveyForm.get('pages')['controls'][j]['controls']['questions'];
-        console.log(questionArray);
+        //console.log(questionArray);
         const newQuestion = this.initQuestion();
             
         questionArray.push(newQuestion);
     }
 
     removeQuestion(idx: number) {
-        const questionsArray = <FormArray>this.surveyForm.controls['questions'];
+        const questionsArray = <FormArray>this.surveyForm.get('pages')['controls'][idx]['controls']['questions'];
         questionsArray.removeAt(idx);
     }
 
@@ -68,19 +70,37 @@ export class SurveyComponent implements OnInit{
 
     onSubmit() {
         this.dataStorageService.onChangeSurvey(this.surveyForm);
-        this.router.navigate(['test']);
+        //this.router.navigate(['test']);
 
-        //const userId = localStorage.getItem('username');
-        //const newSurvey = new Survey(userId, "asd", this.surveyForm.value['name'],
-        //    this.surveyForm.value['location'], this.surveyForm.value['questions']);
+        const userId = localStorage.getItem('userId');
+        let createdOn = this.datePipe.transform(Date.now(), 'yyyy-MM-dd hh:mm:ss');
 
-        //this.dataStorageService.addSurvey(newSurvey);
+        const newSurvey = new Survey(userId, this.surveyForm.value['title'],
+            this.surveyForm.value['organization'], createdOn, this.surveyForm.value['pages'][0]['questions']);
+
+        const json = {
+            "title": "Anketa",
+            "organization": "Konzum",
+                    "questions": [
+                        {
+                            "type": "Text",
+                            "isRequired": true,
+                            "title": "Prvo"
+                        },
+                        {
+                            "type": "Radiogroup",
+                            "isRequired": false,
+                            "title": "Drugo",
+                            "choices": [
+                                "1",
+                                "2"
+                            ]
+                        }
+                    ]
+        };
+
+        this.dataStorageService.addSurvey(newSurvey);
+        console.log(newSurvey);
+        //this.dataStorageService.addSurveyJson(json);
     }
-
-    //initForm() {
-    //    this.surveyForm = new FormGroup({
-    //        'name': new FormControl(this.name, Validators.required),
-    //        'location': new FormControl(this.location, Validators.required)
-    //    });
-    //}
 }

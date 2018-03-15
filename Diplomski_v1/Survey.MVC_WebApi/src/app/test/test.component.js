@@ -16,7 +16,53 @@ var TestComponent = (function () {
     function TestComponent(dataStorageService) {
         this.dataStorageService = dataStorageService;
         this.json1 = {
-            surveyId: '5af48e08-a0a5-44a5-83f4-1c90e8e98de1'
+            title: 'Product Feedback Survey Example',
+            pages: [
+                {
+                    questions: [
+                        {
+                            type: 'rating',
+                            name: 'satisfaction',
+                            title: 'How satisfied are you with the Product?',
+                            mininumRateDescription: 'Not Satisfied',
+                            maximumRateDescription: 'Completely satisfied'
+                        },
+                        {
+                            type: 'rating',
+                            name: 'recommend friends',
+                            visibleIf: '{satisfaction} > 3',
+                            title: 'How likely are you to recommend the Product to a friend or co-worker?',
+                            mininumRateDescription: 'Will not recommend',
+                            maximumRateDescription: 'I will recommend'
+                        },
+                        {
+                            type: 'comment',
+                            name: 'suggestions',
+                            title: 'What would make you more satisfied with the Product?',
+                        },
+                        {
+                            type: "checkbox",
+                            name: "car",
+                            title: "What car are you driving?",
+                            isRequired: true,
+                            colCount: 4,
+                            choices: [
+                                "None",
+                                "Ford",
+                                "Vauxhall",
+                                "Volkswagen",
+                                "Nissan",
+                                "Audi",
+                                "Mercedes-Benz",
+                                "BMW",
+                                "Peugeot",
+                                "Toyota",
+                                "Citroen"
+                            ]
+                        }
+                    ]
+                }
+            ]
         };
         this.json = {
             title: 'Product Feedback Survey Example',
@@ -87,7 +133,7 @@ var TestComponent = (function () {
                             type: 'comment',
                             name: 'suggestions',
                             title: 'What would make you more satisfied with the Product?',
-                        }
+                        },
                     ]
                 }
             ]
@@ -96,11 +142,10 @@ var TestComponent = (function () {
     TestComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.dataStorageService.currentSurvey.subscribe(function (survey) { return _this.surveyForm = survey; });
-        var surveyModel = new Survey.ReactSurveyModel(this.surveyForm.value);
+        //let surveyModel = new Survey.ReactSurveyModel(this.surveyForm.value);
+        var surveyModel = new Survey.ReactSurveyModel(this.json1);
         Survey.SurveyNG.render('surveyElement', { model: surveyModel });
-        //console.log(this.surveyForm.value);
-        //console.log(surveyModel.pages);
-        var asd = new Survey.Model(this.surveyForm.value);
+        var asd = new Survey.Model(this.json1);
         surveyModel
             .onComplete
             .add(function (result) {

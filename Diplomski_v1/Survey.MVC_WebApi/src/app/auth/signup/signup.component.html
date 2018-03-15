@@ -7,10 +7,23 @@
                 <label for="userName">Username</label>
                 <input type="text" id="userName" name="userName" [(ngModel)]="localUser.userName" class="form-control" />
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" [(ngModel)]="localUser.password" class="form-control" />
-            </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" [(ngModel)]="localUser.email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="localUser.passwordHash" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="role">User Role</label>
+            <select class="form-control" name="userRole" [(ngModel)]="localUser.userRole"> 
+                <option *ngFor="let role of userRoles" [ngValue]="role">
+                    {{role}}
+                </option>
+            </select>
+        </div>
+        
             <button class="btn btn-primary" type="submit" (click)="onSignup()">Sign Up</button>
         </form>
     </div>

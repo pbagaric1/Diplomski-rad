@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Survey.Model.Common;
 using Survey.Repository.Common.IGenericRepository;
 using AutoMapper;
 using Survey.DAL.Models;
@@ -23,11 +22,11 @@ namespace Survey.Repository.Repositories
         }
 
 
-        public async Task<int> Add(IPollDomain entity)
+        public async Task<int> Add(Poll entity)
         {
             try
             {
-                return await GenericRepository.Add(Mapper.Map<Poll>(entity));
+                return await GenericRepository.Add((entity));
             }
 
             catch (Exception ex)
@@ -36,11 +35,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<int> Delete(IPollDomain entity)
+        public async Task<int> Delete(Poll entity)
         {
             try
             {
-                return await GenericRepository.Delete(Mapper.Map<Poll>(entity));
+                return await GenericRepository.Delete((entity));
             }
 
             catch (Exception ex)
@@ -67,11 +66,12 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IPollDomain> Get(Guid id)
+        public async Task<Poll> Get(Guid id)
         {
             try
             {
-                var response = Mapper.Map<IPollDomain>(await GenericRepository.Get<Poll>(id));
+                var response = (await GenericRepository.Get<Poll>(id));
+
                 return response;
             }
 
@@ -81,11 +81,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IPollDomain>> GetAll()
+        public async Task<IEnumerable<Poll>> GetAll()
         {
             try
             {
-                var response = Mapper.Map<IEnumerable<IPollDomain>>(await GenericRepository.GetAll<Poll>());
+                var response = (await GenericRepository.GetAll<Poll>());
                 return response;
             }
 
@@ -95,11 +95,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        //public async Task<IEnumerable<IPollDomain>> GetByUsername(string username)
+        //public async Task<IEnumerable<Poll>> GetByUsername(string username)
         //{
         //    try
         //    {
-        //        var response = Mapper.Map<IEnumerable<IPollDomain>>(await GenericRepository
+        //        var response = Mapper.Map<IEnumerable<Poll>>(await GenericRepository
         //            .GetQueryable<Poll>().Where(x => x.AspNetUser.UserName == username)
         //            .ToListAsync());
         //        return response;
@@ -110,11 +110,11 @@ namespace Survey.Repository.Repositories
         //    }
         //}
 
-        //public async Task<IEnumerable<IPollDomain>> GetPollsByType(Guid pollTypeId)
+        //public async Task<IEnumerable<Poll>> GetPollsByType(Guid pollTypeId)
         //{
         //    try
         //    {
-        //        var response = Mapper.Map<IEnumerable<IPollDomain>>(await GenericRepository
+        //        var response = Mapper.Map<IEnumerable<Poll>>(await GenericRepository
         //            .GetQueryable<Poll>().Where(x => x.PollTypeId == pollTypeId)
         //            .ToListAsync());
         //        return response;
@@ -125,11 +125,11 @@ namespace Survey.Repository.Repositories
         //    }
         //}
 
-        public async Task<int> Update(IPollDomain entity)
+        public async Task<int> Update(Poll entity)
         {
             try
             {
-                return await GenericRepository.Update(Mapper.Map<Poll>(entity));
+                return await GenericRepository.Update((entity));
             }
 
             catch (Exception ex)

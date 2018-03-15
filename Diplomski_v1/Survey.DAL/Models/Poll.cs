@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,8 +18,14 @@ namespace Survey.DAL.Models
         public string Instructions { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        //public virtual AspNetUser AspNetUser { get; set; }
-        public ICollection<UserPoll> UserPolls { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        //private ICollection<Question> _questions;
+
+        //public virtual ICollection<Question> Questions
+        //{
+        //    get { return _questions ?? (_questions = new Collection<Question>()); }
+        //    protected set { _questions = value; }
+        //}
+
+
     }
 }

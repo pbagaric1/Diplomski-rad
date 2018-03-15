@@ -1,20 +1,20 @@
-﻿using Survey.Model.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Survey.DAL.Models;
 
-namespace Survey.Repository.Common.IGenericRepository
+namespace Survey.Repository.Common.IRepositories
 {
     public interface IAnswerRepository
     {
-        Task<int> Add(IAnswerDomain entity);
+        Task<int> Add(Answer entity);
         Task<int> Delete(Guid id);
-        Task<int> Delete(IAnswerDomain entity);
-        Task<int> Update(IAnswerDomain entity);
-        Task<IAnswerDomain> Get(Guid id);
-        Task<IEnumerable<IAnswerDomain>> GetAll();
-        //Task<IEnumerable<IAnswerDomain>> GetAnswersByQuestion(Guid questionId);
+        Task<int> Delete(Answer entity);
+        Task<int> Update(Answer entity);
+        Task<Answer> Get(Guid id);
+        Task<IEnumerable<Answer>> GetAll();
+        //Task<IEnumerable<Answer>> GetAnswersByQuestion(Guid questionId);
     }
 }

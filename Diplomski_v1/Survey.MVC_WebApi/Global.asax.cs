@@ -15,7 +15,7 @@ namespace Survey.MVC_WebApi
     {
         protected void Application_Start()
         {
-            MappingInit.RegisterMaps();
+            //MappingInit.RegisterMaps();
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

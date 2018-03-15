@@ -261,7 +261,6 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Auth\AuthRepository.cs" />
-    <Compile Include="AutoMapperConfig\Mapping.cs" />
     <Compile Include="AutoMapperConfig\MappingInit.cs" />
     <Compile Include="ControllersAPI\AnswerController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -272,6 +271,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ControllersAPI\AspNetRoleController.cs" />
     <Compile Include="ControllersAPI\AspNetUserController.cs" />
+    <Compile Include="ControllersAPI\InputTypeController.cs" />
     <Compile Include="ControllersAPI\PollController.cs" />
     <Compile Include="ControllersAPI\QuestionController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -293,13 +293,6 @@
     <Compile Include="Providers\CustomOAuthProvider.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\AnswerView.cs" />
-    <Compile Include="ViewModels\AspNetRoleView.cs" />
-    <Compile Include="ViewModels\AspNetUserClaimView.cs" />
-    <Compile Include="ViewModels\AspNetUserLoginView.cs" />
-    <Compile Include="ViewModels\AspNetUserView.cs" />
-    <Compile Include="ViewModels\PollView.cs" />
-    <Compile Include="ViewModels\QuestionView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -505,6 +498,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Survey.Business\Survey.Business.csproj">
+      <Project>{230f1315-a5a6-4bcd-bcbf-f6716101c1c1}</Project>
+      <Name>Survey.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Survey.DAL.Common\Survey.DAL.Common.csproj">
       <Project>{5fd9deff-2c23-4179-80e7-91e72e720cb6}</Project>
       <Name>Survey.DAL.Common</Name>
@@ -514,16 +511,8 @@
       <Name>Survey.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Survey.DependencyInjection\Survey.DependencyInjection.csproj">
-      <Project>{c89bc7b3-efd5-4f9e-b968-bbb0d2d43fd0}</Project>
+      <Project>{6fc7e59e-8c34-4a1f-9ffd-a7c779ed1717}</Project>
       <Name>Survey.DependencyInjection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Survey.Model.Common\Survey.Model.Common.csproj">
-      <Project>{9680381b-1e9c-4ef9-91e9-c34e9715acd5}</Project>
-      <Name>Survey.Model.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Survey.Model\Survey.Model.csproj">
-      <Project>{7C99B2F4-9F1E-48B0-AC9A-AD69BADA14A9}</Project>
-      <Name>Survey.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Survey.Repository.Common\Survey.Repository.Common.csproj">
       <Project>{97b81f60-57a3-4cdd-8019-a9887c3595fa}</Project>
@@ -532,14 +521,6 @@
     <ProjectReference Include="..\Survey.Repository\Survey.Repository.csproj">
       <Project>{6d70192e-acda-49ec-befa-a2df1cc8d0f8}</Project>
       <Name>Survey.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Survey.Service.Common\Survey.Service.Common.csproj">
-      <Project>{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}</Project>
-      <Name>Survey.Service.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Survey.Service\Survey.Service.csproj">
-      <Project>{2cf6fe92-84e2-4046-820b-83f64030f99e}</Project>
-      <Name>Survey.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -561,10 +542,11 @@
     <TypeScriptCompile Include="src\app\shared\data-storage.service.ts" />
     <TypeScriptCompile Include="src\app\survey\answer.component.ts" />
     <TypeScriptCompile Include="src\app\survey\answer\answer.model.ts" />
+    <TypeScriptCompile Include="src\app\survey\models\input-type.model.ts" />
     <TypeScriptCompile Include="src\app\survey\question.component.ts" />
     <TypeScriptCompile Include="src\app\survey\question\question.model.ts" />
     <TypeScriptCompile Include="src\app\survey\survey.component.ts" />
-    <TypeScriptCompile Include="src\app\survey\survey.model.ts" />
+    <TypeScriptCompile Include="src\app\survey\models\survey.model.ts" />
     <TypeScriptCompile Include="src\app\test\test.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>

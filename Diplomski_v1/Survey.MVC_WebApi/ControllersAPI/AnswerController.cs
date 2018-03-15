@@ -1,25 +1,24 @@
-﻿using AutoMapper;
-using Survey.Model.Common;
-using Survey.MVC_WebApi.ViewModels;
-using Survey.Service.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Survey.Repository.Common.IGenericRepository;
+using Survey.DAL.Models;
+using Survey.Repository.Common.IRepositories;
 
 namespace Survey.MVC_WebApi.APIControllers
 {
     [RoutePrefix("api/answer")]
     public class AnswerController : ApiController
     {
-        private IAnswerService AnswerService;
+        private IAnswerRepository AnswerRepository;
 
-        public AnswerController(IAnswerService _answerService)
+        public AnswerController(IAnswerRepository _AnswerRepository)
         {
-            this.AnswerService = _answerService;
+            this.AnswerRepository = _AnswerRepository;
         }
 
         [Route("getall")]
@@ -28,7 +27,7 @@ namespace Survey.MVC_WebApi.APIControllers
         {
             try
             {
-                var entity = Mapper.Map<IEnumerable<AnswerView>>(await AnswerService.GetAll());
+                var entity = (await AnswerRepository.GetAll());
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -43,7 +42,7 @@ namespace Survey.MVC_WebApi.APIControllers
         {
             try
             {
-                var entity = Mapper.Map<AnswerView>(await AnswerService.Get(id));
+                var entity =(await AnswerRepository.Get(id));
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -58,7 +57,7 @@ namespace Survey.MVC_WebApi.APIControllers
         //{
         //    try
         //    {
-        //        var entity = Mapper.Map<IEnumerable<AnswerView>>(await AnswerService.GetAnswersByQuestion(questionId));
+        //        var entity = (await AnswerRepository.GetAnswersByQuestion(questionId));
         //        return Request.CreateResponse(HttpStatusCode.OK, entity);
         //    }
         //    catch (Exception e)
@@ -69,12 +68,12 @@ namespace Survey.MVC_WebApi.APIControllers
 
         [Route("add")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Add(AnswerView answer)
+        public async Task<HttpResponseMessage> Add(Answer answer)
         {
             try
             {
                 answer.Id = Guid.NewGuid();
-                var entity = await AnswerService.Add(Mapper.Map<IAnswerDomain>(answer));
+                var entity = await AnswerRepository.Add((answer));
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -90,7 +89,7 @@ namespace Survey.MVC_WebApi.APIControllers
         {
             try
             {
-                var entity = await AnswerService.Delete(id);
+                var entity = await AnswerRepository.Delete(id);
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -102,18 +101,18 @@ namespace Survey.MVC_WebApi.APIControllers
 
         [Route("edit")]
         [HttpPut]
-        public async Task<HttpResponseMessage> Edit(AnswerView answer)
+        public async Task<HttpResponseMessage> Edit(Answer answer)
         {
             try
             {
-                var toBeUpdated = Mapper.Map<AnswerView>(await AnswerService.Get(answer.Id));
+                var toBeUpdated = (await AnswerRepository.Get(answer.Id));
 
                 if (toBeUpdated == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Entry not found");
 
                 toBeUpdated.Text = answer.Text;
 
-                var response = await AnswerService.Update(Mapper.Map<IAnswerDomain>(toBeUpdated));
+                var response = await AnswerRepository.Update((toBeUpdated));
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (Exception e)

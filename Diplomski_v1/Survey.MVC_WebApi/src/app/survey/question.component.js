@@ -11,24 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var data_storage_service_1 = require("../shared/data-storage.service");
 var QuestionComponent = (function () {
-    function QuestionComponent(fb) {
+    function QuestionComponent(fb, dataStorageService) {
         this.fb = fb;
-        this.questionTypes = ['text', 'radiogroup', 'checkbox', 'matrix', 'rating', 'comment'];
+        this.dataStorageService = dataStorageService;
     }
     QuestionComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.dataStorageService.getInputTypes().subscribe(function (res) {
+            _this.questionTypes = res;
+            console.log(_this.questionTypes);
+        });
         this.questionGroup.addControl("title", new forms_1.FormControl(""));
         //console.log(this.questionGroup)
-    };
-    QuestionComponent.prototype.addAnswer = function () {
-        var answerArray = this.questionGroup.controls['answers'];
-        var newAnswer = this.initAnswer();
-        answerArray.push(newAnswer);
-        console.log(this.selectedType);
-    };
-    QuestionComponent.prototype.removeAnswer = function (idx) {
-        var answerArray = this.questionGroup.controls['answers'];
-        answerArray.removeAt(idx);
     };
     //CHOICES
     QuestionComponent.prototype.initChoices = function () {
@@ -88,9 +84,9 @@ var QuestionComponent = (function () {
     QuestionComponent.prototype.onChange = function (selectedType) {
         this.questionGroup.controls['title'].reset();
         switch (selectedType) {
-            case 'radiogroup':
+            case 'Radiogroup':
                 {
-                    this.questionGroup.removeControl("mininumRateDescription");
+                    this.questionGroup.removeControl("minimumRateDescription");
                     this.questionGroup.removeControl("maximumRateDescription");
                     this.questionGroup.removeControl("columns");
                     this.questionGroup.removeControl("rows");
@@ -98,29 +94,29 @@ var QuestionComponent = (function () {
                     this.questionGroup.addControl("choices", new forms_1.FormArray([]));
                     break;
                 }
-            case 'rating':
+            case 'Rating':
                 {
-                    this.questionGroup.removeControl("mininumRateDescription");
+                    this.questionGroup.removeControl("minimumRateDescription");
                     this.questionGroup.removeControl("maximumRateDescription");
                     this.questionGroup.removeControl("columns");
                     this.questionGroup.removeControl("rows");
                     this.questionGroup.removeControl("choices");
-                    this.questionGroup.addControl("mininumRateDescription", new forms_1.FormControl(""));
+                    this.questionGroup.addControl("minimumRateDescription", new forms_1.FormControl(""));
                     this.questionGroup.addControl("maximumRateDescription", new forms_1.FormControl(""));
                     break;
                 }
-            case 'comment':
+            case 'Comment':
                 {
-                    this.questionGroup.removeControl("mininumRateDescription");
+                    this.questionGroup.removeControl("minimumRateDescription");
                     this.questionGroup.removeControl("maximumRateDescription");
                     this.questionGroup.removeControl("columns");
                     this.questionGroup.removeControl("rows");
                     this.questionGroup.removeControl("choices");
                     break;
                 }
-            case 'checkbox':
+            case 'Checkbox':
                 {
-                    this.questionGroup.removeControl("mininumRateDescription");
+                    this.questionGroup.removeControl("minimumRateDescription");
                     this.questionGroup.removeControl("maximumRateDescription");
                     this.questionGroup.removeControl("columns");
                     this.questionGroup.removeControl("rows");
@@ -128,15 +124,24 @@ var QuestionComponent = (function () {
                     this.questionGroup.addControl("choices", new forms_1.FormArray([]));
                     break;
                 }
-            case 'matrix':
+            case 'Matrix':
                 {
-                    this.questionGroup.removeControl("mininumRateDescription");
+                    this.questionGroup.removeControl("minimumRateDescription");
                     this.questionGroup.removeControl("maximumRateDescription");
                     this.questionGroup.removeControl("columns");
                     this.questionGroup.removeControl("rows");
                     this.questionGroup.removeControl("choices");
                     this.questionGroup.addControl("columns", new forms_1.FormArray([]));
                     this.questionGroup.addControl("rows", new forms_1.FormArray([]));
+                    break;
+                }
+            case 'Text':
+                {
+                    this.questionGroup.removeControl("minimumRateDescription");
+                    this.questionGroup.removeControl("maximumRateDescription");
+                    this.questionGroup.removeControl("columns");
+                    this.questionGroup.removeControl("rows");
+                    this.questionGroup.removeControl("choices");
                     break;
                 }
         }
@@ -152,7 +157,7 @@ QuestionComponent = __decorate([
         selector: 'app-question',
         templateUrl: './question.component.html'
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, data_storage_service_1.DataStorageService])
 ], QuestionComponent);
 exports.QuestionComponent = QuestionComponent;
 //# sourceMappingURL=question.component.js.map

@@ -30,10 +30,27 @@ var DataStorageService = (function () {
         return this.http.post('http://localhost:52797/api/poll/add', survey, { headers: headers })
             .subscribe(function (res) {
             console.log(res);
+            window.alert("Survey added!");
         }, function (error) {
             console.log(error);
             window.alert(error.statusText);
         });
+    };
+    DataStorageService.prototype.addSurveyJson = function (survey) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var token = localStorage.getItem('auth_token');
+        headers.append('Authorization', 'Bearer ' + token);
+        return this.http.post('http://localhost:52797/api/poll/add', survey, { headers: headers })
+            .subscribe(function (res) {
+            console.log(res);
+        }, function (error) {
+            console.log(error);
+            window.alert(error.statusText);
+        });
+    };
+    DataStorageService.prototype.getInputTypes = function () {
+        return this.http.get('http://localhost:52797/api/inputtype/getall')
+            .map(function (res) { return res.json(); });
     };
     DataStorageService.prototype.onChangeSurvey = function (survey) {
         this.surveySource.next(survey);

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Survey.Model.Common;
 using Survey.Repository.Common.IGenericRepository;
 using AutoMapper;
 using Survey.DAL.Models;
@@ -22,11 +21,11 @@ namespace Survey.Repository.Repositories
         }
 
 
-        public async Task<int> Add(IAspNetUserDomain entity)
+        public async Task<int> Add(AspNetUser entity)
         {
             try
             {
-                return await GenericRepository.Add(Mapper.Map<AspNetUser>(entity));
+                return await GenericRepository.Add((entity));
             }
         
             catch (Exception ex)
@@ -35,11 +34,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<int> Delete(IAspNetUserDomain entity)
+        public async Task<int> Delete(AspNetUser entity)
         {
             try
             {
-                return await GenericRepository.Delete(Mapper.Map<AspNetUser>(entity));
+                return await GenericRepository.Delete((entity));
             }
 
             catch (Exception ex)
@@ -66,11 +65,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IAspNetUserDomain> Get(string id)
+        public async Task<AspNetUser> Get(string id)
         {
             try
             {
-                var response = Mapper.Map<IAspNetUserDomain>(await GenericRepository.Get<AspNetUser>(id));
+                var response = (await GenericRepository.Get<AspNetUser>(id));
                 return response;
             }
 
@@ -80,11 +79,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IAspNetUserDomain>> GetAll()
+        public async Task<IEnumerable<AspNetUser>> GetAll()
         {
             try
             {
-                var response = Mapper.Map<IEnumerable<IAspNetUserDomain>>(await GenericRepository.GetAll<AspNetUser>());
+                var response = (await GenericRepository.GetAll<AspNetUser>());
                 return response;
             }
 
@@ -94,7 +93,7 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IAspNetUserDomain>> GetAllEmails()
+        public async Task<IEnumerable<AspNetUser>> GetAllEmails()
         {
             try
             {
@@ -102,7 +101,7 @@ namespace Survey.Repository.Repositories
                     .ToListAsync());
                 var responseEmails = response.Select(a => new AspNetUser { Email = a.Email }).ToList();
 
-                return Mapper.Map<IEnumerable<IAspNetUserDomain>>(responseEmails);
+                return (responseEmails);
             }
             catch (Exception ex)
             {
@@ -110,15 +109,15 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<IAspNetUserDomain>> GetAllUsernames()
+        public async Task<IEnumerable<AspNetUser>> GetAllUsernames()
         {
             try
             {
                 var response = (await GenericRepository.GetQueryable<AspNetUser>().ToListAsync());
 
-                var usernames = response.Select(a => new AspNetUser{ UserName = a.UserName }).ToList();
+                var usernames = response.Select(a => new AspNetUser { UserName = a.UserName }).ToList();
 
-                return Mapper.Map<IEnumerable<IAspNetUserDomain>>(usernames);
+                return (usernames);
             }
             catch (Exception ex)
             {
@@ -126,11 +125,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IAspNetUserDomain> GetByUsername(string username)
+        public async Task<AspNetUser> GetByUsername(string username)
         {
             try
             {
-                var response = Mapper.Map<IAspNetUserDomain>(await GenericRepository
+                var response = (await GenericRepository
                     .GetQueryable<AspNetUser>().Where(x => x.UserName == username)
                     .FirstOrDefaultAsync());
                 return response;
@@ -141,11 +140,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<int> Update(IAspNetUserDomain entity)
+        public async Task<int> Update(AspNetUser entity)
         {
             try
             {
-                return await GenericRepository.Update(Mapper.Map<AspNetUser>(entity));
+                return await GenericRepository.Update((entity));
             }
 
             catch (Exception ex)

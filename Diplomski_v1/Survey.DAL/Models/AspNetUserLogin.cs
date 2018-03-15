@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Survey.DAL.Models
 {
-    public partial class AspNetUserLogin
+    public class AspNetUserLogin
     {
         public string LoginProvider { get; set; }
         public string ProviderKey { get; set; }

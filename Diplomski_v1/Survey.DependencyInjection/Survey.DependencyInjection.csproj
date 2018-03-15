@@ -57,10 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoMapperConfig\MappingConfig.cs" />
     <Compile Include="DIConfig\BottomLayer.cs" />
     <Compile Include="DIConfig\MiddleLayer.cs" />
-    <Compile Include="DIConfig\TopLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,14 +74,6 @@
       <Project>{67A75A20-DB8B-4810-9225-E0EC1BC62198}</Project>
       <Name>Survey.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Survey.Model.Common\Survey.Model.Common.csproj">
-      <Project>{9680381B-1E9C-4EF9-91E9-C34E9715ACD5}</Project>
-      <Name>Survey.Model.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Survey.Model\Survey.Model.csproj">
-      <Project>{7C99B2F4-9F1E-48B0-AC9A-AD69BADA14A9}</Project>
-      <Name>Survey.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Survey.Repository.Common\Survey.Repository.Common.csproj">
       <Project>{97B81F60-57A3-4CDD-8019-A9887C3595FA}</Project>
       <Name>Survey.Repository.Common</Name>
@@ -92,16 +82,10 @@
       <Project>{6D70192E-ACDA-49EC-BEFA-A2DF1CC8D0F8}</Project>
       <Name>Survey.Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Survey.Service.Common\Survey.Service.Common.csproj">
-      <Project>{3CADCAC9-D213-4085-B2B2-7E0DFF8E3571}</Project>
-      <Name>Survey.Service.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Survey.Service\Survey.Service.csproj">
-      <Project>{2CF6FE92-84E2-4046-820B-83F64030F99E}</Project>
-      <Name>Survey.Service</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AutoMapperConfig\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

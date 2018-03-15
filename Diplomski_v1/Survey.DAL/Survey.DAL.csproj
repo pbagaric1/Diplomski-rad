@@ -71,12 +71,41 @@
     <Compile Include="Migrations\201802261420513_DatabaseRedesign.Designer.cs">
       <DependentUpon>201802261420513_DatabaseRedesign.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803051051500_ChangedUser.cs" />
+    <Compile Include="Migrations\201803051051500_ChangedUser.Designer.cs">
+      <DependentUpon>201803051051500_ChangedUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803131257218_DatabaseRedesign1.cs" />
+    <Compile Include="Migrations\201803131257218_DatabaseRedesign1.Designer.cs">
+      <DependentUpon>201803131257218_DatabaseRedesign1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803131400455_RemovedOptionGroupId.cs" />
+    <Compile Include="Migrations\201803131400455_RemovedOptionGroupId.Designer.cs">
+      <DependentUpon>201803131400455_RemovedOptionGroupId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803141245080_AddedQuestionGroupTable.cs" />
+    <Compile Include="Migrations\201803141245080_AddedQuestionGroupTable.Designer.cs">
+      <DependentUpon>201803141245080_AddedQuestionGroupTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803141251256_RemovedProperties.cs" />
+    <Compile Include="Migrations\201803141251256_RemovedProperties.Designer.cs">
+      <DependentUpon>201803141251256_RemovedProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803141359103_NullableQuestionGroup.cs" />
+    <Compile Include="Migrations\201803141359103_NullableQuestionGroup.Designer.cs">
+      <DependentUpon>201803141359103_NullableQuestionGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803150934340_AnswerRequiredChanged.cs" />
+    <Compile Include="Migrations\201803150934340_AnswerRequiredChanged.Designer.cs">
+      <DependentUpon>201803150934340_AnswerRequiredChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AspNetRole.cs" />
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\AspNetUserClaim.cs" />
     <Compile Include="Models\AspNetUserLogin.cs" />
+    <Compile Include="Models\CheckboxQuestion.cs" />
     <Compile Include="Models\Mapping\AnswerMap.cs" />
     <Compile Include="Models\Mapping\AspNetRoleMap.cs" />
     <Compile Include="Models\Mapping\AspNetUserClaimMap.cs" />
@@ -84,14 +113,18 @@
     <Compile Include="Models\Mapping\AspNetUserMap.cs" />
     <Compile Include="Models\Mapping\PollMap.cs" />
     <Compile Include="Models\Mapping\QuestionMap.cs" />
-    <Compile Include="Models\OptionChoice.cs" />
-    <Compile Include="Models\OptionGroup.cs" />
+    <Compile Include="Models\MatrixColumn.cs" />
+    <Compile Include="Models\MatrixRow.cs" />
+    <Compile Include="Models\QuestionChoice.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Poll.cs" />
     <Compile Include="Models\Question.cs" />
-    <Compile Include="Models\InputType.cs" />
+    <Compile Include="Models\QuestionType.cs" />
     <Compile Include="Models\QuestionOption.cs" />
-    <Compile Include="Models\SurveyDatabaseContext.cs" />
+    <Compile Include="Models\RadiogroupQuestion.cs" />
+    <Compile Include="Models\RatingQuestion.cs" />
+    <Compile Include="Models\TextQuestion.cs" />
+    <Compile Include="SurveyDatabaseContext.cs" />
     <Compile Include="Models\UserPoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -117,6 +150,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802261420513_DatabaseRedesign.resx">
       <DependentUpon>201802261420513_DatabaseRedesign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803051051500_ChangedUser.resx">
+      <DependentUpon>201803051051500_ChangedUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803131257218_DatabaseRedesign1.resx">
+      <DependentUpon>201803131257218_DatabaseRedesign1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803131400455_RemovedOptionGroupId.resx">
+      <DependentUpon>201803131400455_RemovedOptionGroupId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803141245080_AddedQuestionGroupTable.resx">
+      <DependentUpon>201803141245080_AddedQuestionGroupTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803141251256_RemovedProperties.resx">
+      <DependentUpon>201803141251256_RemovedProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803141359103_NullableQuestionGroup.resx">
+      <DependentUpon>201803141359103_NullableQuestionGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803150934340_AnswerRequiredChanged.resx">
+      <DependentUpon>201803150934340_AnswerRequiredChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

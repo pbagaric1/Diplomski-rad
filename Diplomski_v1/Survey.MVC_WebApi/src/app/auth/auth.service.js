@@ -35,6 +35,7 @@ var AuthService = (function () {
             _this.loggedUser = response.json().username;
             window.localStorage.setItem('auth_token', response.json().access_token);
             window.localStorage.setItem('username', _this.loggedUser);
+            window.localStorage.setItem('userId', response.json().userId);
             _this.isLogged = true;
             _this.getLoggedUser(_this.loggedUser);
             console.log("Succesfully logged in");

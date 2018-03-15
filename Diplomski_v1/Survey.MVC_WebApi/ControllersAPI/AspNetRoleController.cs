@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Survey.Model.Common;
-using Survey.MVC_WebApi.ViewModels;
-using Survey.Service.Common;
+using Survey.Repository.Common.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +7,18 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Survey.DAL.Models;
 
 namespace Survey.MVC_WebApi.ControllersAPI
 {
     [RoutePrefix("api/roles")]
     public class AspNetRoleController : ApiController
     {
-        private IAspNetRoleService AspNetRoleService;
+        private IAspNetRoleRepository AspNetRoleRepository;
 
-        public AspNetRoleController(IAspNetRoleService _aspNetRoleService)
+        public AspNetRoleController(IAspNetRoleRepository _AspNetRoleRepository)
         {
-            this.AspNetRoleService = _aspNetRoleService;
+            this.AspNetRoleRepository = _AspNetRoleRepository;
         }
 
         [Route("getall")]
@@ -28,7 +27,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = Mapper.Map<IEnumerable<AspNetRoleView>>(await AspNetRoleService.GetAll());
+                var entity = (await AspNetRoleRepository.GetAll());
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -43,7 +42,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = Mapper.Map<AspNetRoleView>(await AspNetRoleService.Get(id));
+                var entity = Mapper.Map<AspNetRole>(await AspNetRoleRepository.Get(id));
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -54,12 +53,12 @@ namespace Survey.MVC_WebApi.ControllersAPI
 
         [Route("add")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Add(AspNetRoleView aspNetRole)
+        public async Task<HttpResponseMessage> Add(AspNetRole aspNetRole)
         {
             try
             {
                 aspNetRole.Id = Guid.NewGuid().ToString();
-                var entity = await AspNetRoleService.Add(Mapper.Map<IAspNetRoleDomain>(aspNetRole));
+                var entity = await AspNetRoleRepository.Add(aspNetRole);
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -75,7 +74,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = await AspNetRoleService.Delete(id);
+                var entity = await AspNetRoleRepository.Delete(id);
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -87,11 +86,11 @@ namespace Survey.MVC_WebApi.ControllersAPI
 
         [Route("edit")]
         [HttpPut]
-        public async Task<HttpResponseMessage> Edit(AspNetRoleView aspNetRole)
+        public async Task<HttpResponseMessage> Edit(AspNetRole aspNetRole)
         {
             try
             {
-                var toBeUpdated = Mapper.Map<AspNetRoleView>(await AspNetRoleService.Get(aspNetRole.Id));
+                var toBeUpdated = Mapper.Map<AspNetRole>(await AspNetRoleRepository.Get(aspNetRole.Id));
 
                 if (toBeUpdated == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Entry not found");
@@ -99,7 +98,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 toBeUpdated.Name = aspNetRole.Name;
 
 
-                var response = await AspNetRoleService.Update(Mapper.Map<IAspNetRoleDomain>(toBeUpdated));
+                var response = await AspNetRoleRepository.Update((toBeUpdated));
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (Exception e)

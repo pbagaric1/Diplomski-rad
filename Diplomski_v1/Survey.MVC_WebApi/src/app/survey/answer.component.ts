@@ -7,6 +7,7 @@ import { NgSwitch } from '@angular/common';
     templateUrl: './answer.component.html',
 })
 export class AnswerComponent {
+
     @Input('group') answerGroup: FormGroup;
     @Input('type') questionType: any;
 }

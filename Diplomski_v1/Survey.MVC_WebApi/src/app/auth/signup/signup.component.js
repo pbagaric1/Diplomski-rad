@@ -14,9 +14,12 @@ var auth_service_1 = require("../auth.service");
 var SignupComponent = (function () {
     function SignupComponent(authService) {
         this.authService = authService;
+        this.userRoles = ['Ispitivac', 'Ispitanik'];
         this.localUser = {
             userName: '',
-            password: ''
+            passwordHash: '',
+            email: '',
+            userRole: ''
         };
     }
     SignupComponent.prototype.ngOnInit = function () {

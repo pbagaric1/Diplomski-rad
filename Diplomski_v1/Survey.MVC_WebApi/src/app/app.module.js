@@ -22,6 +22,7 @@ var answer_component_1 = require("./survey/answer.component");
 var question_component_1 = require("./survey/question.component");
 var data_storage_service_1 = require("./shared/data-storage.service");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
+var common_1 = require("@angular/common");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +37,7 @@ AppModule = __decorate([
             app_routing_module_1.AppRoutingModule],
         declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent, signup_component_1.SignupComponent, signin_component_1.SigninComponent, survey_component_1.SurveyComponent, test_component_1.TestComponent,
             answer_component_1.AnswerComponent, question_component_1.QuestionComponent, dashboard_component_1.DashboardComponent],
-        providers: [auth_service_1.AuthService, data_storage_service_1.DataStorageService],
+        providers: [auth_service_1.AuthService, data_storage_service_1.DataStorageService, common_1.DatePipe],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

@@ -6,22 +6,26 @@
     <div class="form-group">
         <label>Type</label>
         <select class="form-control" name="type" formControlName="type"  [(ngModel)]="selectedType" (change)="onChange(selectedType)"> 
-            <option *ngFor="let type of questionTypes" [ngValue]="type">
-                {{type}}
+            <option *ngFor="let questionType of questionTypes" [ngValue]="questionType.type">
+                {{questionType.type}}
             </option>
         </select>
     </div>
     <div [ngSwitch]="selectedType">
         <!--Text-->
-        <div class="form-group" *ngSwitchCase="'text'">
+        <div class="form-group" *ngSwitchCase="'Text'">
             <label>Title</label>
             <input type="text" class="form-control" formControlName="title">
+            <label>Answer required?</label>
+            <input type="checkbox" class="checkbox" formControlName="isRequired">
         </div>
         <!--Radiogroup-->
-        <div class="form-group" *ngSwitchCase="'radiogroup'">
+        <div class="form-group" *ngSwitchCase="'Radiogroup'">
             <hr />
             <label>Title</label>
             <input type="text" class="form-control" formControlName="title">
+            <label>Answer required?</label>
+            <input type="checkbox" class="checkbox" formControlName="isRequired">
             <label>Choices</label>
             <div formArrayName="choices">
                 <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index" class="panel panel-default">
@@ -38,10 +42,12 @@
             </div>
         </div>
         <!--Checkbox-->
-        <div class="form-group" *ngSwitchCase="'checkbox'">
+        <div class="form-group" *ngSwitchCase="'Checkbox'">
             <hr />
             <label>Title</label>
             <input type="text" class="form-control" formControlName="title">
+            <label>Answer required?</label>
+            <input type="checkbox" class="checkbox" formControlName="isRequired">
             <label>Choices</label>
             <div formArrayName="choices">
                 <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index" class="panel panel-default">
@@ -58,20 +64,24 @@
             </div>
         </div>
         <!--Rating-->
-        <div class="form-group" *ngSwitchCase="'rating'">
+        <div class="form-group" *ngSwitchCase="'Rating'">
             <hr />
             <label>Title</label>
             <input type="text" class="form-control" formControlName="title">
+            <label>Answer required?</label>
+            <input type="checkbox" class="checkbox" formControlName="isRequired">
             <label>Minimum Rate Description</label>
-            <input type="text" class="form-control" formControlName="mininumRateDescription" />
+            <input type="text" class="form-control" formControlName="minimumRateDescription" />
             <label>Maximum Rate Description</label>
             <input type="text" class="form-control" formControlName="maximumRateDescription" />
         </div>
         <!--Matrix-->
-        <div class="form-group" *ngSwitchCase="'matrix'">
+        <div class="form-group" *ngSwitchCase="'Matrix'">
             <hr />
             <label>Title</label>
             <input type="text" class="form-control" formControlName="title">
+            <label>Answer required?</label>
+            <input type="checkbox" class="checkbox" formControlName="isRequired">
             <label>Columns</label>
             <div formArrayName="columns">
                 <div *ngFor="let column of questionGroup.controls.columns.controls; let i=index" class="panel panel-default">

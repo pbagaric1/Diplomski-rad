@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Survey.DAL.Models
 {
-    public partial class AspNetUser
+    public class AspNetUser
     {
         public AspNetUser()
         {
@@ -28,8 +28,8 @@ namespace Survey.DAL.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
-        public string Address { get; set; }
-        public string Place { get; set; }
+        //public string Address { get; set; }
+        public string City { get; set; }
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }

@@ -32,6 +32,7 @@ export class AuthService {
                 this.loggedUser = response.json().username;
                 window.localStorage.setItem('auth_token', response.json().access_token);
                 window.localStorage.setItem('username', this.loggedUser);
+                window.localStorage.setItem('userId', response.json().userId);
                 this.isLogged = true;
                 this.getLoggedUser(this.loggedUser);
                 console.log("Succesfully logged in");
