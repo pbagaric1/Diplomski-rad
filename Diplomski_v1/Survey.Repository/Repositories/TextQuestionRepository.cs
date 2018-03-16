@@ -11,18 +11,18 @@ using System.Data.Entity;
 
 namespace Survey.Repository.Repositories
 {
-    public class PollRepository : IPollRepository
+    public class TextQuestionRepository : ITextQuestionRepository
     {
 
         private readonly IGenericRepository GenericRepository;
 
-        public PollRepository(IGenericRepository _genericRepository)
+        public TextQuestionRepository(IGenericRepository _genericRepository)
         {
             this.GenericRepository = _genericRepository;
         }
 
 
-        public async Task<int> Add(Poll entity)
+        public async Task<int> Add(TextQuestion entity)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<int> Delete(Poll entity)
+        public async Task<int> Delete(TextQuestion entity)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Survey.Repository.Repositories
         {
             try
             {
-                var entity = await GenericRepository.Get<Poll>(id);
+                var entity = await GenericRepository.Get<TextQuestion>(id);
 
                 if (entity == null)
                     return 0;
@@ -66,12 +66,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<Poll> Get(Guid id)
+        public async Task<TextQuestion> Get(Guid id)
         {
             try
             {
-                var response = (await GenericRepository.Get<Poll>(id));
-
+                var response = (await GenericRepository.Get<TextQuestion>(id));
                 return response;
             }
 
@@ -81,12 +80,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<Poll> GetView(Guid id)
+        public async Task<IEnumerable<TextQuestion>> GetAll()
         {
             try
             {
-                var response = (await GenericRepository.Get<Poll>(id));
-
+                var response = (await GenericRepository.GetAll<TextQuestion>());
                 return response;
             }
 
@@ -96,51 +94,22 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<Poll>> GetAll()
+        public async Task<IEnumerable<TextQuestion>> GetTextQuestionsByPoll(Guid pollId)
         {
             try
             {
-                var response = (await GenericRepository.GetAll<Poll>());
+                var response = Mapper.Map<IEnumerable<TextQuestion>>(await GenericRepository
+                    .GetQueryable<TextQuestion>().Where(x => x.PollId == pollId)
+                    .ToListAsync());
                 return response;
             }
-
             catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-        //public async Task<IEnumerable<Poll>> GetByUsername(string username)
-        //{
-        //    try
-        //    {
-        //        var response = Mapper.Map<IEnumerable<Poll>>(await GenericRepository
-        //            .GetQueryable<Poll>().Where(x => x.AspNetUser.UserName == username)
-        //            .ToListAsync());
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        //public async Task<IEnumerable<Poll>> GetPollsByType(Guid pollTypeId)
-        //{
-        //    try
-        //    {
-        //        var response = Mapper.Map<IEnumerable<Poll>>(await GenericRepository
-        //            .GetQueryable<Poll>().Where(x => x.PollTypeId == pollTypeId)
-        //            .ToListAsync());
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        public async Task<int> Update(Poll entity)
+        public async Task<int> Update(TextQuestion entity)
         {
             try
             {

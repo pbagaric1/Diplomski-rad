@@ -10,7 +10,7 @@ namespace Survey.Repository.Repositories
 {
     public class QuestionOptionRepository : IQuestionOptionRepository
     {
-        public Task<int> Add(QuestionChoice entity)
+        public Task<int> Add(QuestionOption entity)
         {
             throw new NotImplementedException();
         }
@@ -20,22 +20,22 @@ namespace Survey.Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<int> Delete(QuestionChoice entity)
+        public Task<int> Delete(QuestionOption entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Update(QuestionChoice entity)
+        public Task<int> Update(QuestionOption entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<QuestionChoice> Get(Guid id)
+        public Task<QuestionOption> Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<QuestionChoice>> GetAll()
+        public Task<IEnumerable<QuestionOption>> GetAll()
         {
             throw new NotImplementedException();
         }

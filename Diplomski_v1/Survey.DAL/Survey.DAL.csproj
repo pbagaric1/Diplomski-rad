@@ -59,45 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201801191001237_initial.cs" />
-    <Compile Include="Migrations\201801191001237_initial.Designer.cs">
-      <DependentUpon>201801191001237_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201803151412449_Initial.cs" />
+    <Compile Include="Migrations\201803151412449_Initial.Designer.cs">
+      <DependentUpon>201803151412449_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801301035515_Name changed to Text.cs" />
-    <Compile Include="Migrations\201801301035515_Name changed to Text.Designer.cs">
-      <DependentUpon>201801301035515_Name changed to Text.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802261420513_DatabaseRedesign.cs" />
-    <Compile Include="Migrations\201802261420513_DatabaseRedesign.Designer.cs">
-      <DependentUpon>201802261420513_DatabaseRedesign.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803051051500_ChangedUser.cs" />
-    <Compile Include="Migrations\201803051051500_ChangedUser.Designer.cs">
-      <DependentUpon>201803051051500_ChangedUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803131257218_DatabaseRedesign1.cs" />
-    <Compile Include="Migrations\201803131257218_DatabaseRedesign1.Designer.cs">
-      <DependentUpon>201803131257218_DatabaseRedesign1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803131400455_RemovedOptionGroupId.cs" />
-    <Compile Include="Migrations\201803131400455_RemovedOptionGroupId.Designer.cs">
-      <DependentUpon>201803131400455_RemovedOptionGroupId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803141245080_AddedQuestionGroupTable.cs" />
-    <Compile Include="Migrations\201803141245080_AddedQuestionGroupTable.Designer.cs">
-      <DependentUpon>201803141245080_AddedQuestionGroupTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803141251256_RemovedProperties.cs" />
-    <Compile Include="Migrations\201803141251256_RemovedProperties.Designer.cs">
-      <DependentUpon>201803141251256_RemovedProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803141359103_NullableQuestionGroup.cs" />
-    <Compile Include="Migrations\201803141359103_NullableQuestionGroup.Designer.cs">
-      <DependentUpon>201803141359103_NullableQuestionGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803150934340_AnswerRequiredChanged.cs" />
-    <Compile Include="Migrations\201803150934340_AnswerRequiredChanged.Designer.cs">
-      <DependentUpon>201803150934340_AnswerRequiredChanged.cs</DependentUpon>
+    <Compile Include="Migrations\201803161009572_AddedQuestionOption.cs" />
+    <Compile Include="Migrations\201803161009572_AddedQuestionOption.Designer.cs">
+      <DependentUpon>201803161009572_AddedQuestionOption.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -112,13 +80,11 @@
     <Compile Include="Models\Mapping\AspNetUserLoginMap.cs" />
     <Compile Include="Models\Mapping\AspNetUserMap.cs" />
     <Compile Include="Models\Mapping\PollMap.cs" />
-    <Compile Include="Models\Mapping\QuestionMap.cs" />
     <Compile Include="Models\MatrixColumn.cs" />
     <Compile Include="Models\MatrixRow.cs" />
-    <Compile Include="Models\QuestionChoice.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Poll.cs" />
-    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionChoice.cs" />
     <Compile Include="Models\QuestionType.cs" />
     <Compile Include="Models\QuestionOption.cs" />
     <Compile Include="Models\RadiogroupQuestion.cs" />
@@ -142,35 +108,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801191001237_initial.resx">
-      <DependentUpon>201801191001237_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803151412449_Initial.resx">
+      <DependentUpon>201803151412449_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801301035515_Name changed to Text.resx">
-      <DependentUpon>201801301035515_Name changed to Text.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802261420513_DatabaseRedesign.resx">
-      <DependentUpon>201802261420513_DatabaseRedesign.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803051051500_ChangedUser.resx">
-      <DependentUpon>201803051051500_ChangedUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803131257218_DatabaseRedesign1.resx">
-      <DependentUpon>201803131257218_DatabaseRedesign1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803131400455_RemovedOptionGroupId.resx">
-      <DependentUpon>201803131400455_RemovedOptionGroupId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803141245080_AddedQuestionGroupTable.resx">
-      <DependentUpon>201803141245080_AddedQuestionGroupTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803141251256_RemovedProperties.resx">
-      <DependentUpon>201803141251256_RemovedProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803141359103_NullableQuestionGroup.resx">
-      <DependentUpon>201803141359103_NullableQuestionGroup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803150934340_AnswerRequiredChanged.resx">
-      <DependentUpon>201803150934340_AnswerRequiredChanged.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803161009572_AddedQuestionOption.resx">
+      <DependentUpon>201803161009572_AddedQuestionOption.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

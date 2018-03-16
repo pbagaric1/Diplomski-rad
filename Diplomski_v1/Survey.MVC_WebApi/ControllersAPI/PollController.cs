@@ -15,16 +15,24 @@ namespace Survey.MVC_WebApi.ControllersAPI
     public class PollController : ApiController
     {
         private IPollRepository PollRepository;
-        private IQuestionRepository QuestionRepository;
+        private ITextQuestionRepository QuestionRepository;
         private IAspNetUserRepository AspNetUserRepository;
+        private ITextQuestionRepository TextQuestionRepository;
+        private IRadiogroupQuestionRepository RadiogroupQuestionRepository;
+        private ICheckboxQuestionRepository CheckboxQuestionRepository;
+        private IRatingQuestionRepository RatingQuestionRepository;
 
-        public PollController(IPollRepository _PollRepository,
-                              IQuestionRepository _QuestionRepository,
-                              IAspNetUserRepository _AspNetUserRepository)
+        public PollController(IPollRepository _PollRepository, ITextQuestionRepository _TextQuestionRepository,
+                              IRadiogroupQuestionRepository _RadioGroupQuestionRepository, IRatingQuestionRepository _RatingQuestionRepository,
+                              IAspNetUserRepository _AspNetUserRepository, ICheckboxQuestionRepository _CheckboxQuestionRepository)
         {
             this.PollRepository = _PollRepository;
-            this.QuestionRepository = _QuestionRepository;
+            this.TextQuestionRepository = _TextQuestionRepository;
             this.AspNetUserRepository = _AspNetUserRepository;
+            this.RadiogroupQuestionRepository = _RadioGroupQuestionRepository;
+            this.CheckboxQuestionRepository = _CheckboxQuestionRepository;
+            this.RatingQuestionRepository = _RatingQuestionRepository;
+
         }
 
         [System.Web.Http.Route("getall")]
@@ -65,44 +73,41 @@ namespace Survey.MVC_WebApi.ControllersAPI
             {
                 var entity = await PollRepository.Get(id);
 
-                List<QuestionView> questionViewList = new List<QuestionView>();
-                var pollView = new PollView();
-
-                foreach (Question question in entity.Questions)
+                var questionView = new QuestionView()
                 {
-                    QuestionView questionView = new QuestionView();
+                    TextQuestions = entity.TextQuestions,
+                    CheckboxQuestions = entity.CheckboxQuestions,
+                    RatingQuestions = entity.RatingQuestions,
+                    RadiogroupQuestions = entity.RadiogroupQuestions
+                };
 
-                    if (question.QuestionChoices != null)
-                    {
-                        List<string> questionChoices = new List<string>();
+                var questionList = new List<ReceivedQuestionView>();
+                var questionViewList = new List<QuestionView>();
+                questionViewList.Add(questionView);
 
-                        foreach (QuestionChoice questionChoice in question.QuestionChoices)
-                        {
-                            questionChoices.Add(questionChoice.Name);
-                        }
+                var pageView = new PageView()
+                {
+                    Questions = questionViewList
+                };
 
-                        //questionViewList.Add(RadiogroupTypeMap.MapToDto(question, questionChoices));
-                    }
+                var pageViewList = new List<PageView>();
 
-                    if (question.QuestionGroup != null)
-                    {
-                        questionView.maximumRateDescription = question.QuestionGroup.maximumRateDescription;
-                        questionView.minimumRateDescription = question.QuestionGroup.minimumRateDescription;
-                    }
+                pageViewList.Add(pageView);
 
-                    questionView.Title = question.Title;
-                    questionView.Type = "asd";
-                    questionView.isRequired = question.IsRequired;
-                    //questionView.Choices = questionChoices;
+                var pollView = new PollView()
+                {
+                    UserId = entity.AspNetUserId,
+                    CreatedOn = entity.CreatedOn,
+                    Instructions = entity.Instructions,
+                    Name = entity.Name,
+                    Pages = pageViewList
+                };
 
-                    questionViewList.Add(questionView);
-                }
-
-                pollView.UserId = entity.AspNetUserId;
-                pollView.CreatedOn = entity.CreatedOn;
-                pollView.Instructions = entity.Instructions;
-                pollView.Name = entity.Name;
-                pollView.Questions = questionViewList;
+                //pollView.UserId = entity.AspNetUserId;
+                //pollView.CreatedOn = entity.CreatedOn;
+                //pollView.Instructions = entity.Instructions;
+                //pollView.Name = entity.Name;
+                //pollView.Questions = questionViewList;
 
                 return Request.CreateResponse(HttpStatusCode.OK, pollView);
             }
@@ -130,12 +135,45 @@ namespace Survey.MVC_WebApi.ControllersAPI
         [System.Web.Http.Authorize(Roles = "Admin, Ispitivac")]
         [System.Web.Http.Route("add")]
         [System.Web.Http.HttpPost]
-        public async Task<HttpResponseMessage> Add(PollView receivedPoll)
+        public async Task<HttpResponseMessage> Add(ReceivedPollView receivedPoll)
         {
             try
             {
                 if (receivedPoll.UserId == null)
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "User not found.");
+
+               
+
+                int i = 1;
+                List<CheckboxQuestion> checkboxQuestions = new List<CheckboxQuestion>();
+                List<RatingQuestion> ratingQuestions = new List<RatingQuestion>();
+                List<RadiogroupQuestion> radiogroupQuestions = new List<RadiogroupQuestion>();
+                List<TextQuestion> textQuestions = new List<TextQuestion>();
+
+                foreach (var receivedQuestion in receivedPoll.Questions)
+                {
+                    switch (receivedQuestion.Type)
+                    {
+                        case "Text":
+                            textQuestions.Add(TextMap.MapToDto(receivedQuestion, i));
+                            //await TextQuestionRepository.Add(TextMap.MapToDto(receivedQuestion, i));
+                            break;
+
+                        case "Radiogroup":
+                            radiogroupQuestions.Add(RadiogroupMap.MapToDto(receivedQuestion, i));
+                            break;
+
+                        case "Checkbox":
+                            checkboxQuestions.Add(CheckboxMap.MapToDto(receivedQuestion, i));
+                            break;
+
+                        case "Rating":
+                            ratingQuestions.Add(RatingMap.MapToDto(receivedQuestion, i));
+                            break;
+                    }
+
+                    i++;
+                }
 
                 Poll poll = new Poll()
                 {
@@ -143,59 +181,15 @@ namespace Survey.MVC_WebApi.ControllersAPI
                     Name = receivedPoll.Name,
                     CreatedOn = receivedPoll.CreatedOn,
                     Instructions = receivedPoll.Instructions,
-                    AspNetUserId = receivedPoll.UserId
+                    AspNetUserId = receivedPoll.UserId,
+                    TextQuestions = textQuestions,
+                    CheckboxQuestions = checkboxQuestions,
+                    RadiogroupQuestions = radiogroupQuestions,
+                    RatingQuestions = ratingQuestions
+
                 };
 
                 await PollRepository.Add(poll);
-
-                int i = 1;
-
-                foreach (QuestionView receivedQuestion in receivedPoll.Questions)
-                {
-                    var questionId = Guid.NewGuid();
-                    List<string> receivedQuestionChoices = receivedQuestion.Choices;
-                    QuestionGroup questionGroup = new QuestionGroup();
-
-                    List<QuestionChoice> questionChoices = new List<QuestionChoice>();
-
-                    if (receivedQuestionChoices != null)
-                    {
-                        foreach (string item in receivedQuestionChoices)
-                        {
-                            QuestionChoice asdChoice = new QuestionChoice
-                            {
-                                Id = Guid.NewGuid(),
-                                Name = item,
-                                QuestionId = questionId,
-                            };
-                            questionChoices.Add(asdChoice);
-                        }
-
-                        questionGroup = null;
-                    }
-
-                    else if (receivedQuestion.minimumRateDescription != null && receivedQuestion.maximumRateDescription != null)
-                    {
-                        questionGroup.maximumRateDescription = receivedQuestion.maximumRateDescription;
-                        questionGroup.minimumRateDescription = receivedQuestion.minimumRateDescription;
-                    }
-
-                    Question question = new Question
-                    {
-                        Id = questionId,
-                        PollId = poll.Id,
-                        InputTypeId = Guid.Empty,
-                        QuestionOrder = i,
-                        Title = receivedQuestion.Title,
-                        IsRequired = receivedQuestion.isRequired,
-                        QuestionGroup = questionGroup,
-                        QuestionChoices = questionChoices
-                    };
-
-                    i++;
-
-                    await QuestionRepository.Add(question);
-                }
 
                 return Request.CreateResponse(HttpStatusCode.OK, 0);
             }

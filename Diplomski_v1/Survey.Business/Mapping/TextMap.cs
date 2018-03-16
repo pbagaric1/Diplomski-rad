@@ -5,20 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Survey.Business.Models.QuestionTypeModels;
 using Survey.Business.Models.ViewModels;
+using Survey.DAL.Models;
 
 namespace Survey.Business.Mapping
 {
-    internal static class CommentTypeMap
+    public static class TextMap
     {
-        public static CommentTypeModel MapToDto(ReceivedQuestionView item)
+        public static TextQuestion MapToDto(ReceivedQuestionView item, int questionOrder)
         {
             if (item == null)
                 return null;
 
-            return new CommentTypeModel()
+            return new TextQuestion()
             {
                 Title = item.Title,
-                isRequired = item.isRequired
+                IsRequired = item.isRequired,
+                QuestionOrder = questionOrder,
+                Id = Guid.NewGuid(),
+                Type = QuestionType.Text
             };
         }
     }

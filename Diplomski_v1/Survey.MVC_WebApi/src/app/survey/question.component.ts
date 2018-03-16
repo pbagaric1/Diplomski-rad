@@ -9,19 +9,19 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class QuestionComponent implements OnInit {
     @Input('group') questionGroup: FormGroup;
-    questionTypes: InputType[];
-    selectedType: InputType;
+    questionTypes: string[] = ['Text', 'Radiogroup', 'Checkbox', 'Rating'];
+    selectedType: string;
     choices: FormArray[];
 
     constructor(private fb: FormBuilder, private dataStorageService: DataStorageService) { }
 
     ngOnInit() {
-        this.dataStorageService.getInputTypes().subscribe(
-            (res) => {
-                this.questionTypes = res;
-                console.log(this.questionTypes);
-            }
-        );
+        // this.dataStorageService.getInputTypes().subscribe(
+        //     (res) => {
+        //         this.questionTypes = res;
+        //         console.log(this.questionTypes);
+        //     }
+        // );
 
         this.questionGroup.addControl("title", new FormControl(""));
         //console.log(this.questionGroup)

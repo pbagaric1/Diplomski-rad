@@ -78,6 +78,8 @@ export class SurveyComponent implements OnInit{
         const newSurvey = new Survey(userId, this.surveyForm.value['title'],
             this.surveyForm.value['organization'], createdOn, this.surveyForm.value['pages'][0]['questions']);
 
+        console.log(this.surveyForm);
+
         const json = {
             "title": "Anketa",
             "organization": "Konzum",

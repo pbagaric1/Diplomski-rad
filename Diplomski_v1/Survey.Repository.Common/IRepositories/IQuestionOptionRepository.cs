@@ -9,11 +9,11 @@ namespace Survey.Repository.Common.IRepositories
 {
     public interface IQuestionOptionRepository
     {
-        Task<int> Add(QuestionChoice entity);
+        Task<int> Add(QuestionOption entity);
         Task<int> Delete(Guid id);
-        Task<int> Delete(QuestionChoice entity);
-        Task<int> Update(QuestionChoice entity);
-        Task<QuestionChoice> Get(Guid id);
-        Task<IEnumerable<QuestionChoice>> GetAll();
+        Task<int> Delete(QuestionOption entity);
+        Task<int> Update(QuestionOption entity);
+        Task<QuestionOption> Get(Guid id);
+        Task<IEnumerable<QuestionOption>> GetAll();
     }
 }

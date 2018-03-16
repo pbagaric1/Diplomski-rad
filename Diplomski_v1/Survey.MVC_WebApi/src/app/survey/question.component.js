@@ -16,13 +16,15 @@ var QuestionComponent = (function () {
     function QuestionComponent(fb, dataStorageService) {
         this.fb = fb;
         this.dataStorageService = dataStorageService;
+        this.questionTypes = ['Text', 'Radiogroup', 'Checkbox', 'Rating'];
     }
     QuestionComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.dataStorageService.getInputTypes().subscribe(function (res) {
-            _this.questionTypes = res;
-            console.log(_this.questionTypes);
-        });
+        // this.dataStorageService.getInputTypes().subscribe(
+        //     (res) => {
+        //         this.questionTypes = res;
+        //         console.log(this.questionTypes);
+        //     }
+        // );
         this.questionGroup.addControl("title", new forms_1.FormControl(""));
         //console.log(this.questionGroup)
     };

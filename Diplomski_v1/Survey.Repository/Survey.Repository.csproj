@@ -63,11 +63,12 @@
     <Compile Include="Repositories\AspNetRoleRepository.cs" />
     <Compile Include="Repositories\AspNetUserLoginRepository.cs" />
     <Compile Include="Repositories\AspNetUserRepository.cs" />
-    <Compile Include="Repositories\InputTypeRepository.cs" />
-    <Compile Include="Repositories\OptionChoiceRepository.cs" />
+    <Compile Include="Repositories\CheckboxQuestionRepository.cs" />
     <Compile Include="Repositories\OrganizationRepository.cs" />
     <Compile Include="Repositories\QuestionOptionRepository.cs" />
-    <Compile Include="Repositories\QuestionRepository.cs" />
+    <Compile Include="Repositories\RadiogroupQuestionRepository.cs" />
+    <Compile Include="Repositories\RatingQuestionRepository.cs" />
+    <Compile Include="Repositories\TextQuestionRepository.cs" />
     <Compile Include="Repositories\PollRepository.cs" />
     <Compile Include="Repositories\UserPollRepository.cs" />
     <Compile Include="UnitOfWork.cs" />

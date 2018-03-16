@@ -271,7 +271,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ControllersAPI\AspNetRoleController.cs" />
     <Compile Include="ControllersAPI\AspNetUserController.cs" />
-    <Compile Include="ControllersAPI\InputTypeController.cs" />
     <Compile Include="ControllersAPI\PollController.cs" />
     <Compile Include="ControllersAPI\QuestionController.cs" />
     <Compile Include="Controllers\AccountController.cs" />

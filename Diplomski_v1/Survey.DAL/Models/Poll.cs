@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Survey.DAL.Models
 {
@@ -18,13 +14,42 @@ namespace Survey.DAL.Models
         public string Instructions { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        //private ICollection<Question> _questions;
+        //public ICollection<TextQuestion> TextQuestions { get; set; }
+        //public ICollection<RadiogroupQuestion> RadiogroupQuestions { get; set; }
+        //public ICollection<CheckboxQuestion> CheckboxQuestions { get; set; }
+        //public ICollection<RatingQuestion> RatingQuestions { get; set; }
 
-        //public virtual ICollection<Question> Questions
-        //{
-        //    get { return _questions ?? (_questions = new Collection<Question>()); }
-        //    protected set { _questions = value; }
-        //}
+        private ICollection<TextQuestion> _textQuestions;
+
+        public virtual ICollection<TextQuestion> TextQuestions
+        {
+            get { return _textQuestions ?? (_textQuestions = new Collection<TextQuestion>()); }
+            set { _textQuestions = value; }
+        }
+
+        private ICollection<RadiogroupQuestion> _radiogroupQuestions;
+
+        public virtual ICollection<RadiogroupQuestion> RadiogroupQuestions
+        {
+            get { return _radiogroupQuestions ?? (_radiogroupQuestions = new Collection<RadiogroupQuestion>()); }
+            set { _radiogroupQuestions = value; }
+        }
+
+        private ICollection<CheckboxQuestion> _checkboxQuestions;
+
+        public virtual ICollection<CheckboxQuestion> CheckboxQuestions
+        {
+            get { return _checkboxQuestions ?? (_checkboxQuestions = new Collection<CheckboxQuestion>()); }
+            set { _checkboxQuestions = value; }
+        }
+
+        private ICollection<RatingQuestion> _ratingQuestions;
+
+        public virtual ICollection<RatingQuestion> RatingQuestions
+        {
+            get { return _ratingQuestions ?? (_ratingQuestions = new Collection<RatingQuestion>()); }
+            set { _ratingQuestions = value; }
+        }
 
 
     }

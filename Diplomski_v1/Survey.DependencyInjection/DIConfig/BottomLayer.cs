@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject.Modules;
+using Survey.DAL;
 using Survey.DAL.Common;
 using Survey.DAL.Models;
 

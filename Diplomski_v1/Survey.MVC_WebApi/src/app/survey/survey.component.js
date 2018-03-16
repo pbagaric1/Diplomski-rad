@@ -71,6 +71,7 @@ var SurveyComponent = (function () {
         var userId = localStorage.getItem('userId');
         var createdOn = this.datePipe.transform(Date.now(), 'yyyy-MM-dd hh:mm:ss');
         var newSurvey = new survey_model_1.Survey(userId, this.surveyForm.value['title'], this.surveyForm.value['organization'], createdOn, this.surveyForm.value['pages'][0]['questions']);
+        console.log(this.surveyForm);
         var json = {
             "title": "Anketa",
             "organization": "Konzum",

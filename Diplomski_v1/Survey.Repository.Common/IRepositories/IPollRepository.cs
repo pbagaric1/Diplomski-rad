@@ -14,6 +14,7 @@ namespace Survey.Repository.Common.IRepositories
         Task<int> Delete(Poll entity);
         Task<int> Update(Poll entity);
         Task<Poll> Get(Guid id);
+        Task<Poll> GetView(Guid id);
         Task<IEnumerable<Poll>> GetAll();
         //Task<IEnumerable<Poll>> GetPollsByType(Guid pollTypeId);
         //Task<IEnumerable<Poll>> GetByUsername(string username);

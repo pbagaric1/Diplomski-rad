@@ -8,17 +8,19 @@ using Survey.Business.Models.ViewModels;
 
 namespace Survey.Business.Mapping
 {
-    internal static class CommentTypeMap
+    internal static class MatrixTypeMap
     {
-        public static CommentTypeModel MapToDto(ReceivedQuestionView item)
+        public static MatrixTypeModel MapToDto(ReceivedQuestionView item)
         {
             if (item == null)
                 return null;
 
-            return new CommentTypeModel()
+            return new MatrixTypeModel()
             {
                 Title = item.Title,
-                isRequired = item.isRequired
+                isRequired = item.isRequired,
+                //Columns = item.Columns,
+                //Rows = item.Rows
             };
         }
     }

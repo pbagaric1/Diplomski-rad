@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using Survey.DAL.Models;
 
 namespace Survey.Business.Models.ViewModels
 {
-    public class PollView
+    public class ReceivedPollView
     {
         public string Name { get; set; }
         public string UserId { get; set; }
@@ -18,12 +16,6 @@ namespace Survey.Business.Models.ViewModels
 
         //public virtual AspNetUser AspNetUser { get; set; }
         //public ICollection<UserPoll> UserPolls { get; set; }
-        private List<PageView> _pages;
-
-        public List<PageView> Pages
-        {
-            get { return _pages ?? (_pages = new List<PageView>()); }
-            set { _pages = value; }
-        }
+        public ICollection<ReceivedQuestionView> Questions { get; set; }
     }
 }

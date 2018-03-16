@@ -1,28 +1,28 @@
-﻿using Survey.Repository.Common.IRepositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Survey.Repository.Common.IGenericRepository;
 using AutoMapper;
 using Survey.DAL.Models;
-using System.Data.Entity;
+using Survey.Repository.Common.IGenericRepository;
+using Survey.Repository.Common.IRepositories;
 
 namespace Survey.Repository.Repositories
 {
-    public class PollRepository : IPollRepository
+    public class CheckboxQuestionRepository : ICheckboxQuestionRepository
     {
 
         private readonly IGenericRepository GenericRepository;
 
-        public PollRepository(IGenericRepository _genericRepository)
+        public CheckboxQuestionRepository(IGenericRepository _genericRepository)
         {
             this.GenericRepository = _genericRepository;
         }
 
 
-        public async Task<int> Add(Poll entity)
+        public async Task<int> Add(CheckboxQuestion entity)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<int> Delete(Poll entity)
+        public async Task<int> Delete(CheckboxQuestion entity)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Survey.Repository.Repositories
         {
             try
             {
-                var entity = await GenericRepository.Get<Poll>(id);
+                var entity = await GenericRepository.Get<CheckboxQuestion>(id);
 
                 if (entity == null)
                     return 0;
@@ -66,12 +66,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<Poll> Get(Guid id)
+        public async Task<CheckboxQuestion> Get(Guid id)
         {
             try
             {
-                var response = (await GenericRepository.Get<Poll>(id));
-
+                var response = (await GenericRepository.Get<CheckboxQuestion>(id));
                 return response;
             }
 
@@ -81,12 +80,11 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<Poll> GetView(Guid id)
+        public async Task<IEnumerable<CheckboxQuestion>> GetAll()
         {
             try
             {
-                var response = (await GenericRepository.Get<Poll>(id));
-
+                var response = (await GenericRepository.GetAll<CheckboxQuestion>());
                 return response;
             }
 
@@ -96,51 +94,22 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<IEnumerable<Poll>> GetAll()
+        public async Task<IEnumerable<CheckboxQuestion>> GetCheckboxQuestionsByPoll(Guid pollId)
         {
             try
             {
-                var response = (await GenericRepository.GetAll<Poll>());
+                var response = Mapper.Map<IEnumerable<CheckboxQuestion>>(await GenericRepository
+                    .GetQueryable<CheckboxQuestion>().Where(x => x.PollId == pollId)
+                    .ToListAsync());
                 return response;
             }
-
             catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-        //public async Task<IEnumerable<Poll>> GetByUsername(string username)
-        //{
-        //    try
-        //    {
-        //        var response = Mapper.Map<IEnumerable<Poll>>(await GenericRepository
-        //            .GetQueryable<Poll>().Where(x => x.AspNetUser.UserName == username)
-        //            .ToListAsync());
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        //public async Task<IEnumerable<Poll>> GetPollsByType(Guid pollTypeId)
-        //{
-        //    try
-        //    {
-        //        var response = Mapper.Map<IEnumerable<Poll>>(await GenericRepository
-        //            .GetQueryable<Poll>().Where(x => x.PollTypeId == pollTypeId)
-        //            .ToListAsync());
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        public async Task<int> Update(Poll entity)
+        public async Task<int> Update(CheckboxQuestion entity)
         {
             try
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Survey.DAL.Models;
 
 namespace Survey.Business.Models.ViewModels
 {
@@ -26,9 +27,9 @@ namespace Survey.Business.Models.ViewModels
         public string Address { get; set; }
         public string Place { get; set; }
 
-        public virtual ICollection<AspNetUserClaimView> AspNetUserClaims { get; set; }
-        public virtual ICollection<AspNetUserLoginView> AspNetUserLogins { get; set; }
-        public virtual ICollection<AspNetRoleView> AspNetRoles { get; set; }
-        public virtual ICollection<PollView> Polls { get; set; }
+        public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        public virtual ICollection<ReceivedPollView> Polls { get; set; }
     }
 }

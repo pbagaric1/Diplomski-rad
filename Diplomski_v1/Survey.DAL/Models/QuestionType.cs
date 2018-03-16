@@ -9,10 +9,10 @@ namespace Survey.DAL.Models
     //Input types of questions, eg. "text", "checkbox"
     public enum QuestionType
     {
-        Text,
-        Checkbox,
-        Radiogroup,
-        Comment,
-        Rating
+        Text = 0,
+        Checkbox = 1,
+        Radiogroup = 2,
+        Comment = 3,
+        Rating = 4
     }
 }
