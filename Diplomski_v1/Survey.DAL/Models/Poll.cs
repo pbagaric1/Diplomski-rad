@@ -14,43 +14,13 @@ namespace Survey.DAL.Models
         public string Instructions { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        //public ICollection<TextQuestion> TextQuestions { get; set; }
-        //public ICollection<RadiogroupQuestion> RadiogroupQuestions { get; set; }
-        //public ICollection<CheckboxQuestion> CheckboxQuestions { get; set; }
-        //public ICollection<RatingQuestion> RatingQuestions { get; set; }
+        //public ICollection<UserPoll> UserPolls { get; set; }
+        private ICollection<Question> _questions;
 
-        private ICollection<TextQuestion> _textQuestions;
-
-        public virtual ICollection<TextQuestion> TextQuestions
+        public virtual ICollection<Question> Questions
         {
-            get { return _textQuestions ?? (_textQuestions = new Collection<TextQuestion>()); }
-            set { _textQuestions = value; }
+            get { return _questions ?? (_questions = new Collection<Question>()); }
+            set { _questions = value; }
         }
-
-        private ICollection<RadiogroupQuestion> _radiogroupQuestions;
-
-        public virtual ICollection<RadiogroupQuestion> RadiogroupQuestions
-        {
-            get { return _radiogroupQuestions ?? (_radiogroupQuestions = new Collection<RadiogroupQuestion>()); }
-            set { _radiogroupQuestions = value; }
-        }
-
-        private ICollection<CheckboxQuestion> _checkboxQuestions;
-
-        public virtual ICollection<CheckboxQuestion> CheckboxQuestions
-        {
-            get { return _checkboxQuestions ?? (_checkboxQuestions = new Collection<CheckboxQuestion>()); }
-            set { _checkboxQuestions = value; }
-        }
-
-        private ICollection<RatingQuestion> _ratingQuestions;
-
-        public virtual ICollection<RatingQuestion> RatingQuestions
-        {
-            get { return _ratingQuestions ?? (_ratingQuestions = new Collection<RatingQuestion>()); }
-            set { _ratingQuestions = value; }
-        }
-
-
     }
 }

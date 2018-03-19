@@ -1,4 +1,4 @@
-﻿export class Survey {
+﻿export class SurveyModel {
 
     public userId: string;
     public organization: string;

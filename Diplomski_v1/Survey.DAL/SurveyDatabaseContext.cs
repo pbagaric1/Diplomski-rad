@@ -26,11 +26,11 @@ namespace Survey.DAL
         public DbSet<Poll> Polls { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Organization> Organizations { get; set; }
+        public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionOption> QuestionOptions { get; set; }
-        public DbSet<RatingQuestion> RatingQuestions { get; set; }
-        public DbSet<CheckboxQuestion> CheckboxQuestions { get; set; }
-        public DbSet<RadiogroupQuestion> RadiogroupQuestions { get; set; }
-        public DbSet<TextQuestion> TextQuestions { get; set; }
+        public DbSet<QuestionChoice> QuestionChoices { get; set; }
+        public DbSet<QuestionOptionGroup> QuestionOptionGroups { get; set; }
+        public DbSet<UserPoll> UserPolls { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

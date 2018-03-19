@@ -1,7 +1,9 @@
-﻿import { Component, Input, OnInit} from '@angular/core';
+﻿import { SurveyModel } from './../survey/models/survey.model';
+import { Component, Input, OnInit} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import * as Survey from 'survey-angular';
 import { DataStorageService } from '../shared/data-storage.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Component({
     selector: 'app-test',
@@ -17,54 +19,23 @@ export class TestComponent implements OnInit {
     constructor(private dataStorageService: DataStorageService) {}
 
     json1 = {
-        title: 'Product Feedback Survey Example',
-        pages: [
+        "title": "anketa",
+        "pages": [
             {
-                questions: [
-                        {
-                        type: 'rating',
-                        name: 'satisfaction',
-                        title: 'How satisfied are you with the Product?',
-                        mininumRateDescription: 'Not Satisfied',
-                        maximumRateDescription: 'Completely satisfied'
-                    },
+                "questions": [
                     {
-                        type: 'rating',
-                        name: 'recommend friends',
-                        visibleIf: '{satisfaction} > 3',
-                        title: 'How likely are you to recommend the Product to a friend or co-worker?',
-                        mininumRateDescription: 'Will not recommend',
-                        maximumRateDescription: 'I will recommend'
-                    },
-                    {
-                        type: 'comment',
-                        name: 'suggestions',
-                        title: 'What would make you more satisfied with the Product?',
-                    },
-                    {
-                        type: "checkbox",
-                        name: "car",
-                        title: "What car are you driving?",
-                        isRequired: true,
-                        colCount: 4,
-                        choices: [
-                            "None",
-                            "Ford",
-                            "Vauxhall",
-                            "Volkswagen",
-                            "Nissan",
-                            "Audi",
-                            "Mercedes-Benz",
-                            "BMW",
-                            "Peugeot",
-                            "Toyota",
-                            "Citroen"
+                        "title": "asd",
+                        "type": "radiogroup",
+                        "isRequired": false,
+                        "choices": [
+                            "1",
+                            "2"
                         ]
                     }
                 ]
             }
         ]
-    };
+    }
 
 
 
@@ -145,18 +116,29 @@ export class TestComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.dataStorageService.currentSurvey.subscribe(survey => this.surveyForm = survey);
+        //this.dataStorageService.currentSurvey.subscribe(survey => this.surveyForm = survey);
         //let surveyModel = new Survey.ReactSurveyModel(this.surveyForm.value);
-        let surveyModel = new Survey.ReactSurveyModel(this.json1);
-        Survey.SurveyNG.render('surveyElement', { model: surveyModel });
-        let asd = new Survey.Model(this.json1);
+        let receivedSurvey: any;
+        let surveyModel: any;
+       this.dataStorageService.getSurvey()
+           .subscribe(data => {
+               receivedSurvey = data;
+               console.log(receivedSurvey);
+               surveyModel = new Survey.ReactSurveyModel(receivedSurvey);
+               Survey.SurveyNG.render('surveyElement', { model: surveyModel });
+           });
+        console.log(this.json);
+        
+        let asd = new Survey.Model(receivedSurvey);
 
-        surveyModel
+        asd
             .onComplete
-            .add(function(result) {
+            .add(function(result: any) {
                 document
                     .querySelector('#surveyResult')
                     .innerHTML = "result: " + JSON.stringify(result.data);
+                console.log(result.data);
+                
             });
     }
 }

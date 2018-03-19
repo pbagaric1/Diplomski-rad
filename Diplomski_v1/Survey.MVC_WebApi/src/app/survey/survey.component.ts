@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { Survey } from "./models/survey.model";
+import { SurveyModel } from "./models/survey.model";
 import { DataStorageService } from '../shared/data-storage.service';
 import { Question } from "./question/question.model";
 import { Router } from '@angular/router';
@@ -75,31 +75,13 @@ export class SurveyComponent implements OnInit{
         const userId = localStorage.getItem('userId');
         let createdOn = this.datePipe.transform(Date.now(), 'yyyy-MM-dd hh:mm:ss');
 
-        const newSurvey = new Survey(userId, this.surveyForm.value['title'],
+        const asd = this.surveyForm.controls;
+
+        const newSurvey = new SurveyModel(userId, this.surveyForm.value['title'],
             this.surveyForm.value['organization'], createdOn, this.surveyForm.value['pages'][0]['questions']);
 
-        console.log(this.surveyForm);
 
-        const json = {
-            "title": "Anketa",
-            "organization": "Konzum",
-                    "questions": [
-                        {
-                            "type": "Text",
-                            "isRequired": true,
-                            "title": "Prvo"
-                        },
-                        {
-                            "type": "Radiogroup",
-                            "isRequired": false,
-                            "title": "Drugo",
-                            "choices": [
-                                "1",
-                                "2"
-                            ]
-                        }
-                    ]
-        };
+        console.log(this.surveyForm);
 
         this.dataStorageService.addSurvey(newSurvey);
         console.log(newSurvey);

@@ -8,6 +8,7 @@ using Survey.Repository.Common.IRepositories;
 using Survey.DAL.Models;
 using Survey.Business.Models.ViewModels;
 using Survey.Business.Mapping;
+using Survey.Business.Mapping.DtoToView;
 
 namespace Survey.MVC_WebApi.ControllersAPI
 {
@@ -15,23 +16,12 @@ namespace Survey.MVC_WebApi.ControllersAPI
     public class PollController : ApiController
     {
         private IPollRepository PollRepository;
-        private ITextQuestionRepository QuestionRepository;
         private IAspNetUserRepository AspNetUserRepository;
-        private ITextQuestionRepository TextQuestionRepository;
-        private IRadiogroupQuestionRepository RadiogroupQuestionRepository;
-        private ICheckboxQuestionRepository CheckboxQuestionRepository;
-        private IRatingQuestionRepository RatingQuestionRepository;
 
-        public PollController(IPollRepository _PollRepository, ITextQuestionRepository _TextQuestionRepository,
-                              IRadiogroupQuestionRepository _RadioGroupQuestionRepository, IRatingQuestionRepository _RatingQuestionRepository,
-                              IAspNetUserRepository _AspNetUserRepository, ICheckboxQuestionRepository _CheckboxQuestionRepository)
+        public PollController(IPollRepository _PollRepository, IAspNetUserRepository _AspNetUserRepository)
         {
             this.PollRepository = _PollRepository;
-            this.TextQuestionRepository = _TextQuestionRepository;
             this.AspNetUserRepository = _AspNetUserRepository;
-            this.RadiogroupQuestionRepository = _RadioGroupQuestionRepository;
-            this.CheckboxQuestionRepository = _CheckboxQuestionRepository;
-            this.RatingQuestionRepository = _RatingQuestionRepository;
 
         }
 
@@ -73,21 +63,20 @@ namespace Survey.MVC_WebApi.ControllersAPI
             {
                 var entity = await PollRepository.Get(id);
 
-                var questionView = new QuestionView()
-                {
-                    TextQuestions = entity.TextQuestions,
-                    CheckboxQuestions = entity.CheckboxQuestions,
-                    RatingQuestions = entity.RatingQuestions,
-                    RadiogroupQuestions = entity.RadiogroupQuestions
-                };
-
                 var questionList = new List<ReceivedQuestionView>();
-                var questionViewList = new List<QuestionView>();
-                questionViewList.Add(questionView);
+
+                foreach (var receivedQuestion in entity.Questions)
+                {
+                    if (receivedQuestion.QuestionType.Type != "Rating")
+                        questionList.Add(QuestionToViewMap.MapToDto(receivedQuestion));
+
+                    else
+                        questionList.Add(RatingToViewMap.MapToDto(receivedQuestion));
+                }
 
                 var pageView = new PageView()
                 {
-                    Questions = questionViewList
+                    questions = questionList
                 };
 
                 var pageViewList = new List<PageView>();
@@ -96,11 +85,11 @@ namespace Survey.MVC_WebApi.ControllersAPI
 
                 var pollView = new PollView()
                 {
-                    UserId = entity.AspNetUserId,
-                    CreatedOn = entity.CreatedOn,
-                    Instructions = entity.Instructions,
-                    Name = entity.Name,
-                    Pages = pageViewList
+                    userId = entity.AspNetUserId,
+                    createdOn = entity.CreatedOn,
+                    instructions = entity.Instructions,
+                    title = entity.Name,
+                    pages = pageViewList
                 };
 
                 //pollView.UserId = entity.AspNetUserId;
@@ -142,35 +131,17 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 if (receivedPoll.UserId == null)
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "User not found.");
 
-               
-
                 int i = 1;
-                List<CheckboxQuestion> checkboxQuestions = new List<CheckboxQuestion>();
-                List<RatingQuestion> ratingQuestions = new List<RatingQuestion>();
-                List<RadiogroupQuestion> radiogroupQuestions = new List<RadiogroupQuestion>();
-                List<TextQuestion> textQuestions = new List<TextQuestion>();
+
+                var questionList = new List<Question>();
 
                 foreach (var receivedQuestion in receivedPoll.Questions)
                 {
-                    switch (receivedQuestion.Type)
-                    {
-                        case "Text":
-                            textQuestions.Add(TextMap.MapToDto(receivedQuestion, i));
-                            //await TextQuestionRepository.Add(TextMap.MapToDto(receivedQuestion, i));
-                            break;
-
-                        case "Radiogroup":
-                            radiogroupQuestions.Add(RadiogroupMap.MapToDto(receivedQuestion, i));
-                            break;
-
-                        case "Checkbox":
-                            checkboxQuestions.Add(CheckboxMap.MapToDto(receivedQuestion, i));
-                            break;
-
-                        case "Rating":
-                            ratingQuestions.Add(RatingMap.MapToDto(receivedQuestion, i));
-                            break;
-                    }
+                    if (receivedQuestion.type != "Rating")
+                    questionList.Add(QuestionMap.MapToDto(receivedQuestion, i));
+                    
+                    else
+                        questionList.Add(RatingMap.MapToDto(receivedQuestion, i));
 
                     i++;
                 }
@@ -182,10 +153,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
                     CreatedOn = receivedPoll.CreatedOn,
                     Instructions = receivedPoll.Instructions,
                     AspNetUserId = receivedPoll.UserId,
-                    TextQuestions = textQuestions,
-                    CheckboxQuestions = checkboxQuestions,
-                    RadiogroupQuestions = radiogroupQuestions,
-                    RatingQuestions = ratingQuestions
+                    Questions = questionList
 
                 };
 

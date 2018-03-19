@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,20 +10,29 @@ using Survey.DAL.Models;
 
 namespace Survey.Business.Mapping
 {
-    public static class RatingMap
+    public static class QuestionMap
     {
         public static Question MapToDto(ReceivedQuestionView item, int questionOrder)
         {
             if (item == null)
                 return null;
+
+            var choiceList = new List<QuestionChoice>();
             var questionOptionGroup = new QuestionOptionGroup();
+            
 
-            if (item.minimumRateDescription != null)
+            if (item.choices != null)
             {
-                questionOptionGroup.MaximumRateDescription = item.maximumRateDescription;
-                questionOptionGroup.MinimumRateDescription = item.minimumRateDescription;
+                foreach (var choice in item.choices)
+                {
+                    QuestionChoice questionChoice = new QuestionChoice()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = choice
+                    };
+                    choiceList.Add(questionChoice);
+                }
             }
-
 
             var questionType = (int)Enum.Parse(typeof(QuestionTypeEnum), item.type);
 
@@ -31,9 +41,8 @@ namespace Survey.Business.Mapping
                 Title = item.title,
                 AnswerRequired = item.isRequired,
                 Id = Guid.NewGuid(),
-                QuestionOptionGroup = questionOptionGroup,
+                QuestionChoices = choiceList,
                 QuestionOrder = questionOrder,
-                QuestionOptionGroupId = questionOptionGroup.Id,
                 QuestionTypeId = questionType
             };
         }

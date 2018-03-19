@@ -1,11 +1,10 @@
-﻿import { Injectable, OnInit } from '@angular/core';
+﻿import { SurveyModel } from './../survey/models/survey.model';
+import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { Survey } from "../survey/models/survey.model";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Injectable()
 export class DataStorageService {
@@ -21,7 +20,7 @@ export class DataStorageService {
     ngOnInit() {
     }
 
-    addSurvey(survey: Survey) {
+    addSurvey(survey: SurveyModel) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const token = localStorage.getItem('auth_token');
         headers.append('Authorization', 'Bearer ' + token);
@@ -52,6 +51,12 @@ export class DataStorageService {
                     window.alert(error.statusText);
                 }
             );
+    }
+
+    getSurvey() {
+        return this.http.get('http://localhost:52797/api/poll/getview?id=3d92a0c4-ed4d-4d46-a6cb-e5ef836003ce')
+            .map(res => res.json());
+        
     }
 
     getInputTypes() {

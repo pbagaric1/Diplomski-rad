@@ -10,7 +10,7 @@ namespace Survey.Business.Models.ViewModels
     {
         private List<ReceivedQuestionView> _questions;
 
-        public List<ReceivedQuestionView> Questions
+        public List<ReceivedQuestionView> questions
         {
             get { return _questions ?? (_questions = new List<ReceivedQuestionView>()); }
             set { _questions = value; }
