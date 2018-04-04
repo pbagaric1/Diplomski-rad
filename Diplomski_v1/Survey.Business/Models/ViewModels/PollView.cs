@@ -10,6 +10,7 @@ namespace Survey.Business.Models.ViewModels
 {
     public class PollView
     {
+        public Guid Id { get; set; }
         public string title { get; set; }
         public string userId { get; set; }
         public string instructions { get; set; }

@@ -6,18 +6,36 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li routerLinkActive="active"><a routerLink="/surveys">Surveys</a></li>
+                <li routerLinkActive="active">
+                    <a routerLink="/createsurvey" *ngIf="authService.isAdmin() || authService.isIspitivac()">Create Survey</a>
+                </li>
             </ul>
+
             <ul class="nav navbar-nav">
-                <li routerLinkActive="active"><a routerLink="/test">Test</a></li>
+                <li routerLinkActive="active">
+                    <a routerLink="/surveys">Surveys</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li routerLinkActive="active">
+                    <a routerLink="/mysurveys" *ngIf="authService.isIspitivac()">My Surveys</a>
+                </li>
                 <ng-template [ngIf]="!authService.isAuthenticated()">
-                    <li routerLinkActive="active"><a routerLink="/signup">Register</a></li>
-                    <li routerLinkActive="active"><a routerLink="/signin">Log In</a></li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/signup">Register</a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/signin">Log In</a>
+                    </li>
                 </ng-template>
-                <li> <a *ngIf="authService.isAuthenticated()" disabled>Logged as <span style="font-weight: bold">{{loggedUser}}</span></a></li>
-                <li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a></li>
+                <li>
+                    <a *ngIf="authService.isAuthenticated()" disabled>Logged as
+                        <span style="font-weight: bold">{{loggedUser}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a>
+                </li>
             </ul>
         </div>
     </div>

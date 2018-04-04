@@ -9,7 +9,7 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class QuestionComponent implements OnInit {
     @Input('group') questionGroup: FormGroup;
-    questionTypes: string[] = ['Text', 'Radiogroup', 'Checkbox', 'Rating'];
+    questionTypes: string[] = ['text', 'radiogroup', 'checkbox', 'rating'];
     selectedType: string;
     choices: FormArray[];
 
@@ -99,11 +99,13 @@ export class QuestionComponent implements OnInit {
     }
 
     onChange(selectedType: string) {
+        console.log(selectedType);
         this.questionGroup.controls['title'].reset();
+        this.questionGroup.controls['name'].reset();
         switch (selectedType) {
-        case 'Radiogroup':
+        case 'radiogroup':
         {
-            this.questionGroup.removeControl("minimumRateDescription");
+            this.questionGroup.removeControl("mininumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
@@ -112,23 +114,23 @@ export class QuestionComponent implements OnInit {
 
             break;
         }
-        case 'Rating':
+        case 'rating':
         {
 
-            this.questionGroup.removeControl("minimumRateDescription");
+            this.questionGroup.removeControl("mininumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
             this.questionGroup.removeControl("choices");
-            this.questionGroup.addControl("minimumRateDescription", new FormControl(""));
+            this.questionGroup.addControl("mininumRateDescription", new FormControl(""));
             this.questionGroup.addControl("maximumRateDescription", new FormControl(""));
             break;
         }
 
-        case 'Comment':
+        case 'comment':
         {
 
-            this.questionGroup.removeControl("minimumRateDescription");
+            this.questionGroup.removeControl("mininumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
@@ -136,10 +138,10 @@ export class QuestionComponent implements OnInit {
             break;
         }
 
-        case 'Checkbox':
+        case 'checkbox':
         {
 
-            this.questionGroup.removeControl("minimumRateDescription");
+            this.questionGroup.removeControl("mininumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
@@ -148,23 +150,23 @@ export class QuestionComponent implements OnInit {
             break;
         }
 
-        case 'Matrix':
-        {
+        //case 'Matrix':
+        //{
 
-            this.questionGroup.removeControl("minimumRateDescription");
-            this.questionGroup.removeControl("maximumRateDescription");
-            this.questionGroup.removeControl("columns");
-            this.questionGroup.removeControl("rows");
-            this.questionGroup.removeControl("choices");
-            this.questionGroup.addControl("columns", new FormArray([]));
-            this.questionGroup.addControl("rows", new FormArray([]));
-            break;
-                }
+        //    this.questionGroup.removeControl("minimumRateDescription");
+        //    this.questionGroup.removeControl("maximumRateDescription");
+        //    this.questionGroup.removeControl("columns");
+        //    this.questionGroup.removeControl("rows");
+        //    this.questionGroup.removeControl("choices");
+        //    this.questionGroup.addControl("columns", new FormArray([]));
+        //    this.questionGroup.addControl("rows", new FormArray([]));
+        //    break;
+        //        }
 
         case 'Text':
         {
 
-            this.questionGroup.removeControl("minimumRateDescription");
+            this.questionGroup.removeControl("mininumRateDescription");
             this.questionGroup.removeControl("maximumRateDescription");
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");

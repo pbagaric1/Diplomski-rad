@@ -40,6 +40,36 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
         }
 
+        [System.Web.Http.Route("getallview")]
+        [System.Web.Http.HttpGet]
+        public async Task<HttpResponseMessage> GetAllView()
+        {
+            try
+            {
+                var entity = (await PollRepository.GetAllView());
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+            }
+        }
+
+        [System.Web.Http.Route("getnumberofpolls")]
+        [System.Web.Http.HttpGet]
+        public async Task<HttpResponseMessage> GetNumberOfPolls(int pageIndex, int pageSize)
+        {
+            try
+            {
+                var entity = await PollRepository.GetNumberOfPolls(pageIndex, pageSize);
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+            }
+        }
+
         [System.Web.Http.Route("get")]
         [System.Web.Http.HttpGet]
         public async Task<HttpResponseMessage> Get(Guid id)
@@ -61,44 +91,9 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var entity = await PollRepository.Get(id);
-
-                var questionList = new List<ReceivedQuestionView>();
-
-                foreach (var receivedQuestion in entity.Questions)
-                {
-                    if (receivedQuestion.QuestionType.Type != "Rating")
-                        questionList.Add(QuestionToViewMap.MapToDto(receivedQuestion));
-
-                    else
-                        questionList.Add(RatingToViewMap.MapToDto(receivedQuestion));
-                }
-
-                var pageView = new PageView()
-                {
-                    questions = questionList
-                };
-
-                var pageViewList = new List<PageView>();
-
-                pageViewList.Add(pageView);
-
-                var pollView = new PollView()
-                {
-                    userId = entity.AspNetUserId,
-                    createdOn = entity.CreatedOn,
-                    instructions = entity.Instructions,
-                    title = entity.Name,
-                    pages = pageViewList
-                };
-
-                //pollView.UserId = entity.AspNetUserId;
-                //pollView.CreatedOn = entity.CreatedOn;
-                //pollView.Instructions = entity.Instructions;
-                //pollView.Name = entity.Name;
-                //pollView.Questions = questionViewList;
-
-                return Request.CreateResponse(HttpStatusCode.OK, pollView);
+                var entity = await PollRepository.GetView(id);
+                
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
             {
@@ -106,20 +101,20 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
         }
 
-        //[Route("getbyusername")]
-        //[HttpGet]
-        //public async Task<HttpResponseMessage> GetByUsername(string username)
-        //{
-        //    try
-        //    {
-        //        var entity = (await PollRepository.GetByUsername(username));
-        //        return Request.CreateResponse(HttpStatusCode.OK, entity);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-        //    }
-        //}
+        [Route("getbyusername")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetByUsername(string userId)
+        {
+            try
+            {
+                var entity = (await PollRepository.GetByUsername(userId));
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+            }
+        }
 
         [System.Web.Http.Authorize(Roles = "Admin, Ispitivac")]
         [System.Web.Http.Route("add")]
@@ -137,14 +132,17 @@ namespace Survey.MVC_WebApi.ControllersAPI
 
                 foreach (var receivedQuestion in receivedPoll.Questions)
                 {
-                    if (receivedQuestion.type != "Rating")
-                    questionList.Add(QuestionMap.MapToDto(receivedQuestion, i));
+                    if (receivedQuestion.type == "rating")
+                    questionList.Add(RatingMap.MapToDto(receivedQuestion, i));
                     
-                    else
-                        questionList.Add(RatingMap.MapToDto(receivedQuestion, i));
+                    else if (receivedQuestion.type == "checkbox" || receivedQuestion.type == "radiogroup")
+                        questionList.Add(CheckboxRadiogroupMap.MapToDto(receivedQuestion, i));
 
+                    else
+                        questionList.Add(TextMap.MapToDto(receivedQuestion, i));
                     i++;
                 }
+
 
                 Poll poll = new Poll()
                 {

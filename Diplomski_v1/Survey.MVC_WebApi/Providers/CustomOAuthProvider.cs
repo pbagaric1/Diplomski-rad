@@ -43,7 +43,8 @@ namespace Survey.MVC_WebApi.Providers
             var props = new AuthenticationProperties(new Dictionary<string, string>
             {
                 {  "username", context.UserName },
-                {  "userId", user.Id }
+                {  "userId", user.Id },
+                {  "userRole", user.UserRole },
             });
 
             var ticket = new AuthenticationTicket(oAuthIdentity, props);

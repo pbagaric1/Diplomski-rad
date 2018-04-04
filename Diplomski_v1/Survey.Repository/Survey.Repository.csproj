@@ -66,11 +66,16 @@
     <Compile Include="Repositories\OrganizationRepository.cs" />
     <Compile Include="Repositories\QuestionOptionRepository.cs" />
     <Compile Include="Repositories\PollRepository.cs" />
+    <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\UserPollRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Survey.Business\Survey.Business.csproj">
+      <Project>{230f1315-a5a6-4bcd-bcbf-f6716101c1c1}</Project>
+      <Name>Survey.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Survey.DAL.Common\Survey.DAL.Common.csproj">
       <Project>{5fd9deff-2c23-4179-80e7-91e72e720cb6}</Project>
       <Name>Survey.DAL.Common</Name>

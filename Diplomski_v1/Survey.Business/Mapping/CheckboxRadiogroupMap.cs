@@ -10,7 +10,7 @@ using Survey.DAL.Models;
 
 namespace Survey.Business.Mapping
 {
-    public static class QuestionMap
+    public static class CheckboxRadiogroupMap
     {
         public static Question MapToDto(ReceivedQuestionView item, int questionOrder)
         {
@@ -19,18 +19,30 @@ namespace Survey.Business.Mapping
 
             var choiceList = new List<QuestionChoice>();
             var questionOptionGroup = new QuestionOptionGroup();
-            
+            var questionOptionList = new List<QuestionOption>();
+
+            var questionId = Guid.NewGuid();
 
             if (item.choices != null)
             {
                 foreach (var choice in item.choices)
                 {
+                    var questionChoiceId = Guid.NewGuid();
+
                     QuestionChoice questionChoice = new QuestionChoice()
                     {
-                        Id = Guid.NewGuid(),
+                        Id = questionChoiceId,
                         Name = choice
                     };
+
+                    QuestionOption questionOption = new QuestionOption()
+                    {
+                        Id = Guid.NewGuid(),
+                        QuestionChoiceId = questionChoiceId
+
+                    };
                     choiceList.Add(questionChoice);
+                    questionOptionList.Add(questionOption);
                 }
             }
 
@@ -39,11 +51,13 @@ namespace Survey.Business.Mapping
             return new Question()
             {
                 Title = item.title,
+                Name = item.name,
                 AnswerRequired = item.isRequired,
-                Id = Guid.NewGuid(),
+                Id = questionId,
                 QuestionChoices = choiceList,
                 QuestionOrder = questionOrder,
-                QuestionTypeId = questionType
+                QuestionTypeId = questionType,
+                QuestionOptions = questionOptionList
             };
         }
     }

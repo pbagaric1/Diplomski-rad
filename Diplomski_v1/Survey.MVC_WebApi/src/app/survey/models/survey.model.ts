@@ -1,5 +1,6 @@
 ﻿export class SurveyModel {
 
+    public id : string;
     public userId: string;
     public organization: string;
     public name: string;
@@ -7,8 +8,9 @@
     public createdOn : string;
     public questions: string[];
 
-    constructor(userId: string, name: string, organization: string, createdOn: string, questions: string[]) {
+    constructor(id: string, userId: string, name: string, organization: string, createdOn: string, questions: string[]) {
 
+        this.id = id;
         this.userId = userId;
         this.name = name;
         this.organization = organization;

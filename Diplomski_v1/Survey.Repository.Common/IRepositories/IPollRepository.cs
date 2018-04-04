@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Survey.Business.Models.ViewModels;
 using Survey.DAL.Models;
 
 namespace Survey.Repository.Common.IRepositories
@@ -14,9 +13,11 @@ namespace Survey.Repository.Common.IRepositories
         Task<int> Delete(Poll entity);
         Task<int> Update(Poll entity);
         Task<Poll> Get(Guid id);
-        Task<Poll> GetView(Guid id);
+        Task<PollView> GetView(Guid id);
         Task<IEnumerable<Poll>> GetAll();
+        Task<IEnumerable<PollView>> GetAllView();
         //Task<IEnumerable<Poll>> GetPollsByType(Guid pollTypeId);
-        //Task<IEnumerable<Poll>> GetByUsername(string username);
+        Task<IEnumerable<PollView>> GetByUsername(string userId);
+        Task<PagedResponse> GetNumberOfPolls(int pageNumber, int itemsNumber);
     }
 }

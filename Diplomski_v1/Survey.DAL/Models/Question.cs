@@ -15,13 +15,17 @@ namespace Survey.DAL.Models
         public int? QuestionOptionGroupId { get; set; }
 
         public string Title { get; set; }
+        public string Name { get; set; }
         public bool AnswerRequired { get; set; }
         public int QuestionOrder { get; set; }
         //public QuestionType Type { get; set; }
 
         public virtual QuestionType QuestionType { get; set; }
 
+        public virtual ICollection<QuestionOption> QuestionOptions { get; set; }
+
         public virtual QuestionOptionGroup QuestionOptionGroup { get; set; }
+
         private ICollection<QuestionChoice> _choices;
 
         public virtual ICollection<QuestionChoice> QuestionChoices

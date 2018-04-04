@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-signup',
@@ -16,7 +17,7 @@ export class SignupComponent implements OnInit {
         email: '',
         userRole: ''
     }
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
 
@@ -28,6 +29,8 @@ export class SignupComponent implements OnInit {
         .subscribe(
             (res) => {
                 window.alert("Registration successful.");
+                this.router.navigate(['signin']);
+                
             },
         (error) => {
             window.alert(error.statusText);

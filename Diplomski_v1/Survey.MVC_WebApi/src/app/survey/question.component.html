@@ -1,11 +1,11 @@
-﻿<div [formGroup]="questionGroup">
+﻿<div [formGroup]="questionGroup" >
     <!--<div class="form-group">
         <label>Title</label>
         <input type="text" class="form-control" formControlName="name">
     </div>-->
     <div class="form-group">
         <label>Type</label>
-        <select class="form-control" name="type" formControlName="type"  [(ngModel)]="selectedType" (change)="onChange(selectedType)"> 
+        <select class="form-control" name="type" formControlName="type" [(ngModel)]="selectedType" (change)="onChange(selectedType)">
             <option *ngFor="let questionType of questionTypes" [ngValue]="questionType">
                 {{questionType}}
             </option>
@@ -13,16 +13,20 @@
     </div>
     <div [ngSwitch]="selectedType">
         <!--Text-->
-        <div class="form-group" *ngSwitchCase="'Text'">
-            <label>Title</label>
+        <div class="form-group" *ngSwitchCase="'text'">
+            <label>Question Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
             <label>Answer required?</label>
             <input type="checkbox" class="checkbox" formControlName="isRequired">
         </div>
         <!--Radiogroup-->
-        <div class="form-group" *ngSwitchCase="'Radiogroup'">
+        <div class="form-group" *ngSwitchCase="'radiogroup'">
             <hr />
-            <label>Title</label>
+            <label>Question Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
             <label>Answer required?</label>
             <input type="checkbox" class="checkbox" formControlName="isRequired">
@@ -31,7 +35,8 @@
                 <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index" class="panel panel-default">
                     <div>
                         <input type="text" class="form-control" formControlName="{{i}}">
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 0" (click)="removeChoice(i)"></span>
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 0"
+                            (click)="removeChoice(i)"></span>
                     </div>
                 </div>
                 <div class="margin-20">
@@ -42,9 +47,11 @@
             </div>
         </div>
         <!--Checkbox-->
-        <div class="form-group" *ngSwitchCase="'Checkbox'">
+        <div class="form-group" *ngSwitchCase="'checkbox'">
             <hr />
-            <label>Title</label>
+            <label>Question Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
             <label>Answer required?</label>
             <input type="checkbox" class="checkbox" formControlName="isRequired">
@@ -53,7 +60,8 @@
                 <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index" class="panel panel-default">
                     <div>
                         <input type="text" class="form-control" formControlName="{{i}}">
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 0" (click)="removeChoice(i)"></span>
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 0"
+                            (click)="removeChoice(i)"></span>
                     </div>
                 </div>
                 <div class="margin-20">
@@ -64,21 +72,25 @@
             </div>
         </div>
         <!--Rating-->
-        <div class="form-group" *ngSwitchCase="'Rating'">
+        <div class="form-group" *ngSwitchCase="'rating'">
             <hr />
-            <label>Title</label>
+            <label>Question Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
             <label>Answer required?</label>
             <input type="checkbox" class="checkbox" formControlName="isRequired">
             <label>Minimum Rate Description</label>
-            <input type="text" class="form-control" formControlName="minimumRateDescription" />
+            <input type="text" class="form-control" formControlName="mininumRateDescription" />
             <label>Maximum Rate Description</label>
             <input type="text" class="form-control" formControlName="maximumRateDescription" />
         </div>
         <!--Matrix-->
-        <div class="form-group" *ngSwitchCase="'Matrix'">
+        <div class="form-group" *ngSwitchCase="'matrix'">
             <hr />
-            <label>Title</label>
+            <label>Question Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
             <label>Answer required?</label>
             <input type="checkbox" class="checkbox" formControlName="isRequired">
@@ -90,7 +102,8 @@
                         <input type="text" class="form-control" formControlName="value">
                         <label>Text</label>
                         <input type="text" class="form-control" formControlName="text">
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.columns.controls.length > 0" (click)="removeColumn(i)"></span>
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.columns.controls.length > 0"
+                            (click)="removeColumn(i)"></span>
                         <div class="margin-20">
                             <button (click)="addColumn(i)" class="btn btn-primary">
                                 Add column +
@@ -108,7 +121,8 @@
                         <input type="text" class="form-control" formControlName="value">
                         <label>Text</label>
                         <input type="text" class="form-control" formControlName="text">
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.rows.controls.length > 0" (click)="removeRow(i)"></span>
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.rows.controls.length > 0"
+                            (click)="removeRow(i)"></span>
                     </div>
                 </div>
                 <div class="margin-20">

@@ -18,9 +18,10 @@ namespace Survey.Business.Mapping.DtoToView
             return new ReceivedQuestionView()
             {
                 title = item.Title,
+                name = item.Name,
                 type = item.QuestionType.Type,
                 isRequired = item.AnswerRequired,
-                minimumRateDescription = item.QuestionOptionGroup.MinimumRateDescription,
+                mininumRateDescription = item.QuestionOptionGroup.MinimumRateDescription,
                 maximumRateDescription = item.QuestionOptionGroup.MaximumRateDescription
             };
         }

@@ -27,26 +27,29 @@ export class AuthService {
 
         this.http.post('http://localhost:52797/api/token', creds, { headers: headers })
             .subscribe(
-            (response: Response) => {
-                this.router.navigate(['/']);
-                this.loggedUser = response.json().username;
-                window.localStorage.setItem('auth_token', response.json().access_token);
-                window.localStorage.setItem('username', this.loggedUser);
-                window.localStorage.setItem('userId', response.json().userId);
-                this.isLogged = true;
-                this.getLoggedUser(this.loggedUser);
-                console.log("Succesfully logged in");
-            },
-            (error) => {
-                console.log(error);
-                window.alert("You entered wrong username or password.");
-            }
+                (response: Response) => {
+                    this.router.navigate(['/']);
+                    this.loggedUser = response.json().username;
+                    window.localStorage.setItem('auth_token', response.json().access_token);
+                    window.localStorage.setItem('username', this.loggedUser);
+                    window.localStorage.setItem('userId', response.json().userId);
+                    window.localStorage.setItem('userRole', response.json().userRole);
+                    this.isLogged = true;
+                    this.getLoggedUser(this.loggedUser);
+                    console.log("Succesfully logged in");
+                },
+                (error) => {
+                    console.log(error);
+                    window.alert("You entered wrong username or password.");
+                }
             )
     }
 
     logOut() {
         window.localStorage.removeItem('auth_token');
         window.localStorage.removeItem('username');
+        window.localStorage.removeItem('userId');
+        window.localStorage.removeItem('userRole');
         this.router.navigate(['signin']);
     }
 
@@ -62,6 +65,17 @@ export class AuthService {
         else return false;
     }
 
+    isIspitanik() {
+        if (localStorage.getItem('userRole') == "Ispitanik")
+            return true;
+        else return false;
+    }
+
+    isIspitivac() {
+        if (localStorage.getItem('userRole') == "Ispitivac")
+            return true;
+        else return false;
+    }
 
     getLoggedUser(currentUser: string) {
         this.userChanged.next(this.loggedUser);

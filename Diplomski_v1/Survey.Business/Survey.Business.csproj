@@ -42,10 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\QuestionTypeEnum.cs" />
-    <Compile Include="Mapping\DtoToView\QuestionToViewMap.cs" />
+    <Compile Include="Mapping\DtoToView\PollToViewMap.cs" />
+    <Compile Include="Mapping\DtoToView\ChkboxRadioToViewMap.cs" />
     <Compile Include="Mapping\DtoToView\RatingToViewMap.cs" />
-    <Compile Include="Mapping\QuestionMap.cs" />
+    <Compile Include="Mapping\CheckboxRadiogroupMap.cs" />
+    <Compile Include="Mapping\DtoToView\TextToViewMap.cs" />
     <Compile Include="Mapping\RatingMap.cs" />
+    <Compile Include="Mapping\TextMap.cs" />
+    <Compile Include="Models\ViewModels\PagedResponse.cs" />
     <Compile Include="Models\ViewModels\PageView.cs" />
     <Compile Include="Models\ViewModels\PollView.cs" />
     <Compile Include="Models\ViewModels\ReceivedPollView.cs" />

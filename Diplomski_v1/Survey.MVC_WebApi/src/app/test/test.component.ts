@@ -124,21 +124,24 @@ export class TestComponent implements OnInit {
            .subscribe(data => {
                receivedSurvey = data;
                console.log(receivedSurvey);
-               surveyModel = new Survey.ReactSurveyModel(receivedSurvey);
-               Survey.SurveyNG.render('surveyElement', { model: surveyModel });
-           });
-        console.log(this.json);
-        
-        let asd = new Survey.Model(receivedSurvey);
+               //surveyModel = new Survey.ReactSurveyModel(receivedSurvey);
+               //Survey.SurveyNG.render('surveyElement', { model: surveyModel, isExpanded: true });
+               //surveyModel.mode = 'display';
 
-        asd
-            .onComplete
-            .add(function(result: any) {
-                document
-                    .querySelector('#surveyResult')
-                    .innerHTML = "result: " + JSON.stringify(result.data);
-                console.log(result.data);
-                
+               surveyModel = new Survey.Model(receivedSurvey);
+               Survey.SurveyNG.render('surveyElement', { model: surveyModel, isExpanded: true });
+
+               surveyModel
+                   .onComplete
+                   .add(function (result: any) {
+                       document
+                           .querySelector('#surveyResult')
+                           .innerHTML = "result: " + JSON.stringify(result.data);
+                       console.log(result.data);
+
+                   });
             });
+
+
     }
 }

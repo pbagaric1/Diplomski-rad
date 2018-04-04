@@ -5,20 +5,24 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.ApplicationInsights.Web;
+using Newtonsoft.Json.Linq;
 using Survey.Repository.Common.IGenericRepository;
 using Survey.DAL.Models;
 using Survey.Repository.Common.IRepositories;
 
-namespace Survey.MVC_WebApi.APIControllers
+namespace Survey.MVC_WebApi.ControllersAPI
 {
     [RoutePrefix("api/answer")]
     public class AnswerController : ApiController
     {
         private IAnswerRepository AnswerRepository;
+        private IQuestionRepository QuestionRepository;
 
-        public AnswerController(IAnswerRepository _AnswerRepository)
+        public AnswerController(IAnswerRepository _AnswerRepository, IQuestionRepository _QuestionRepository)
         {
             this.AnswerRepository = _AnswerRepository;
+            this.QuestionRepository = _QuestionRepository;
         }
 
         [Route("getall")]
@@ -42,7 +46,7 @@ namespace Survey.MVC_WebApi.APIControllers
         {
             try
             {
-                var entity =(await AnswerRepository.Get(id));
+                var entity = (await AnswerRepository.Get(id));
                 return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception e)
@@ -68,19 +72,49 @@ namespace Survey.MVC_WebApi.APIControllers
 
         [Route("add")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Add(Answer answer)
+        public async Task<HttpResponseMessage> Add(JObject receivedObject)
         {
             try
             {
-                answer.Id = Guid.NewGuid();
-                var entity = await AnswerRepository.Add((answer));
-                return Request.CreateResponse(HttpStatusCode.OK, entity);
+                var results = receivedObject["results"].ToObject<Dictionary<string, string>>();
+                var userId = receivedObject["userId"].ToString();
+                var surveyId = receivedObject["surveyId"].ToString();
+                Guid pollId = new Guid(surveyId);
+
+                var questions = await QuestionRepository.GetQuestionsByPoll(pollId);
+
+                int i = 0;
+                foreach (string key in results.Keys)
+                {
+                    var item = questions.ElementAt(i);
+
+                    if (key == item.Name)
+                    {
+                        dynamic value = results[key];
+
+                        //if(item.QuestionType)
+                        
+                        Answer answer = new Answer()
+                        {
+                            AspNetUserId = userId,
+                            Id = Guid.NewGuid(),
+                            QuestionId = item.Id,
+                            Text = value,
+                           // QuestionOptionId = item.
+                        };
+
+                        var entity = await AnswerRepository.Add(answer);
+                    }
+
+                    i++;
+                }
+
+                return Request.CreateResponse(HttpStatusCode.OK, 1);
             }
             catch (Exception e)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
             }
-
         }
 
         [Route("delete")]
@@ -96,7 +130,6 @@ namespace Survey.MVC_WebApi.APIControllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
             }
-
         }
 
         [Route("edit")]

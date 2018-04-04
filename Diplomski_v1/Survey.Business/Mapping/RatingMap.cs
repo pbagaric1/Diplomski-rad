@@ -17,10 +17,10 @@ namespace Survey.Business.Mapping
                 return null;
             var questionOptionGroup = new QuestionOptionGroup();
 
-            if (item.minimumRateDescription != null)
+            if (item.mininumRateDescription != null || item.maximumRateDescription != null)
             {
                 questionOptionGroup.MaximumRateDescription = item.maximumRateDescription;
-                questionOptionGroup.MinimumRateDescription = item.minimumRateDescription;
+                questionOptionGroup.MinimumRateDescription = item.mininumRateDescription;
             }
 
 
@@ -29,6 +29,7 @@ namespace Survey.Business.Mapping
             return new Question()
             {
                 Title = item.title,
+                Name = item.name,
                 AnswerRequired = item.isRequired,
                 Id = Guid.NewGuid(),
                 QuestionOptionGroup = questionOptionGroup,

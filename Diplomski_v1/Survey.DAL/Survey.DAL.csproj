@@ -79,6 +79,18 @@
     <Compile Include="Migrations\201803181336161_Initial31.Designer.cs">
       <DependentUpon>201803181336161_Initial31.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803191115259_NameToQuestionTable.cs" />
+    <Compile Include="Migrations\201803191115259_NameToQuestionTable.Designer.cs">
+      <DependentUpon>201803191115259_NameToQuestionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803260732459_ChangedAnswerDto.cs" />
+    <Compile Include="Migrations\201803260732459_ChangedAnswerDto.Designer.cs">
+      <DependentUpon>201803260732459_ChangedAnswerDto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803260951196_ChangedAnswerDto1.cs" />
+    <Compile Include="Migrations\201803260951196_ChangedAnswerDto1.Designer.cs">
+      <DependentUpon>201803260951196_ChangedAnswerDto1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AspNetRole.cs" />
@@ -130,6 +142,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803181336161_Initial31.resx">
       <DependentUpon>201803181336161_Initial31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191115259_NameToQuestionTable.resx">
+      <DependentUpon>201803191115259_NameToQuestionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803260732459_ChangedAnswerDto.resx">
+      <DependentUpon>201803260732459_ChangedAnswerDto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803260951196_ChangedAnswerDto1.resx">
+      <DependentUpon>201803260951196_ChangedAnswerDto1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

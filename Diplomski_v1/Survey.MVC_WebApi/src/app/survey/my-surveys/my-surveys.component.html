@@ -1,0 +1,16 @@
+﻿<h1>My Surveys</h1>
+<table class="table table-striped table-bordered">
+            <tr>
+                    <th>Survey</th>
+                <th>Created On</th>
+                <th></th>
+                </tr>
+        <tr *ngFor="let survey of surveys; let i = index">
+            <td>{{survey.title}}</td>
+            <td>{{survey.createdOn  | date:'dd-MM-yyyy HH:mm:ss a'}}</td><td>
+                            <a 
+                               style="cursor: pointer; text-align:center; display:block;" [routerLink]="['id', survey.Id]"
+                               (click)="onDetails(survey)">View results</a>
+                        </td> 
+        </tr>
+</table>

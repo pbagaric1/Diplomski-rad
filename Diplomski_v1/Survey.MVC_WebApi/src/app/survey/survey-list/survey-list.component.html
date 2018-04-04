@@ -1,0 +1,32 @@
+<h1>Surveys</h1>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Survey</th>
+                        <th>Created On</th>
+                        <th></th>
+                    </tr>
+                    <tr *ngFor="let survey of surveys
+                        | paginate: {
+                        id: 'server',
+                        itemsPerPage: itemsPerPage,
+                        currentPage: currentPage, 
+                        totalItems: totalItems
+                        }; 
+                        let i = index">
+                        <td>{{survey.title}}</td>
+                        <td>{{survey.createdOn | date:'dd-MM-yyyy HH:mm:ss a'}}</td>
+                        <td>
+                            <a 
+                               style="cursor: pointer" [routerLink]="['id', survey.Id]" (click)="onDetails(survey)">Details</a>
+                               <ng-template [ngIf]="authService.isIspitanik()">
+                                <a [routerLink]="['takesurvey/id', survey.Id]" (click)="onDetails(survey)">Take Survey</a>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </table>
+                <pagination-controls
+                    (pageChange)="pageChange($event)"
+                                     id= "server"
+         maxSize="5"
+    directionLinks="true">
+</pagination-controls>`

@@ -14,8 +14,8 @@ namespace Survey.DAL.Models
         public Guid QuestionChoiceId { get; set; }
 
         //public ICollection<Answer> Answers { get; set; }
-        //public virtual QuestionChoice QuestionChoice { get; set; }
-        //public virtual Question Question { get; set; }
+        public virtual QuestionChoice QuestionChoice { get; set; }
+        public virtual Question Question { get; set; }
 
     }
 }

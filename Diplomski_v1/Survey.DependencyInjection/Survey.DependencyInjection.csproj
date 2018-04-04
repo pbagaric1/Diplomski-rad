@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapperConfig\MappingProfile.cs" />
     <Compile Include="DIConfig\BottomLayer.cs" />
     <Compile Include="DIConfig\MiddleLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,9 +84,7 @@
       <Name>Survey.Repository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AutoMapperConfig\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -65,12 +65,17 @@
     <Compile Include="IRepositories\IOrganizationRepository.cs" />
     <Compile Include="IRepositories\IQuestionOptionRepository.cs" />
     <Compile Include="IRepositories\IPollRepository.cs" />
+    <Compile Include="IRepositories\IQuestionRepository.cs" />
     <Compile Include="IRepositories\IUserPollRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Survey.Business\Survey.Business.csproj">
+      <Project>{230f1315-a5a6-4bcd-bcbf-f6716101c1c1}</Project>
+      <Name>Survey.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Survey.DAL\Survey.DAL.csproj">
       <Project>{67a75a20-db8b-4810-9225-e0ec1bc62198}</Project>
       <Name>Survey.DAL</Name>

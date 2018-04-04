@@ -8,9 +8,9 @@ namespace Survey.Business.Enums
 {
     public enum QuestionTypeEnum
     {
-        Text = 1,
-        Radiogroup = 2,
-        Checkbox = 3,
-        Rating = 4
+        text = 1,
+        radiogroup = 2,
+        checkbox = 3,
+        rating = 4
     }
 }

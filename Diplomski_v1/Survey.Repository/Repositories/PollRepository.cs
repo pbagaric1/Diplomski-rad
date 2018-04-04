@@ -8,19 +8,19 @@ using Survey.Repository.Common.IGenericRepository;
 using AutoMapper;
 using Survey.DAL.Models;
 using System.Data.Entity;
+using Survey.Business.Mapping.DtoToView;
+using Survey.Business.Models.ViewModels;
 
 namespace Survey.Repository.Repositories
 {
     public class PollRepository : IPollRepository
     {
-
         private readonly IGenericRepository GenericRepository;
 
         public PollRepository(IGenericRepository _genericRepository)
         {
             this.GenericRepository = _genericRepository;
         }
-
 
         public async Task<int> Add(Poll entity)
         {
@@ -81,13 +81,15 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        public async Task<Poll> GetView(Guid id)
+        public async Task<PollView> GetView(Guid id)
         {
             try
             {
-                var response = (await GenericRepository.Get<Poll>(id));
+                var entity = await GenericRepository.Get<Poll>(id);
 
-                return response;
+                var pollView = PollToViewMap.MapToDto(entity);
+
+                return pollView;
             }
 
             catch (Exception ex)
@@ -110,20 +112,85 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        //public async Task<IEnumerable<Poll>> GetByUsername(string username)
-        //{
-        //    try
-        //    {
-        //        var response = Mapper.Map<IEnumerable<Poll>>(await GenericRepository
-        //            .GetQueryable<Poll>().Where(x => x.AspNetUser.UserName == username)
-        //            .ToListAsync());
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+        public async Task<IEnumerable<PollView>> GetAllView()
+        {
+            try
+            {
+                var response = (await GenericRepository.GetAll<Poll>());
+
+                var pollViewList = response.Select(poll => PollToViewMap.MapToDto(poll)).ToList();
+
+                return pollViewList;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<PagedResponse> GetNumberOfPolls(int pageIndex, int pageSize)
+        {
+            try
+            {
+                var response = await GenericRepository.GetAll<Poll>();
+
+                var orderedList = response.Select(x => new Poll
+                {
+                    Id = x.Id,
+                    CreatedOn = x.CreatedOn,
+                    AspNetUserId = x.AspNetUserId,
+                    Instructions = x.Instructions,
+                    Name = x.Name,
+                    OrganizationId = x.OrganizationId,
+                    Questions = x.Questions.OrderBy(q => q.QuestionOrder).ToList()
+                }).ToList();
+
+                var pollViewList = orderedList
+                    .Select(poll => PollToViewMap.MapToDto(poll))
+                    .OrderByDescending(p => p.createdOn)
+                    .Skip(pageSize * (pageIndex - 1))
+                    .Take(pageSize)
+                    .ToList();
+
+                return new PagedResponse()
+                {
+                    Total = response.Count(),
+                    Data = pollViewList
+                };
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<PollView>> GetByUsername(string userId)
+        {
+            try
+            {
+                var response = (await GenericRepository
+                    .GetQueryable<Poll>().Where(x => x.AspNetUserId == userId)
+                    .ToListAsync());
+
+                //List<PollView> pollViewList = new List<PollView>();
+
+                var pollViewList = response.Select(poll => PollToViewMap.MapToDto(poll)).ToList();
+
+                return pollViewList;
+
+                //foreach (var poll in response)
+                //{
+                //    pollViewList.Add(PollToViewMap.MapToDto(poll));
+                //}
+                //return pollViewList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         //public async Task<IEnumerable<Poll>> GetPollsByType(Guid pollTypeId)
         //{
