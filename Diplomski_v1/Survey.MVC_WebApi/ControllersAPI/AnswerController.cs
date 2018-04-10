@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Metadata;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -55,20 +56,35 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
         }
 
-        //[Route("getanswersbyquestion")]
-        //[HttpGet]
-        //public async Task<HttpResponseMessage> GetAnswersByQuestion(Guid questionId)
-        //{
-        //    try
-        //    {
-        //        var entity = (await AnswerRepository.GetAnswersByQuestion(questionId));
-        //        return Request.CreateResponse(HttpStatusCode.OK, entity);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
-        //    }
-        //}
+        [Route("getanswersbyquestion")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetAnswersByQuestion(Guid questionId)
+        {
+            try
+            {
+                var entity = (await AnswerRepository.GetAnswersByQuestion(questionId));
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+            }
+        }
+
+        [Route("getquestionresults")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetQuestionResults(Guid questionId)
+        {
+            try
+            {
+                var entity = await AnswerRepository.GetQuestionResults(questionId);
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Not found.");
+            }
+        }
 
         [Route("add")]
         [HttpPost]
@@ -76,7 +92,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
         {
             try
             {
-                var results = receivedObject["results"].ToObject<Dictionary<string, string>>();
+                var results = receivedObject["results"].ToObject<Dictionary<string, object>>();
                 var userId = receivedObject["userId"].ToString();
                 var surveyId = receivedObject["surveyId"].ToString();
                 Guid pollId = new Guid(surveyId);
@@ -87,23 +103,45 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 foreach (string key in results.Keys)
                 {
                     var item = questions.ElementAt(i);
+                    
 
                     if (key == item.Name)
                     {
+                        var answer = new Answer();
                         dynamic value = results[key];
 
-                        //if(item.QuestionType)
-                        
-                        Answer answer = new Answer()
+                        if (item.QuestionType.Type == "checkbox")
                         {
-                            AspNetUserId = userId,
-                            Id = Guid.NewGuid(),
-                            QuestionId = item.Id,
-                            Text = value,
-                           // QuestionOptionId = item.
-                        };
+                            int j = 0;
+                            foreach (var asd in value)
+                            {
+                                answer = new Answer()
+                                {
+                                    AspNetUserId = userId,
+                                    Id = Guid.NewGuid(),
+                                    QuestionId = item.Id,
+                                    Text = value[j].ToString()
+                                };
 
-                        var entity = await AnswerRepository.Add(answer);
+                                var entity = await AnswerRepository.Add(answer);
+                                j++;
+                            }
+                        }
+
+                        else
+                        {
+                            answer = new Answer()
+                            {
+                                AspNetUserId = userId,
+                                Id = Guid.NewGuid(),
+                                QuestionId = item.Id,
+                                Text = value.ToString()
+                            };
+
+
+                            var entity = await AnswerRepository.Add(answer);
+                        }
+                        
                     }
 
                     i++;

@@ -57,7 +57,7 @@ namespace Survey.Business.Mapping
                 QuestionChoices = choiceList,
                 QuestionOrder = questionOrder,
                 QuestionTypeId = questionType,
-                QuestionOptions = questionOptionList
+                //QuestionOptions = questionOptionList
             };
         }
     }

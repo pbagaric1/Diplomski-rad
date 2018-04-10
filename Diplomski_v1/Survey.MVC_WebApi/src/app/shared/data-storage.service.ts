@@ -102,5 +102,10 @@ export class DataStorageService {
         
     }
 
+    getQuestionResults(questionId: string) {
+        return this.http.get(this.url + 'answer/getquestionresults?questionId=' + questionId)
+            .map(res => res.json());
+    }
+
 
 }

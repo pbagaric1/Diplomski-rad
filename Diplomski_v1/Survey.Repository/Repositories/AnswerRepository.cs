@@ -1,9 +1,12 @@
 ﻿using Survey.Repository.Common.IGenericRepository;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using Survey.Business.Models.ViewModels;
 using Survey.DAL.Models;
 using Survey.Repository.Common.IRepositories;
 
@@ -17,7 +20,6 @@ namespace Survey.Repository.Repositories
         {
             this.GenericRepository = _genericRepository;
         }
-
 
         public async Task<int> Add(Answer entity)
         {
@@ -92,20 +94,123 @@ namespace Survey.Repository.Repositories
             }
         }
 
-        //public async Task<IEnumerable<Answer>> GetAnswersByQuestion(Guid questionId)
-        //{
-        //    try
-        //    {
-        //        var response = Mapper.Map<IEnumerable<Answer>>(await GenericRepository
-        //            .GetQueryable<Answer>().Where(x => x.QuestionId == questionId)
-        //            .ToListAsync());
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+        public async Task<IEnumerable<Answer>> GetAnswersByQuestion(Guid questionId)
+        {
+            try
+            {
+                var response = await GenericRepository
+                    .GetQueryable<Answer>().Where(x => x.QuestionId == questionId)
+                    .ToListAsync();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<DataView>> GetQuestionResults(Guid questionId)
+        {
+            try
+            {
+                var answers = await GenericRepository
+                    .GetQueryable<Answer>().Where(x => x.QuestionId == questionId)
+                    .Select(i => new { i.Text, i.Question.QuestionType.Type, i.Question.QuestionChoices })
+                    .ToListAsync();
+
+                var data = new List<DataView>();
+
+                var firstAnswer = answers.First();
+
+                switch (firstAnswer.Type)
+                {
+                    case "rating":
+                    {
+                        foreach (var choice in firstAnswer.QuestionChoices)
+                        {
+                            var dataView = new DataView()
+                            {
+                                name = choice.Name,
+                                value = answers.Where(x => x.Text == choice.Name).Count()
+                            };
+                            data.Add(dataView);
+                        }
+                        break;
+                    }
+
+                    case "radiogroup":
+                    {
+                        foreach (var choice in firstAnswer.QuestionChoices)
+                        {
+                            var dataView = new DataView()
+                            {
+                                name = choice.Name,
+                                value = answers.Where(x => x.Text == choice.Name).Count()
+                            };
+                            data.Add(dataView);
+                        }
+                        break;
+                    }
+
+                    case "checkbox":
+                    {
+                        foreach (var choice in firstAnswer.QuestionChoices)
+                        {
+                            var dataView = new DataView()
+                            {
+                                name = choice.Name,
+                                value = answers.Where(x => x.Text == choice.Name).Count()
+                            };
+                            data.Add(dataView);
+                        }
+                        break;
+                    }
+
+                    default:
+
+                        break;
+                }
+
+                //        foreach (var answer in answers)
+                //{
+                //    if (data.Any())
+                //        break;
+
+                //    switch (answer.Type)
+                //    {
+                //        case "rating":
+
+                //            break;
+
+                //        case "radiogroup":
+                //        {
+
+                //            foreach (var choice in answer.QuestionChoices)
+                //            {
+                //                var dataView = new DataView()
+                //                {
+                //                    name = choice.Name,
+                //                    value = answers.Where(x => x.Text == choice.Name).Count()
+                //                };
+                //                    data.Add(dataView);
+                //            }
+                //            }
+
+                //            break;
+
+                //        default:
+
+                //            break;
+                //    }
+                //}
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public async Task<int> Update(Answer entity)
         {

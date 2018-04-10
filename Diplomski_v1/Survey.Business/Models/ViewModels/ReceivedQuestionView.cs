@@ -8,6 +8,7 @@ namespace Survey.Business.Models.ViewModels
 {
     public class ReceivedQuestionView
     {
+        public Guid id { get; set; }
         public string title { get; set; }
         public string name { get; set; }
         public string type { get; set; }

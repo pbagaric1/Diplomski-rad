@@ -17,11 +17,14 @@ var MySurveysResultsComponent = /** @class */ (function () {
         this.dataStorageService = dataStorageService;
         this.activatedRoute = activatedRoute;
     }
+    MySurveysResultsComponent.prototype.onDetails = function (survey) {
+        this.dataStorageService.onChangeSurvey(survey);
+    };
     MySurveysResultsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.dataStorageService.currentSurvey.subscribe(function (survey) { return _this.surveyForm = survey; });
         this.questions = this.surveyForm.pages[0].questions;
-        //console.log(this.surveyForm.pages[0].questions);
+        console.log(this.questions);
         // this.activatedRoute.params.subscribe((params: Params) => {
         //     this.surveyId = params['id'];
         //     console.log(this.surveyId);

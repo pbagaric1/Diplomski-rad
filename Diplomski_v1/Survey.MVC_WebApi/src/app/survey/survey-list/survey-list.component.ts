@@ -37,10 +37,11 @@ export class SurveyListComponent implements OnInit {
     pageChange(page: any) {
         this.dataStorageService.getSurveys(page, this.itemsPerPage)
             .subscribe(data => {
-                this.surveys = data.Data;
-                this.totalItems = data.Total;
-                this.currentPage = page;
-                console.log(data);
-            });
-    }
+                    this.surveys = data.Data;
+                    this.totalItems = data.Total;
+                    this.currentPage = page;
+                    console.log(data);
+                }
+            )};
+    
 }

@@ -84,6 +84,10 @@ var DataStorageService = /** @class */ (function () {
         return this.http.get(this.url + 'question/getbysurvey?pollId=' + surveyId)
             .map(function (res) { return res.json(); });
     };
+    DataStorageService.prototype.getQuestionResults = function (questionId) {
+        return this.http.get(this.url + 'answer/getquestionresults?questionId=' + questionId)
+            .map(function (res) { return res.json(); });
+    };
     DataStorageService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http,

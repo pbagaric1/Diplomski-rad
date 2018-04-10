@@ -11,7 +11,7 @@
         <td>{{question.type}}</td>
         <td>{{question.isRequired}}</td>
             <td>
-                <a style="cursor: pointer; text-align:center; display:block;" [routerLink]="['id', question.Id]" (click)="onDetails(survey)">View results</a>
+                <a style="cursor: pointer; text-align:center; display:block;" [routerLink]="['questionId', question.id]" (click)="onDetails(survey)">View results</a>
             </td>
     </tr>
 </table>

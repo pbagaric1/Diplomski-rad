@@ -1,3 +1,4 @@
+import { QuestionResults } from './survey/my-surveys/my-surveys-results/question-results/question-results.component';
 import { MySurveysResultsComponent } from './survey/my-surveys/my-surveys-results/my-surveys-results.component';
 import { MySurveysComponent } from './survey/my-surveys/my-surveys.component';
 import { SurveyItemComponent } from './survey/survey-list/survey-item/survey-item.component';
@@ -23,6 +24,8 @@ const appRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'mysurveys', component: MySurveysComponent },
     { path: 'mysurveys/id/:id', component: MySurveysResultsComponent },
+    { path: 'questionresults', component: QuestionResults },
+    { path: 'mysurveys/id/:id/questionId/:id', component: QuestionResults }
 
 ];
 

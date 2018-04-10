@@ -19,11 +19,17 @@ export class MySurveysResultsComponent implements OnInit {
     surveyId: string;
     questions : any[];
 
+    onDetails(survey: SurveyModel)
+    {
+        this.dataStorageService.onChangeSurvey(survey);
+    }
+
     ngOnInit()
      {
         this.dataStorageService.currentSurvey.subscribe(survey => this.surveyForm = survey);
          this.questions = this.surveyForm.pages[0].questions;
-         //console.log(this.surveyForm.pages[0].questions);
+
+        console.log(this.questions);
 
 
         // this.activatedRoute.params.subscribe((params: Params) => {

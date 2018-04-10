@@ -35,6 +35,7 @@ var SurveyListComponent = /** @class */ (function () {
             console.log(data);
         });
     };
+    ;
     SurveyListComponent = __decorate([
         core_1.Component({
             selector: 'app-survey-list',

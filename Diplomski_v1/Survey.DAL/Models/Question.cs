@@ -22,7 +22,7 @@ namespace Survey.DAL.Models
 
         public virtual QuestionType QuestionType { get; set; }
 
-        public virtual ICollection<QuestionOption> QuestionOptions { get; set; }
+        //public virtual ICollection<QuestionOption> QuestionOptions { get; set; }
 
         public virtual QuestionOptionGroup QuestionOptionGroup { get; set; }
 

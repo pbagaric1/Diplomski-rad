@@ -1,13 +1,13 @@
 ﻿import { Component, Input, OnChanges } from '@angular/core';
-//import { BaseChartComponent, ColorHelper } from '@swimlane/ngx-charts';
+import { BaseChartComponent, ColorHelper } from '@swimlane/ngx-charts';
 import * as d3 from 'd3';
 
 @Component({
     selector: 'custom-chart',
     templateUrl: './custom-chart.component.html'
 })
-export class CustomChartComponent {
-    /*dims: any;
+export class CustomChartComponent extends BaseChartComponent implements OnChanges {
+    dims: any;
     xScale: any;
     yScale: any;
     xDomain: any;
@@ -16,7 +16,8 @@ export class CustomChartComponent {
     colorScheme: any = 'cool';
 
     @Input() view : any;
-    @Input() results : any;
+    @Input() results: any;
+
     ngOnChanges() {
         this.update();
     }
@@ -58,5 +59,5 @@ export class CustomChartComponent {
     }
     setColors() {
         this.colors = new ColorHelper(this.colorScheme, 'ordinal', this.xDomain);
-    }*/
+    }
 }

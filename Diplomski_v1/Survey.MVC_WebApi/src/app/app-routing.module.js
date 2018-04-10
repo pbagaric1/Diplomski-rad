@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var question_results_component_1 = require("./survey/my-surveys/my-surveys-results/question-results/question-results.component");
 var my_surveys_results_component_1 = require("./survey/my-surveys/my-surveys-results/my-surveys-results.component");
 var my_surveys_component_1 = require("./survey/my-surveys/my-surveys.component");
 var survey_item_component_1 = require("./survey/survey-list/survey-item/survey-item.component");
@@ -30,6 +31,8 @@ var appRoutes = [
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'mysurveys', component: my_surveys_component_1.MySurveysComponent },
     { path: 'mysurveys/id/:id', component: my_surveys_results_component_1.MySurveysResultsComponent },
+    { path: 'questionresults', component: question_results_component_1.QuestionResults },
+    { path: 'mysurveys/id/:id/questionId/:id', component: question_results_component_1.QuestionResults }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

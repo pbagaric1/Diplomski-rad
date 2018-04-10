@@ -1,3 +1,4 @@
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CustomChartComponent } from './shared/custom-chart.component';
 import { QuestionResults } from './survey/my-surveys/my-surveys-results/question-results/question-results.component';
 import { MySurveysComponent } from './survey/my-surveys/my-surveys.component';
@@ -23,7 +24,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { DatePipe, AsyncPipe} from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination'; //importing ng2-pagination
 import { MySurveysResultsComponent } from './survey/my-surveys/my-surveys-results/my-surveys-results.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     imports: [BrowserModule,
@@ -32,12 +33,13 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         HttpModule,
         AppRoutingModule,
         NgxPaginationModule,
-        NgxChartsModule
+        NgxChartsModule,
+        BrowserAnimationsModule
     ],
 
     declarations: [AppComponent, HeaderComponent, SignupComponent, SigninComponent, SurveyCreateComponent, TestComponent,
         AnswerComponent, QuestionComponent, DashboardComponent, SurveyListComponent, SurveyItemComponent, SurveyTakeComponent,
-        MySurveysComponent, MySurveysResultsComponent, QuestionResults],
+        MySurveysComponent, MySurveysResultsComponent, QuestionResults, CustomChartComponent],
 
     providers: [AuthService, DataStorageService, DatePipe, AsyncPipe],
 

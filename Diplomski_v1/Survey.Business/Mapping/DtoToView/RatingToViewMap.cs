@@ -17,6 +17,7 @@ namespace Survey.Business.Mapping.DtoToView
 
             return new ReceivedQuestionView()
             {
+                id = item.Id,
                 title = item.Title,
                 name = item.Name,
                 type = item.QuestionType.Type,
