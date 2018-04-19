@@ -26,13 +26,12 @@ var appRoutes = [
     { path: 'createsurvey', component: survey_create_component_1.SurveyCreateComponent },
     { path: 'test', component: test_component_1.TestComponent },
     { path: 'surveys', component: survey_list_component_1.SurveyListComponent },
-    { path: 'surveys/id/:id', component: survey_item_component_1.SurveyItemComponent },
-    { path: 'surveys/takesurvey/id/:id', component: survey_take_component_1.SurveyTakeComponent },
+    { path: 'surveys/details', component: survey_item_component_1.SurveyItemComponent },
+    { path: 'surveys/takesurvey', component: survey_take_component_1.SurveyTakeComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'mysurveys', component: my_surveys_component_1.MySurveysComponent },
-    { path: 'mysurveys/id/:id', component: my_surveys_results_component_1.MySurveysResultsComponent },
-    { path: 'questionresults', component: question_results_component_1.QuestionResults },
-    { path: 'mysurveys/id/:id/questionId/:id', component: question_results_component_1.QuestionResults }
+    { path: 'mysurveys/details', component: my_surveys_results_component_1.MySurveysResultsComponent },
+    { path: 'mysurveys/details/questionresults', component: question_results_component_1.QuestionResults },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

@@ -15,6 +15,8 @@
 
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+      '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
+      'tslib': 'npm:tslib/tslib.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
       '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
       '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
@@ -26,6 +28,8 @@
       '@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
       '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
       '@angular/platform-browser/animations': 'npm:/@angular/platform-browser/bundles/platform-browser-animations.umd.js',
+      '@ngx-loading-bar/http-client': 'npm:/@ngx-loading-bar/http-client/bundles/http-client.umd.js',
+      '@ngx-loading-bar/core': 'npm:/@ngx-loading-bar/core/bundles/core.umd.js',
 
       // other libraries
       'rxjs': 'npm:rxjs',

@@ -10,6 +10,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {HeaderComponent} from "./header/header.component";
 import {AuthService} from "./auth/auth.service";
@@ -25,23 +26,30 @@ import { DatePipe, AsyncPipe} from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination'; //importing ng2-pagination
 import { MySurveysResultsComponent } from './survey/my-surveys/my-surveys-results/my-surveys-results.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './shared/token.interceptor';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
     imports: [BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpModule,
+        //HttpModule,
+        HttpClientModule,
         AppRoutingModule,
         NgxPaginationModule,
         NgxChartsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        LoadingBarHttpClientModule
     ],
 
     declarations: [AppComponent, HeaderComponent, SignupComponent, SigninComponent, SurveyCreateComponent, TestComponent,
         AnswerComponent, QuestionComponent, DashboardComponent, SurveyListComponent, SurveyItemComponent, SurveyTakeComponent,
         MySurveysComponent, MySurveysResultsComponent, QuestionResults, CustomChartComponent],
 
-    providers: [AuthService, DataStorageService, DatePipe, AsyncPipe],
+    providers: [AuthService, DataStorageService, DatePipe, AsyncPipe,
+         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
+        ],
 
     bootstrap: [AppComponent]
 })

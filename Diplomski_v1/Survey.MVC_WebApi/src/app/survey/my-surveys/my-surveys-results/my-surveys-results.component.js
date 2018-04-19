@@ -17,8 +17,8 @@ var MySurveysResultsComponent = /** @class */ (function () {
         this.dataStorageService = dataStorageService;
         this.activatedRoute = activatedRoute;
     }
-    MySurveysResultsComponent.prototype.onDetails = function (survey) {
-        this.dataStorageService.onChangeSurvey(survey);
+    MySurveysResultsComponent.prototype.onDetails = function (question) {
+        this.dataStorageService.onChangeQuestion(question);
     };
     MySurveysResultsComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -10,22 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
+//import {  Response, Headers, RequestOptions } from '@angular/http';
 var router_1 = require("@angular/router");
 require("rxjs/Rx");
 var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
+var http_1 = require("@angular/common/http");
 var DataStorageService = /** @class */ (function () {
     function DataStorageService(http, route) {
         this.http = http;
         this.route = route;
-        this.surveySource = new BehaviorSubject_1.BehaviorSubject(this.value);
+        this.surveySource = new BehaviorSubject_1.BehaviorSubject(this.surveyValue);
         this.currentSurvey = this.surveySource.asObservable();
-        this.url = 'http://localhost:52797/api/';
+        this.questionSource = new BehaviorSubject_1.BehaviorSubject(this.questionValue);
+        this.currentQuestion = this.questionSource.asObservable();
+        this.url = 'http://localhost:56645/api/';
     }
     DataStorageService.prototype.ngOnInit = function () {
     };
+    DataStorageService.prototype.onChangeSurvey = function (survey) {
+        this.surveySource.next(survey);
+    };
+    DataStorageService.prototype.onChangeQuestion = function (question) {
+        this.questionSource.next(question);
+    };
     DataStorageService.prototype.addSurvey = function (survey) {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var headers = new http_1.HttpHeaders({ 'Content-Type': 'application/json' });
         var token = localStorage.getItem('auth_token');
         headers.append('Authorization', 'Bearer ' + token);
         return this.http.post(this.url + 'poll/add', survey, { headers: headers })
@@ -38,7 +47,7 @@ var DataStorageService = /** @class */ (function () {
         });
     };
     DataStorageService.prototype.addSurveyJson = function (survey) {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var headers = new http_1.HttpHeaders({ 'Content-Type': 'application/json' });
         var token = localStorage.getItem('auth_token');
         headers.append('Authorization', 'Bearer ' + token);
         return this.http.post(this.url + 'poll/add', survey, { headers: headers })
@@ -50,7 +59,7 @@ var DataStorageService = /** @class */ (function () {
         });
     };
     DataStorageService.prototype.addSurveyResults = function (resultsData) {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var headers = new http_1.HttpHeaders({ 'Content-Type': 'application/json' });
         var token = localStorage.getItem('auth_token');
         headers.append('Authorization', 'Bearer ' + token);
         return this.http.post(this.url + 'answer/add', resultsData, { headers: headers })
@@ -62,35 +71,32 @@ var DataStorageService = /** @class */ (function () {
         });
     };
     DataStorageService.prototype.getSurvey = function () {
-        return this.http.get(this.url + 'poll/getview?id=3d92a0c4-ed4d-4d46-a6cb-e5ef836003ce')
-            .map(function (res) { return res.json(); });
+        return this.http.get(this.url + 'poll/getview?id=3d92a0c4-ed4d-4d46-a6cb-e5ef836003ce');
+        // .map(res => res.json());
     };
     DataStorageService.prototype.getInputTypes = function () {
-        return this.http.get(this.url + 'inputtype/getall')
-            .map(function (res) { return res.json(); });
-    };
-    DataStorageService.prototype.onChangeSurvey = function (survey) {
-        this.surveySource.next(survey);
+        return this.http.get(this.url + 'inputtype/getall');
+        // .map(res => res.json());
     };
     DataStorageService.prototype.getSurveys = function (pageIndex, pageSize) {
-        return this.http.get(this.url + 'poll/getnumberofpolls?pageIndex=' + pageIndex + '&pageSize=' + pageSize)
-            .map(function (res) { return res.json(); });
+        return this.http.get(this.url + 'poll/getnumberofpolls?pageIndex=' + pageIndex + '&pageSize=' + pageSize);
+        //  .map(res => res.json());
     };
     DataStorageService.prototype.getSurveysByUsername = function (userId) {
-        return this.http.get(this.url + 'poll/getbyusername?userId=' + userId)
-            .map(function (res) { return res.json(); });
+        return this.http.get(this.url + 'poll/getbyusername?userId=' + userId);
+        //  .map(res => res.json());
     };
     DataStorageService.prototype.getQuestionsBySurvey = function (surveyId) {
-        return this.http.get(this.url + 'question/getbysurvey?pollId=' + surveyId)
-            .map(function (res) { return res.json(); });
+        return this.http.get(this.url + 'question/getbysurvey?pollId=' + surveyId);
+        //  .map(res => res.json());
     };
     DataStorageService.prototype.getQuestionResults = function (questionId) {
-        return this.http.get(this.url + 'answer/getquestionresults?questionId=' + questionId)
-            .map(function (res) { return res.json(); });
+        return this.http.get(this.url + 'answer/getquestionresults?questionId=' + questionId);
+        //  .map(res => res.json());
     };
     DataStorageService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http,
+        __metadata("design:paramtypes", [http_1.HttpClient,
             router_1.ActivatedRoute])
     ], DataStorageService);
     return DataStorageService;

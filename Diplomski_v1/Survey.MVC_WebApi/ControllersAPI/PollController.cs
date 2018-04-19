@@ -101,6 +101,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
         }
 
+        [System.Web.Http.Authorize(Roles = "Admin, Ispitivac")]
         [Route("getbyusername")]
         [HttpGet]
         public async Task<HttpResponseMessage> GetByUsername(string userId)

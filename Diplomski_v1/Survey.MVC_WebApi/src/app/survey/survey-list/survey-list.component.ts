@@ -25,6 +25,8 @@ export class SurveyListComponent implements OnInit {
 
     surveys: SurveyModel[];
 
+    showSpinner : boolean = true;
+
     ngOnInit() {
         this.pageChange(1);
     }
@@ -36,7 +38,8 @@ export class SurveyListComponent implements OnInit {
 
     pageChange(page: any) {
         this.dataStorageService.getSurveys(page, this.itemsPerPage)
-            .subscribe(data => {
+            .subscribe((data : any) => {
+                this.showSpinner = false;
                     this.surveys = data.Data;
                     this.totalItems = data.Total;
                     this.currentPage = page;

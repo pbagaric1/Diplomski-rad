@@ -458,11 +458,14 @@
     <Content Include="src\app\header\header.component.html" />
     <Content Include="src\app\header\header.component.js" />
     <Content Include="src\app\shared\custom-chart.component.html" />
+    <Content Include="src\app\shared\ui\loading-spinner.component.css" />
+    <Content Include="src\app\shared\ui\loading-spinner.component.html" />
     <Content Include="src\app\survey\answer.component.html" />
     <Content Include="src\app\survey\my-surveys\my-surveys-results\my-surveys-results.component.html" />
     <Content Include="src\app\survey\my-surveys\my-surveys-results\question-results\question-results.component.html" />
     <Content Include="src\app\survey\my-surveys\my-surveys.component.html" />
     <Content Include="src\app\survey\question.component.html" />
+    <Content Include="src\app\survey\survey-create.component.css" />
     <Content Include="src\app\survey\survey-create.component.html" />
     <Content Include="src\app\survey\survey-create.component.js" />
     <Content Include="src\app\survey\survey-list\survey-item\survey-item.component.html" />
@@ -547,6 +550,9 @@
     <TypeScriptCompile Include="src\app\header\header.component.ts" />
     <TypeScriptCompile Include="src\app\shared\custom-chart.component.ts" />
     <TypeScriptCompile Include="src\app\shared\data-storage.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\token.interceptor.ts" />
+    <TypeScriptCompile Include="src\app\shared\ui\loader.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\ui\loading-spinner.component.ts" />
     <TypeScriptCompile Include="src\app\survey\answer.component.ts" />
     <TypeScriptCompile Include="src\app\survey\answer\answer.model.ts" />
     <TypeScriptCompile Include="src\app\survey\models\input-type.model.ts" />
@@ -585,7 +591,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56645</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52797/</IISUrl>
+          <IISUrl>http://localhost:56645/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Survey.Business.Models.ViewModels;
 using Survey.DAL.Models;
 using Survey.Repository.Common.IRepositories;
+using System.Globalization;
 
 namespace Survey.Repository.Repositories
 {
@@ -126,13 +128,21 @@ namespace Survey.Repository.Repositories
                 {
                     case "rating":
                     {
-                        foreach (var choice in firstAnswer.QuestionChoices)
+                        foreach (var choice in firstAnswer.Text)
                         {
-                            var dataView = new DataView()
+                            var answersSum = answers.Select(x => x.Text).Select(decimal.Parse).Sum();
+                            var answersCount = answers.Select(x => x.Text).Count();
+                            decimal averageRating = answersSum / answersCount;
+
+                            string output = averageRating.ToString("0.00");
+
+
+                                var dataView = new DataView()
                             {
-                                name = choice.Name,
-                                value = answers.Where(x => x.Text == choice.Name).Count()
+                                name = "Rating",
+                                value = decimal.Round(averageRating, 2, MidpointRounding.AwayFromZero)
                             };
+
                             data.Add(dataView);
                         }
                         break;

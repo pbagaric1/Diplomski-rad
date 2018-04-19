@@ -25,7 +25,7 @@
                     <div class="panel-heading">
                         <span>Question {{j + 1}}</span>
                         <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer"
-                            (click)="removeQuestion(i)"></span>
+                            (click)="removeQuestion(i, j)"></span>
                     </div>
                     <app-question [group]="question"></app-question>
                 </div>

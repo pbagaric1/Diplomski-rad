@@ -19,9 +19,9 @@ export class MySurveysResultsComponent implements OnInit {
     surveyId: string;
     questions : any[];
 
-    onDetails(survey: SurveyModel)
+    onDetails(question: any)
     {
-        this.dataStorageService.onChangeSurvey(survey);
+        this.dataStorageService.onChangeQuestion(question);
     }
 
     ngOnInit()

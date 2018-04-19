@@ -17,7 +17,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
 var forms_1 = require("@angular/forms");
-var http_1 = require("@angular/http");
+var http_1 = require("@angular/common/http");
 var app_routing_module_1 = require("./app-routing.module");
 var header_component_1 = require("./header/header.component");
 var auth_service_1 = require("./auth/auth.service");
@@ -33,6 +33,9 @@ var common_1 = require("@angular/common");
 var ngx_pagination_1 = require("ngx-pagination"); //importing ng2-pagination
 var my_surveys_results_component_1 = require("./survey/my-surveys/my-surveys-results/my-surveys-results.component");
 var animations_1 = require("@angular/platform-browser/animations");
+var http_2 = require("@angular/common/http");
+var token_interceptor_1 = require("./shared/token.interceptor");
+var http_client_1 = require("@ngx-loading-bar/http-client");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -41,16 +44,20 @@ var AppModule = /** @class */ (function () {
             imports: [platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
-                http_1.HttpModule,
+                //HttpModule,
+                http_1.HttpClientModule,
                 app_routing_module_1.AppRoutingModule,
                 ngx_pagination_1.NgxPaginationModule,
                 ngx_charts_1.NgxChartsModule,
-                animations_1.BrowserAnimationsModule
+                animations_1.BrowserAnimationsModule,
+                http_client_1.LoadingBarHttpClientModule
             ],
             declarations: [app_component_1.AppComponent, header_component_1.HeaderComponent, signup_component_1.SignupComponent, signin_component_1.SigninComponent, survey_create_component_1.SurveyCreateComponent, test_component_1.TestComponent,
                 answer_component_1.AnswerComponent, question_component_1.QuestionComponent, dashboard_component_1.DashboardComponent, survey_list_component_1.SurveyListComponent, survey_item_component_1.SurveyItemComponent, survey_take_component_1.SurveyTakeComponent,
                 my_surveys_component_1.MySurveysComponent, my_surveys_results_component_1.MySurveysResultsComponent, question_results_component_1.QuestionResults, custom_chart_component_1.CustomChartComponent],
-            providers: [auth_service_1.AuthService, data_storage_service_1.DataStorageService, common_1.DatePipe, common_1.AsyncPipe],
+            providers: [auth_service_1.AuthService, data_storage_service_1.DataStorageService, common_1.DatePipe, common_1.AsyncPipe,
+                { provide: http_2.HTTP_INTERCEPTORS, useClass: token_interceptor_1.TokenInterceptor, multi: true }
+            ],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

@@ -2,20 +2,37 @@
             [results]="data"
             [scheme]="colorScheme">
     </ngx-charts-bar-vertical>-->
-    <div>
-        <h2>Question results </h2>
-        <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="colorScheme"
-        [results]="data"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="showLegend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        (select)="onSelect($event)">
-      </ngx-charts-bar-vertical>
+    <h2>Question results </h2>
+    <div [ngSwitch]="questionType">
+            <div *ngSwitchCase="'radiogroup'">
+                    <ngx-charts-bar-vertical
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="data"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel"
+                    [animations]="true"
+                    (select)="onSelect($event)">
+                  </ngx-charts-bar-vertical>
+                   </div>
+                   <div *ngSwitchCase="'rating'">   
+                    <ngx-charts-gauge
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="data"
+                    [min]="1"
+                    [max]="10"
+                    [angleSpan]="240"
+                    [startAngle]="-120"
+                    [bigSegments]="2"
+                    [smallSegments]="1"
+                    [animations]="true"
+                    (select)="onSelect($event)">
+                  </ngx-charts-gauge></div>
     </div>

@@ -9,8 +9,8 @@
             <td>{{survey.title}}</td>
             <td>{{survey.createdOn  | date:'dd-MM-yyyy HH:mm:ss a'}}</td><td>
                             <a 
-                               style="cursor: pointer; text-align:center; display:block;" [routerLink]="['id', survey.Id]"
-                               (click)="onDetails(survey)">View results</a>
+                               style="cursor: pointer; text-align:center; display:block;" [routerLink]="['details']"
+                               (click)="onDetails(survey)">Details</a>
                         </td> 
         </tr>
 </table>

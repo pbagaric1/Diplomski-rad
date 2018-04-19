@@ -19,7 +19,7 @@ export class MySurveysComponent implements OnInit {
     {
         const userId = localStorage.getItem('userId');
         this.dataStorageService.getSurveysByUsername(userId)
-        .subscribe(data => {
+        .subscribe((data : any) => {
             this.surveys = data;
             console.log(data);
         });

@@ -9,8 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
 var Subject_1 = require("rxjs/Subject");
 var AuthService = /** @class */ (function () {
@@ -19,24 +19,26 @@ var AuthService = /** @class */ (function () {
         this.router = router;
         this.userChanged = new Subject_1.Subject();
         this.userAdded = false;
+        this.url = 'http://localhost:56645/api/';
     }
     AuthService.prototype.registerUser = function (localUser) {
-        return this.http.post('http://localhost:52797/api/user/add', localUser);
+        return this.http.post(this.url + 'user/add', localUser);
     };
     AuthService.prototype.login = function (usercreds) {
         var _this = this;
         this.isLogged = false;
-        var headers = new http_1.Headers();
+        var headers = new http_1.HttpHeaders().set('Content-Type', 'application/X-www-form=urlencoded');
         var creds = 'grant_type=password&username=' + usercreds.userName + '&password=' + usercreds.password;
-        headers.append('Content-Type', 'application/X-www-form=urlencoded');
-        this.http.post('http://localhost:52797/api/token', creds, { headers: headers })
+        //headers.append('Content-Type', 'application/X-www-form=urlencoded');
+        return this.http.post(this.url + 'token', creds, { headers: headers })
             .subscribe(function (response) {
+            console.log(response);
             _this.router.navigate(['/']);
-            _this.loggedUser = response.json().username;
-            window.localStorage.setItem('auth_token', response.json().access_token);
+            _this.loggedUser = response.username;
+            window.localStorage.setItem('auth_token', response.access_token);
             window.localStorage.setItem('username', _this.loggedUser);
-            window.localStorage.setItem('userId', response.json().userId);
-            window.localStorage.setItem('userRole', response.json().userRole);
+            window.localStorage.setItem('userId', response.userId);
+            window.localStorage.setItem('userRole', response.userRole);
             _this.isLogged = true;
             _this.getLoggedUser(_this.loggedUser);
             console.log("Succesfully logged in");
@@ -79,9 +81,12 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.getLoggedUser = function (currentUser) {
         this.userChanged.next(this.loggedUser);
     };
+    AuthService.prototype.getToken = function () {
+        return localStorage.getItem('auth_token');
+    };
     AuthService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http, router_1.Router])
+        __metadata("design:paramtypes", [http_1.HttpClient, router_1.Router])
     ], AuthService);
     return AuthService;
 }());

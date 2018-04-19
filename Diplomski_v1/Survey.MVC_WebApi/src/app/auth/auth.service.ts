@@ -1,11 +1,11 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AuthService {
-    constructor(private http: Http, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
     userChanged = new Subject<string>();
 
@@ -13,27 +13,28 @@ export class AuthService {
     isAuth: boolean;
     loggedUser: string;
     userAdded = false;
+    url: string = 'http://localhost:56645/api/';
 
     registerUser(localUser: any) {
-        return this.http.post('http://localhost:52797/api/user/add', localUser);
+        return this.http.post(this.url + 'user/add', localUser);
     }
 
     login(usercreds: any) {
         this.isLogged = false;
-        const headers = new Headers();
+        const headers = new HttpHeaders().set('Content-Type', 'application/X-www-form=urlencoded');
         const creds = 'grant_type=password&username=' + usercreds.userName + '&password=' + usercreds.password;
-        headers.append('Content-Type', 'application/X-www-form=urlencoded');
+        //headers.append('Content-Type', 'application/X-www-form=urlencoded');
 
-
-        this.http.post('http://localhost:52797/api/token', creds, { headers: headers })
+        return this.http.post(this.url + 'token', creds, { headers : headers})
             .subscribe(
-                (response: Response) => {
+                (response: any) => {
+                    console.log(response);
                     this.router.navigate(['/']);
-                    this.loggedUser = response.json().username;
-                    window.localStorage.setItem('auth_token', response.json().access_token);
+                    this.loggedUser = response.username;
+                    window.localStorage.setItem('auth_token', response.access_token);
                     window.localStorage.setItem('username', this.loggedUser);
-                    window.localStorage.setItem('userId', response.json().userId);
-                    window.localStorage.setItem('userRole', response.json().userRole);
+                    window.localStorage.setItem('userId', response.userId);
+                    window.localStorage.setItem('userRole', response.userRole);
                     this.isLogged = true;
                     this.getLoggedUser(this.loggedUser);
                     console.log("Succesfully logged in");
@@ -79,5 +80,9 @@ export class AuthService {
 
     getLoggedUser(currentUser: string) {
         this.userChanged.next(this.loggedUser);
+    }
+
+    getToken() {
+        return localStorage.getItem('auth_token');
     }
 }

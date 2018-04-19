@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { Subscription } from 'rxjs';
+
+export interface LoaderState {
+  show: boolean;
+}
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html'
+  selector: 'app-root',
+  templateUrl: './app.component.html'
 })
 
 export class AppComponent implements OnInit {
@@ -12,9 +17,13 @@ export class AppComponent implements OnInit {
   name: FormControl;
   sortItem: FormArray;
 
-  constructor(private _fb: FormBuilder) { }
+  showSpinner: boolean;
+
+  constructor(private _fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
+
     this.name = new FormControl('', [Validators.required]);
     this.sortItem = this._fb.array([this.initSort()]);
 
@@ -45,7 +54,7 @@ export class AppComponent implements OnInit {
   }
 
   addSortLocationItem(i?: number, t?: number) {
-    const control: FormArray = <FormArray> this.sortItem.at(i).get('locationItems');
+    const control: FormArray = <FormArray>this.sortItem.at(i).get('locationItems');
     control.push(this.initSortItems());
   }
- }
+}

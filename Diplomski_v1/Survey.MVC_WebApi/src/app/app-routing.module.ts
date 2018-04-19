@@ -19,13 +19,13 @@ const appRoutes: Routes = [
     { path: 'createsurvey', component: SurveyCreateComponent },
     { path: 'test', component: TestComponent },
     { path: 'surveys', component: SurveyListComponent },
-    { path: 'surveys/id/:id', component: SurveyItemComponent },
-    { path: 'surveys/takesurvey/id/:id', component: SurveyTakeComponent },
+    { path: 'surveys/details', component: SurveyItemComponent },
+    { path: 'surveys/takesurvey', component: SurveyTakeComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'mysurveys', component: MySurveysComponent },
-    { path: 'mysurveys/id/:id', component: MySurveysResultsComponent },
-    { path: 'questionresults', component: QuestionResults },
-    { path: 'mysurveys/id/:id/questionId/:id', component: QuestionResults }
+    { path: 'mysurveys/details', component: MySurveysResultsComponent },
+    { path: 'mysurveys/details/questionresults', component: QuestionResults },
+    //{ path: 'mysurveys/id/:id/questionId/:id', component: QuestionResults }
 
 ];
 

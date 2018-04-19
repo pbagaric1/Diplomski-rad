@@ -152,8 +152,8 @@ var SurveyCreateComponent = /** @class */ (function () {
         var _this = this;
         this.dataStorageService.currentSurvey.subscribe(function (survey) { return _this.surveyForm = survey; });
         this.surveyForm = this.fb.group({
-            title: '',
-            organization: '',
+            title: ['', forms_1.Validators.required],
+            organization: ['', forms_1.Validators.required],
             pages: this.fb.array([this.initPages()])
         });
     };
@@ -173,8 +173,8 @@ var SurveyCreateComponent = /** @class */ (function () {
     };
     SurveyCreateComponent.prototype.initQuestion = function () {
         return this.fb.group({
-            type: '',
-            name: '',
+            type: ['', forms_1.Validators.required],
+            name: ['', forms_1.Validators.required],
             isRequired: false
             //answers: this.fb.array([])
         });
@@ -186,9 +186,10 @@ var SurveyCreateComponent = /** @class */ (function () {
         var newQuestion = this.initQuestion();
         questionArray.push(newQuestion);
     };
-    SurveyCreateComponent.prototype.removeQuestion = function (idx) {
-        var questionsArray = this.surveyForm.get('pages')['controls'][idx]['controls']['questions'];
-        questionsArray.removeAt(idx);
+    SurveyCreateComponent.prototype.removeQuestion = function (idArray, idQuestion) {
+        console.log(idArray, idQuestion);
+        var questionsArray = this.surveyForm.get('pages')['controls'][idArray]['controls']['questions'];
+        questionsArray.removeAt(idQuestion);
     };
     SurveyCreateComponent.prototype.getPages = function (form) {
         //console.log(form.get('sections').controls);
@@ -221,7 +222,8 @@ var SurveyCreateComponent = /** @class */ (function () {
     SurveyCreateComponent = __decorate([
         core_1.Component({
             selector: 'app-survey-create',
-            templateUrl: './survey-create.component.html'
+            templateUrl: './survey-create.component.html',
+            styleUrls: ['./survey-create.component.css']
         }),
         __metadata("design:paramtypes", [forms_1.FormBuilder, data_storage_service_1.DataStorageService,
             router_1.Router, common_1.DatePipe])

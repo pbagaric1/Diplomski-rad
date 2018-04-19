@@ -9,7 +9,8 @@ import * as Survey from 'survey-angular';
 
 @Component({
     selector: 'app-survey-create',
-    templateUrl: './survey-create.component.html'
+    templateUrl: './survey-create.component.html',
+    styleUrls: ['./survey-create.component.css']
 })
 export class SurveyCreateComponent implements OnInit{
 
@@ -18,7 +19,6 @@ export class SurveyCreateComponent implements OnInit{
     surveyId: string = '';
     pollTypeId: string = '';
     selectedQuestion: string;
-    jQuery : any;
 
 
     constructor(private fb: FormBuilder, private dataStorageService: DataStorageService,
@@ -154,8 +154,8 @@ export class SurveyCreateComponent implements OnInit{
     ngOnInit() {
         this.dataStorageService.currentSurvey.subscribe(survey => this.surveyForm = survey);
         this.surveyForm = this.fb.group({
-            title: '',
-            organization: '',
+            title: ['', Validators.required],
+            organization: ['', Validators.required],
             pages: this.fb.array([this.initPages()])
         });
     };
@@ -177,8 +177,8 @@ export class SurveyCreateComponent implements OnInit{
 
     initQuestion() {
         return this.fb.group({
-            type: '',
-            name: '',
+            type: ['', Validators.required],
+            name: ['', Validators.required],
             isRequired: false
             //answers: this.fb.array([])
         });
@@ -193,9 +193,10 @@ export class SurveyCreateComponent implements OnInit{
         questionArray.push(newQuestion);
     }
 
-    removeQuestion(idx: number) {
-        const questionsArray = <FormArray>this.surveyForm.get('pages')['controls'][idx]['controls']['questions'];
-        questionsArray.removeAt(idx);
+    removeQuestion(idArray: number, idQuestion: number) {
+        console.log(idArray, idQuestion);
+        const questionsArray = <FormArray>this.surveyForm.get('pages')['controls'][idArray]['controls']['questions'];
+        questionsArray.removeAt(idQuestion);
     }
 
     getPages(form: any) {

@@ -18,6 +18,7 @@ var SurveyListComponent = /** @class */ (function () {
         this.authService = authService;
         this.currentPage = 1;
         this.itemsPerPage = 5;
+        this.showSpinner = true;
     }
     SurveyListComponent.prototype.ngOnInit = function () {
         this.pageChange(1);
@@ -29,6 +30,7 @@ var SurveyListComponent = /** @class */ (function () {
         var _this = this;
         this.dataStorageService.getSurveys(page, this.itemsPerPage)
             .subscribe(function (data) {
+            _this.showSpinner = false;
             _this.surveys = data.Data;
             _this.totalItems = data.Total;
             _this.currentPage = page;
