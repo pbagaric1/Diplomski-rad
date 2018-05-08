@@ -1,0 +1,61 @@
+﻿    input[type="text"]{
+        height: 45px;
+        width: 500px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        background-color: #fff;
+        padding-left: 30px;
+        outline: 1;
+        box-sizing: border-box;
+    }
+
+    .choiceInput {
+        height: 45px;
+        width: 400px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        background-color: #fff;
+        padding-left: 30px;
+        outline: 1;
+        box-sizing: border-box;
+    }
+
+    label {
+        margin-left: 20px;
+    }
+
+    select {
+        height: 45px;
+        width: 500px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        outline: 1;
+        box-sizing: border-box;
+    }
+
+
+
+    .addChoice{
+        display: block;
+        clear: both;
+        margin-left: 20px;
+
+    }
+
+    .checkmark {
+        /* position: absolute; */
+        /* top: 0;
+        left: 0; */
+        display: block;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+      }
+
+      .choice {
+        font-size: 13px;
+        margin-left: 20px;
+      }

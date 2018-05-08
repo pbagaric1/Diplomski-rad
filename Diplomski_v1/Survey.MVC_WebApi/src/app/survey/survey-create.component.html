@@ -1,52 +1,68 @@
+<h3>Add survey</h3>
 <div class="container">
     <form [formGroup]="surveyForm">
-    <h3>Add survey</h3>
-    <hr />
-    <div class="form-group" style="margin-bottom: 10%">
-        <div class="col-xs-6">
-            <label>Name</label>
-            <input type="text" class="form-control" formControlName="title">
+
+        <hr />
+        <div class="form-group" style="margin-bottom: 10%">
+            <div class="col-xs-6">
+                <label>Name</label>
+                <input type="text" class="form-control" formControlName="title">
+            </div>
+            <div class="col-xs-6">
+                <label>Organization</label>
+                <input type="text" class="form-control" formControlName="organization">
+            </div>
         </div>
-        <div class="col-xs-6">
-            <label>Organization</label>
-            <input type="text" class="form-control" formControlName="organization">
-        </div>
-    </div>
-    <!--<div class="form-group">
+        <!--<div class="form-group">
         <label>Location</label>
         <input type="text" class="form-control" formControlName="location">
     </div>-->
-    <!--questions-->
-    <div formArrayName="pages">
-        <div [formGroupName]="i" *ngFor="let page of getPages(surveyForm); let i = index" class="panel panel-default" >
+        <!--questions-->
+        <div formArrayName="pages">
+            <div [formGroupName]="i" *ngFor="let page of getPages(surveyForm); let i = index; let last = last" class="panel panel-default">
 
-            <div class="panel-body" formArrayName="questions">
-                <div *ngFor="let question of getQuestions(page); let j = index" class="panel panel-default">
-                    <div class="panel-heading">
-                        <span>Question {{j + 1}}</span>
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer"
-                            (click)="removeQuestion(i, j)"></span>
+                <div class="panel-body" formArrayName="questions">
+                    <div *ngFor="let question of questionsArray; let j = index" class="panel panel-default" [@slideInOutAnimation]="state" [hidden]="question.hidden">
+                        <div class="panel-heading">
+                            <span>Question {{j + 1}}</span>
+                            <span *ngIf="j!=0" class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" (click)="removeQuestion(i, j); questionsArray[j-1].hidden = !questionsArray[j-1].hidden"></span>
+                        </div>
+                        <!-- <app-question *ngIf='prevItem' [group]="questionsArray[j-1]"></app-question> -->
+                        <app-question [group]="questionsArray[j]"></app-question>
+                        <div class="margin-20">
+                            <div *ngIf="j!=lastIndex">
+                                <button (click)="nextQuestion(); question.hidden = !question.hidden; questionsArray[j+1].hidden = !questionsArray[j+1].hidden"
+                                    class="btn btn-primary" style="float: right">
+                                    Next question
+                                </button>
+                            </div>
+                            <div *ngIf="j!=0">
+                                <button (click)="previousQuestion(); question.hidden = !question.hidden; questionsArray[j-1].hidden = !questionsArray[j-1].hidden"
+                                    class="btn btn-primary" style="float: left">
+                                    Previous question
+                                </button>
+                            </div>
+
+                        </div>
+
                     </div>
-                    <app-question [group]="question"></app-question>
+
                 </div>
+
             </div>
-            <div class="margin-20">
-                <button (click)="addQuestion(i)" class="btn btn-primary">
-                    Add question +
-                </button>
-            </div>
+
+            <button (click)="addQuestion(0); selectedQuestion.hidden = !selectedQuestion.hidden;" class="btn btn-success">
+                Add question +
+            </button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#previewModal" (click)="onModalClick()" style="float: right;">
+                Preview Survey
+            </button>
         </div>
-    </div>
-    <div class="col-xs-12">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#previewModal" 
-        (click)="onModalClick()" style="float: right">
-            Preview Survey
-        </button>
-    </div>
+
     </form>
-    
+
     <!-- Button trigger modal -->
-   
+
 
     <!-- Modal -->
     <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
@@ -65,13 +81,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeBtn>Close</button>
-                    <button type="submit" class="btn btn-success"
-                        [disabled]="!surveyForm.valid" (click)="onSubmit()">Submit</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!surveyForm.valid" (click)="onSubmit()">Submit</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- <h5>Details</h5>
-    <pre>{{ surveyForm.value | json }}</pre> -->
+    <h5>Details</h5>
+    <pre>{{ surveyForm.value | json }}</pre>
 </div>

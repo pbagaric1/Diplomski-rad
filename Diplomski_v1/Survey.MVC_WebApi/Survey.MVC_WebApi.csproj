@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,12 +93,11 @@
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.3\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Cors, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Cors.3.1.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Cors, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Cors.4.0.0\lib\net451\Microsoft.Owin.Cors.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
@@ -129,28 +129,26 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    <Reference Include="System.Web.Cors, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.4\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
@@ -159,9 +157,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -203,6 +199,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Thinktecture.IdentityModel.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Thinktecture.IdentityModel.Core.1.4.0\lib\net45\Thinktecture.IdentityModel.Core.dll</HintPath>
       <Private>True</Private>
@@ -296,39 +293,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap-theme.css" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap-theme.min.css" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap.css" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap.min.css" />
-    <Content Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="node_modules\bootstrap\dist\js\bootstrap.js" />
-    <Content Include="node_modules\bootstrap\dist\js\bootstrap.min.js" />
-    <Content Include="node_modules\bootstrap\dist\js\npm.js" />
-    <Content Include="node_modules\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="node_modules\bootstrap\Gruntfile.js" />
-    <Content Include="node_modules\bootstrap\grunt\bs-commonjs-generator.js" />
-    <Content Include="node_modules\bootstrap\grunt\bs-glyphicons-data-generator.js" />
-    <Content Include="node_modules\bootstrap\grunt\bs-lessdoc-parser.js" />
-    <Content Include="node_modules\bootstrap\grunt\bs-raw-files-generator.js" />
-    <Content Include="node_modules\bootstrap\grunt\change-version.js" />
-    <Content Include="node_modules\bootstrap\js\affix.js" />
-    <Content Include="node_modules\bootstrap\js\alert.js" />
-    <Content Include="node_modules\bootstrap\js\button.js" />
-    <Content Include="node_modules\bootstrap\js\carousel.js" />
-    <Content Include="node_modules\bootstrap\js\collapse.js" />
-    <Content Include="node_modules\bootstrap\js\dropdown.js" />
-    <Content Include="node_modules\bootstrap\js\modal.js" />
-    <Content Include="node_modules\bootstrap\js\popover.js" />
-    <Content Include="node_modules\bootstrap\js\scrollspy.js" />
-    <Content Include="node_modules\bootstrap\js\tab.js" />
-    <Content Include="node_modules\bootstrap\js\tooltip.js" />
-    <Content Include="node_modules\bootstrap\js\transition.js" />
-    <Content Include="node_modules\survey-angular\survey.angular.js" />
-    <Content Include="node_modules\survey-angular\survey.angular.min.js" />
-    <Content Include="node_modules\survey-angular\survey.css" />
+    <Content Include="karma.conf.js" />
+    <Content Include="protractor.conf.js" />
     <Content Include="Scripts\angular-local-storage.js" />
     <Content Include="Scripts\angular-local-storage.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -337,101 +305,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\angular-local-storage.min.js.map" />
-    <Content Include="bs-config.json" />
+    <Content Include=".angular-cli.json" />
+    <Content Include=".editorconfig" />
+    <Content Include=".gitignore" />
+    <Content Include="package-lock.json" />
     <Content Include="package.json" />
-    <Content Include="node_modules\bootstrap\CHANGELOG.md" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap-theme.css.map" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap-theme.min.css.map" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap.css.map" />
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap.min.css.map" />
-    <Content Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="node_modules\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="node_modules\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="node_modules\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="node_modules\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="node_modules\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="node_modules\bootstrap\grunt\.jshintrc" />
-    <Content Include="node_modules\bootstrap\grunt\configBridge.json" />
-    <Content Include="node_modules\bootstrap\grunt\npm-shrinkwrap.json" />
-    <Content Include="node_modules\bootstrap\grunt\sauce_browsers.yml" />
-    <Content Include="node_modules\bootstrap\less\alerts.less" />
-    <Content Include="node_modules\bootstrap\less\badges.less" />
-    <Content Include="node_modules\bootstrap\less\bootstrap.less" />
-    <Content Include="node_modules\bootstrap\less\breadcrumbs.less" />
-    <Content Include="node_modules\bootstrap\less\button-groups.less" />
-    <Content Include="node_modules\bootstrap\less\buttons.less" />
-    <Content Include="node_modules\bootstrap\less\carousel.less" />
-    <Content Include="node_modules\bootstrap\less\close.less" />
-    <Content Include="node_modules\bootstrap\less\code.less" />
-    <Content Include="node_modules\bootstrap\less\component-animations.less" />
-    <Content Include="node_modules\bootstrap\less\dropdowns.less" />
-    <Content Include="node_modules\bootstrap\less\forms.less" />
-    <Content Include="node_modules\bootstrap\less\glyphicons.less" />
-    <Content Include="node_modules\bootstrap\less\grid.less" />
-    <Content Include="node_modules\bootstrap\less\input-groups.less" />
-    <Content Include="node_modules\bootstrap\less\jumbotron.less" />
-    <Content Include="node_modules\bootstrap\less\labels.less" />
-    <Content Include="node_modules\bootstrap\less\list-group.less" />
-    <Content Include="node_modules\bootstrap\less\media.less" />
-    <Content Include="node_modules\bootstrap\less\mixins.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\alerts.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\background-variant.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\border-radius.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\buttons.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\center-block.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\clearfix.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\forms.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\gradients.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\grid-framework.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\grid.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\hide-text.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\image.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\labels.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\list-group.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\nav-divider.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\nav-vertical-align.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\opacity.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\pagination.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\panels.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\progress-bar.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\reset-filter.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\reset-text.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\resize.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\responsive-visibility.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\size.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\tab-focus.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\table-row.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\text-emphasis.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\text-overflow.less" />
-    <Content Include="node_modules\bootstrap\less\mixins\vendor-prefixes.less" />
-    <Content Include="node_modules\bootstrap\less\modals.less" />
-    <Content Include="node_modules\bootstrap\less\navbar.less" />
-    <Content Include="node_modules\bootstrap\less\navs.less" />
-    <Content Include="node_modules\bootstrap\less\normalize.less" />
-    <Content Include="node_modules\bootstrap\less\pager.less" />
-    <Content Include="node_modules\bootstrap\less\pagination.less" />
-    <Content Include="node_modules\bootstrap\less\panels.less" />
-    <Content Include="node_modules\bootstrap\less\popovers.less" />
-    <Content Include="node_modules\bootstrap\less\print.less" />
-    <Content Include="node_modules\bootstrap\less\progress-bars.less" />
-    <Content Include="node_modules\bootstrap\less\responsive-embed.less" />
-    <Content Include="node_modules\bootstrap\less\responsive-utilities.less" />
-    <Content Include="node_modules\bootstrap\less\scaffolding.less" />
-    <Content Include="node_modules\bootstrap\less\tables.less" />
-    <Content Include="node_modules\bootstrap\less\theme.less" />
-    <Content Include="node_modules\bootstrap\less\thumbnails.less" />
-    <Content Include="node_modules\bootstrap\less\tooltip.less" />
-    <Content Include="node_modules\bootstrap\less\type.less" />
-    <Content Include="node_modules\bootstrap\less\utilities.less" />
-    <Content Include="node_modules\bootstrap\less\variables.less" />
-    <Content Include="node_modules\bootstrap\less\wells.less" />
-    <Content Include="node_modules\bootstrap\LICENSE" />
-    <Content Include="node_modules\bootstrap\package.json" />
-    <Content Include="node_modules\bootstrap\README.md" />
-    <Content Include="node_modules\survey-angular\package.json" />
-    <Content Include="node_modules\survey-angular\README.md" />
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -448,36 +327,57 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\app\app-routing.module.js" />
     <Content Include="src\app\app.component.html" />
-    <Content Include="src\app\assets\dashboard.jpg" />
+    <Content Include="src\app\app.component.js" />
+    <Content Include="src\app\app.component.spec.js" />
+    <Content Include="src\app\app.module.js" />
     <Content Include="src\app\auth\auth.service.js" />
     <Content Include="src\app\auth\signin\signin.component.html" />
+    <Content Include="src\app\auth\signin\signin.component.js" />
     <Content Include="src\app\auth\signup\signup.component.html" />
     <Content Include="src\app\auth\signup\signup.component.js" />
     <Content Include="src\app\dashboard\dashboard.component.html" />
+    <Content Include="src\app\dashboard\dashboard.component.js" />
     <Content Include="src\app\header\header.component.html" />
     <Content Include="src\app\header\header.component.js" />
     <Content Include="src\app\shared\custom-chart.component.html" />
-    <Content Include="src\app\shared\ui\loading-spinner.component.css" />
-    <Content Include="src\app\shared\ui\loading-spinner.component.html" />
+    <Content Include="src\app\shared\custom-chart.component.js" />
+    <Content Include="src\app\shared\data-storage.service.js" />
+    <Content Include="src\app\shared\LowercaseDirective.js" />
+    <Content Include="src\app\shared\pager.service.js" />
+    <Content Include="src\app\shared\token.interceptor.js" />
+    <Content Include="src\app\sub.component.html" />
+    <Content Include="src\app\sub.component.js" />
     <Content Include="src\app\survey\answer.component.html" />
+    <Content Include="src\app\survey\answer.component.js" />
+    <Content Include="src\app\survey\answer\answer.model.js" />
+    <Content Include="src\app\survey\models\input-type.model.js" />
+    <Content Include="src\app\survey\models\survey.model.js" />
     <Content Include="src\app\survey\my-surveys\my-surveys-results\my-surveys-results.component.html" />
+    <Content Include="src\app\survey\my-surveys\my-surveys-results\my-surveys-results.component.js" />
     <Content Include="src\app\survey\my-surveys\my-surveys-results\question-results\question-results.component.html" />
+    <Content Include="src\app\survey\my-surveys\my-surveys-results\question-results\question-results.component.js" />
     <Content Include="src\app\survey\my-surveys\my-surveys.component.html" />
+    <Content Include="src\app\survey\my-surveys\my-surveys.component.js" />
     <Content Include="src\app\survey\question.component.html" />
+    <Content Include="src\app\survey\question.component.js" />
+    <Content Include="src\app\survey\question\question.model.js" />
     <Content Include="src\app\survey\survey-create.component.css" />
     <Content Include="src\app\survey\survey-create.component.html" />
     <Content Include="src\app\survey\survey-create.component.js" />
     <Content Include="src\app\survey\survey-list\survey-item\survey-item.component.html" />
+    <Content Include="src\app\survey\survey-list\survey-item\survey-item.component.js" />
     <Content Include="src\app\survey\survey-list\survey-list.component.html" />
+    <Content Include="src\app\survey\survey-list\survey-list.component.js" />
     <Content Include="src\app\survey\survey-list\survey-take\survey-take.component.html" />
+    <Content Include="src\app\survey\survey-list\survey-take\survey-take.component.js" />
     <Content Include="src\app\test\test.component.html" />
+    <Content Include="src\app\test\test.component.js" />
+    <Content Include="src\assets\dashboard.jpg" />
     <Content Include="src\favicon.ico" />
     <Content Include="src\index.html" />
     <Content Include="src\styles.css" />
-    <Content Include="src\systemjs-angular-loader.js" />
-    <Content Include="src\systemjs.config.extras.js" />
-    <Content Include="src\systemjs.config.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -487,15 +387,44 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="src\tsconfig.json" />
-    <Content Include="tslint.json" />
+    <Content Include="src\app\app-routing.module.js.map" />
+    <Content Include="src\app\app.component.js.map" />
+    <Content Include="src\app\app.component.spec.js.map" />
+    <Content Include="src\app\app.module.js.map" />
     <Content Include="src\app\auth\auth.service.js.map" />
+    <Content Include="src\app\auth\signin\signin.component.js.map" />
     <Content Include="src\app\auth\signup\signup.component.js.map" />
+    <Content Include="src\app\dashboard\dashboard.component.js.map" />
     <Content Include="src\app\header\header.component.js.map" />
+    <Content Include="src\app\shared\custom-chart.component.js.map" />
+    <Content Include="src\app\shared\data-storage.service.js.map" />
+    <Content Include="src\app\shared\LowercaseDirective.js.map" />
+    <Content Include="src\app\shared\pager.service.js.map" />
+    <Content Include="src\app\shared\token.interceptor.js.map" />
+    <Content Include="src\app\sub.component.js.map" />
+    <Content Include="src\app\survey\answer.component.js.map" />
+    <Content Include="src\app\survey\answer\answer.model.js.map" />
+    <Content Include="src\app\survey\models\input-type.model.js.map" />
+    <Content Include="src\app\survey\models\survey.model.js.map" />
+    <Content Include="src\app\survey\my-surveys\my-surveys-results\my-surveys-results.component.js.map" />
+    <Content Include="src\app\survey\my-surveys\my-surveys-results\question-results\question-results.component.js.map" />
+    <Content Include="src\app\survey\my-surveys\my-surveys.component.js.map" />
+    <Content Include="src\app\survey\question.component.js.map" />
+    <Content Include="src\app\survey\question\question.model.js.map" />
     <Content Include="src\app\survey\survey-create.component.js.map" />
+    <Content Include="src\app\survey\survey-list\survey-item\survey-item.component.js.map" />
+    <Content Include="src\app\survey\survey-list\survey-list.component.js.map" />
+    <Content Include="src\app\survey\survey-list\survey-take\survey-take.component.js.map" />
+    <Content Include="src\app\test\test.component.js.map" />
+    <Content Include="src\assets\.gitkeep" />
+    <Content Include="src\tsconfig.app.json" />
+    <Content Include="src\tsconfig.spec.json" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tslint.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="src\app\shared\ui\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -503,7 +432,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
@@ -538,7 +466,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="node_modules\survey-angular\survey.angular.d.ts" />
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\animations\fade-in.animation.ts" />
+    <TypeScriptCompile Include="src\app\animations\slide-in-out.animation.ts" />
     <TypeScriptCompile Include="src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
@@ -548,29 +480,31 @@
     <TypeScriptCompile Include="src\app\auth\signup\signup.component.ts" />
     <TypeScriptCompile Include="src\app\dashboard\dashboard.component.ts" />
     <TypeScriptCompile Include="src\app\header\header.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\capitalize.pipe.ts" />
     <TypeScriptCompile Include="src\app\shared\custom-chart.component.ts" />
     <TypeScriptCompile Include="src\app\shared\data-storage.service.ts" />
     <TypeScriptCompile Include="src\app\shared\token.interceptor.ts" />
-    <TypeScriptCompile Include="src\app\shared\ui\loader.service.ts" />
-    <TypeScriptCompile Include="src\app\shared\ui\loading-spinner.component.ts" />
+    <TypeScriptCompile Include="src\app\sub.component.ts" />
     <TypeScriptCompile Include="src\app\survey\answer.component.ts" />
     <TypeScriptCompile Include="src\app\survey\answer\answer.model.ts" />
     <TypeScriptCompile Include="src\app\survey\models\input-type.model.ts" />
+    <TypeScriptCompile Include="src\app\survey\models\survey.model.ts" />
     <TypeScriptCompile Include="src\app\survey\my-surveys\my-surveys-results\my-surveys-results.component.ts" />
     <TypeScriptCompile Include="src\app\survey\my-surveys\my-surveys-results\question-results\question-results.component.ts" />
     <TypeScriptCompile Include="src\app\survey\my-surveys\my-surveys.component.ts" />
     <TypeScriptCompile Include="src\app\survey\question.component.ts" />
     <TypeScriptCompile Include="src\app\survey\question\question.model.ts" />
     <TypeScriptCompile Include="src\app\survey\survey-create.component.ts" />
-    <TypeScriptCompile Include="src\app\survey\models\survey.model.ts" />
     <TypeScriptCompile Include="src\app\survey\survey-list\survey-item\survey-item.component.ts" />
     <TypeScriptCompile Include="src\app\survey\survey-list\survey-list.component.ts" />
     <TypeScriptCompile Include="src\app\survey\survey-list\survey-take\survey-take.component.ts" />
     <TypeScriptCompile Include="src\app\test\test.component.ts" />
+    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <TypeScriptCompile Include="src\polyfills.ts" />
+    <TypeScriptCompile Include="src\test.ts" />
+    <TypeScriptCompile Include="src\typings.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

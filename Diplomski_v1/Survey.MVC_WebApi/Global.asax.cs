@@ -1,4 +1,4 @@
-﻿using Survey.MVC_WebApi.App_Start;
+using Survey.MVC_WebApi.App_Start;
 using Survey.MVC_WebApi.AutoMapperConfig;
 using System;
 using System.Collections.Generic;
@@ -23,5 +23,5 @@ namespace Survey.MVC_WebApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-    }
+  }
 }

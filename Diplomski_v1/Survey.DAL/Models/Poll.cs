@@ -22,5 +22,7 @@ namespace Survey.DAL.Models
             get { return _questions ?? (_questions = new Collection<Question>()); }
             set { _questions = value; }
         }
+
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

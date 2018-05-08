@@ -139,11 +139,12 @@ namespace Survey.Repository.Repositories
                 {
                     Id = x.Id,
                     CreatedOn = x.CreatedOn,
-                    AspNetUserId = x.AspNetUserId,
+                    //AspNetUserId = x.AspNetUserId,
                     Instructions = x.Instructions,
                     Name = x.Name,
                     OrganizationId = x.OrganizationId,
-                    Questions = x.Questions.OrderBy(q => q.QuestionOrder).ToList()
+                    Questions = x.Questions.OrderBy(q => q.QuestionOrder).ToList(),
+                    AspNetUser = x.AspNetUser
                 }).ToList();
 
                 var pollViewList = orderedList

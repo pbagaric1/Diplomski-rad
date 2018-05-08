@@ -5,7 +5,8 @@ import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
     selector: 'app-question',
-    templateUrl: './question.component.html'
+    templateUrl: './question.component.html',
+    styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
     @Input('group') questionGroup: FormGroup;
@@ -110,7 +111,11 @@ export class QuestionComponent implements OnInit {
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
             this.questionGroup.removeControl("choices");
-            this.questionGroup.addControl("choices", new FormArray([]));
+
+            let fa = new FormArray([]);
+            fa.push(this.fb.control(''));
+            fa.push(this.fb.control(''));
+            this.questionGroup.addControl("choices", fa);
 
             break;
         }
@@ -146,7 +151,12 @@ export class QuestionComponent implements OnInit {
             this.questionGroup.removeControl("columns");
             this.questionGroup.removeControl("rows");
             this.questionGroup.removeControl("choices");
-            this.questionGroup.addControl("choices", new FormArray([]));
+            
+            let fa = new FormArray([]);
+            fa.push(this.fb.control(''));
+            fa.push(this.fb.control(''));
+            this.questionGroup.addControl("choices", fa);
+
             break;
         }
 

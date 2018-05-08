@@ -1,3 +1,6 @@
+import { IspitivacGuard } from './auth/ispitivac-guard.service';
+import { AdminGuard } from './auth/admin-guard.service';
+import { CapitalizePipe } from './shared/capitalize.pipe';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CustomChartComponent } from './shared/custom-chart.component';
 import { QuestionResults } from './survey/my-surveys/my-surveys-results/question-results/question-results.component';
@@ -29,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/token.interceptor';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { AlertModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [BrowserModule,
@@ -40,14 +44,15 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
         NgxPaginationModule,
         NgxChartsModule,
         BrowserAnimationsModule,
-        LoadingBarHttpClientModule
+        LoadingBarHttpClientModule,
+        AlertModule.forRoot(),
     ],
 
     declarations: [AppComponent, HeaderComponent, SignupComponent, SigninComponent, SurveyCreateComponent, TestComponent,
         AnswerComponent, QuestionComponent, DashboardComponent, SurveyListComponent, SurveyItemComponent, SurveyTakeComponent,
-        MySurveysComponent, MySurveysResultsComponent, QuestionResults, CustomChartComponent],
+        MySurveysComponent, MySurveysResultsComponent, QuestionResults, CustomChartComponent, CapitalizePipe],
 
-    providers: [AuthService, DataStorageService, DatePipe, AsyncPipe,
+    providers: [AuthService, DataStorageService, DatePipe, AsyncPipe, CapitalizePipe, AdminGuard, IspitivacGuard,
          { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
         ],
 

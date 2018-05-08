@@ -29,7 +29,7 @@ export class AuthService {
             .subscribe(
                 (response: any) => {
                     console.log(response);
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/dashboard']);
                     this.loggedUser = response.username;
                     window.localStorage.setItem('auth_token', response.access_token);
                     window.localStorage.setItem('username', this.loggedUser);
@@ -52,6 +52,11 @@ export class AuthService {
         window.localStorage.removeItem('userId');
         window.localStorage.removeItem('userRole');
         this.router.navigate(['signin']);
+        this.isLogged = false;
+    }
+    
+    isLoggedIn() {
+        return this.isLogged;
     }
 
     isAuthenticated() {

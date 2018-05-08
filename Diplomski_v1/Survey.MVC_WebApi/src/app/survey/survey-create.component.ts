@@ -1,155 +1,44 @@
-import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { SurveyModel } from "./models/survey.model";
 import { DataStorageService } from '../shared/data-storage.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import * as Survey from 'survey-angular';
+import { query, trigger, style, stagger, animate, transition, keyframes, state } from '@angular/animations';
+import { slideInOutAnimation } from '../animations/slide-in-out.animation';
+import { slideAnimation } from '../animations/slideAnimation';
 
+type Orientation = ( "prev" | "next" | "none");
 
 @Component({
     selector: 'app-survey-create',
     templateUrl: './survey-create.component.html',
-    styleUrls: ['./survey-create.component.css']
+    styleUrls: ['./survey-create.component.css'],
+    animations: [slideInOutAnimation]
 })
+
 export class SurveyCreateComponent implements OnInit{
 
     @ViewChild('closeBtn') closeBtn: ElementRef;
-    surveyForm: FormGroup;
+    surveyForm: any;
     surveyId: string = '';
     pollTypeId: string = '';
-    selectedQuestion: string;
+    selectedQuestion: any;
+    questionsArray: FormArray;
+    lastIndex : number;
+    currentIndex: number;
+    state: string;
 
+    private changeDetectorRef: ChangeDetectorRef;
+    
+    hideme: any = {};
 
     constructor(private fb: FormBuilder, private dataStorageService: DataStorageService,
-        private router: Router, private datePipe: DatePipe) { }
-
-
-        json1 = {
-                    "Id": "00000000-0000-0000-0000-000000000000",
-                    "title": "anketa",
-                    "userId": "d94d6498-2632-4fbc-bf8e-fde9e4fabbb5",
-                    "createdOn": "2018-03-18T04:48:33",
-                    "pages": [
-                        {
-                            "questions": [
-                                {
-                                    "title": "Koju zivotinju imate?",
-                                    "name": "zivotinja",
-                                    "type": "checkbox",
-                                    "isRequired": true,
-                                    "choices": [
-                                        "pas",
-                                        "macka",
-                                        "čuko"
-                                    ]
-                                },
-                                {
-                                    "title": "jeste li?",
-                                    "name": "jeste",
-                                    "type": "radiogroup",
-                                    "isRequired": true,
-                                    "choices": [
-                                        "da",
-                                        "ne"
-                                    ]
-                                },
-                                {
-                                    "title": "Koliko?",
-                                    "name": "koliko",
-                                    "type": "rating",
-                                    "isRequired": true,
-                                    "maximumRateDescription": "10",
-                                    "mininumRateDescription": "1"
-                                },
-                                {
-                                    "title": "Ocjenite ",
-                                    "name": "ocjena",
-                                    "type": "rating",
-                                    "isRequired": false,
-                                    "maximumRateDescription": "Hladno",
-                                    "mininumRateDescription": "Toplo"
-                                }
-                            ]
-                        }
-                    ]
-                }
-
-    json = {
-        title: 'Product Feedback Survey Example',
-        pages: [
-            {
-                questions: [
-                    {
-                        type: 'matrix',
-                        name: 'Quality',
-                        title: 'Please indicate if you agree or disagree with the following statements',
-                        columns: [
-                            {
-                                value: 1,
-                                text: 'Strongly Disagree'
-                            },
-                            {
-                                value: 2,
-                                text: 'Disagree'
-                            },
-                            {
-                                value: 3,
-                                text: 'Neutral'
-                            },
-                            {
-                                value: 4,
-                                text: 'Agree'
-                            },
-                            {
-                                value: 5,
-                                text: 'Strongly Agree'
-                            }
-                        ],
-                        rows: [
-                            {
-                                value: 'affordable',
-                                text: 'Product is affordable'
-                            },
-                            {
-                                value: 'does what it claims',
-                                text: 'Product does what it claims'
-                            },
-                            {
-                                value: 'better then others',
-                                text: 'Product is better than other products on the market'
-                            },
-                            {
-                                value: 'easy to use',
-                                text: 'Product is easy to use'
-                            }
-                        ]
-                    },
-                    {
-                        type: 'rating',
-                        name: 'satisfaction',
-                        title: 'How satisfied are you with the Product?',
-                        mininumRateDescription: 'Not Satisfied',
-                        maximumRateDescription: 'Completely satisfied'
-                    },
-                    {
-                        type: 'rating',
-                        name: 'recommend friends',
-                        visibleIf: '{satisfaction} > 3',
-                        title: 'How likely are you to recommend the Product to a friend or co-worker?',
-                        mininumRateDescription: 'Will not recommend',
-                        maximumRateDescription: 'I will recommend'
-                    },
-                    {
-                        type: 'comment',
-                        name: 'suggestions',
-                        title: 'What would make you more satisfied with the Product?',
-                    },
-
-                ]
-            }
-        ]
-    };
+        private router: Router, private datePipe: DatePipe, changeDetectorRef: ChangeDetectorRef) {
+            this.changeDetectorRef = changeDetectorRef;
+            this.state = "none";
+         }
 
     ngOnInit() {
         this.dataStorageService.currentSurvey.subscribe(survey => this.surveyForm = survey);
@@ -158,17 +47,21 @@ export class SurveyCreateComponent implements OnInit{
             organization: ['', Validators.required],
             pages: this.fb.array([this.initPages()])
         });
+        this.currentIndex = 0;
+        this.lastIndex = 0;
+        this.questionsArray =  <FormArray>this.surveyForm.get('pages')['controls'][0]['controls']['questions']['controls'];
+        //this.selectedQuestion = <FormArray>this.surveyForm.get('pages')['controls'][0]['controls']['questions']['controls'][this.currentIndex]['controls'];
+        
     };
 
     onModalClick() {
         let surveyModel = new Survey.Model(this.surveyForm.value);
         surveyModel.mode = 'display';
         Survey.SurveyNG.render('surveyElement', { model: surveyModel });
-        console.log(surveyModel);
+        //console.log(surveyModel);
         console.log(this.surveyForm.value);
         //console.log(this.json1);
     }
-
     initPages() {
         return this.fb.group({
             questions: this.fb.array([this.initQuestion()])
@@ -179,24 +72,41 @@ export class SurveyCreateComponent implements OnInit{
         return this.fb.group({
             type: ['', Validators.required],
             name: ['', Validators.required],
-            isRequired: false
+            isRequired: false,
+            hidden: false
             //answers: this.fb.array([])
         });
     }
 
     addQuestion(j: any) {
         //const questionArray = <FormArray>this.surveyForm.get['pages'].value[j].get['questions'];
+        this.selectedQuestion = this.surveyForm.get('pages')['controls'][0]['controls']['questions']['controls'][this.currentIndex] as FormArray;
         const questionArray = <FormArray>this.surveyForm.get('pages')['controls'][j]['controls']['questions'];
-        //console.log(questionArray);
         const newQuestion = this.initQuestion();
-            
+
         questionArray.push(newQuestion);
+      
+        this.currentIndex = this.lastIndex;
+        this.currentIndex++;
+        this.lastIndex++;
+
+        this.state = "slideRight";
+        this.changeDetectorRef.detectChanges();
+        console.log(this.currentIndex);
+       
     }
 
     removeQuestion(idArray: number, idQuestion: number) {
-        console.log(idArray, idQuestion);
         const questionsArray = <FormArray>this.surveyForm.get('pages')['controls'][idArray]['controls']['questions'];
         questionsArray.removeAt(idQuestion);
+        this.lastIndex--;
+        this.currentIndex--;
+
+        if(this.state != "slideLeft")
+        this.state = "slideLeft";
+        else if (this.state === "slideLeft")
+        this.state = "slideLeftLeft"
+        this.changeDetectorRef.detectChanges();
     }
 
     getPages(form: any) {
@@ -207,7 +117,8 @@ export class SurveyCreateComponent implements OnInit{
     getQuestions(form: any) {
         //console.log(form.get('sections').controls);
         //return form.controls.questions.controls;
-        return (<FormArray>form.get('questions')['controls']);
+        return (<FormArray>form.get('questions')['controls']); 
+        
     }
 
     private closeModal() {
@@ -219,7 +130,7 @@ export class SurveyCreateComponent implements OnInit{
         //this.router.navigate(['test']);
 
         const userId = localStorage.getItem('userId');
-        let createdOn = this.datePipe.transform(Date.now(), 'dd-MM-yyyy HH:mm:ss a');
+        let createdOn = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm:ss a');
 
         const asd = this.surveyForm.controls;
 
@@ -232,5 +143,25 @@ export class SurveyCreateComponent implements OnInit{
         this.dataStorageService.addSurvey(newSurvey);
         console.log(newSurvey);
         this.closeModal();
+    }
+
+    previousQuestion() {
+        this.currentIndex--;
+        if(this.state != "slideLeft")
+        this.state = "slideLeft";
+        else if (this.state === "slideLeft")
+        this.state = "slideLeftLeft"
+        this.changeDetectorRef.detectChanges();
+        console.log(this.state);
+    }
+
+    nextQuestion() {
+        this.currentIndex++;
+        if(this.state != "slideRight")
+        this.state = "slideRight";
+        else if (this.state === "slideRight")
+        this.state = "slideRightRight"
+        this.changeDetectorRef.detectChanges();
+        console.log(this.state);
     }
 }

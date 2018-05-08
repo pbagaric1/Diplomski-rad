@@ -7,6 +7,7 @@
     //public instructions: string;
     public createdOn : string;
     public questions: string[];
+ //   public userName: string;
 
     constructor(id: string, userId: string, name: string, organization: string, createdOn: string, questions: string[]) {
 
@@ -17,5 +18,6 @@
         //this.instructions = instructions;
         this.createdOn = createdOn;
         this.questions = questions;
+       // this.userName = userName;
     }
 }

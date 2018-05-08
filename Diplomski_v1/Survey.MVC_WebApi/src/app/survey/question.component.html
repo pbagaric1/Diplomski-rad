@@ -1,99 +1,148 @@
-﻿<div [formGroup]="questionGroup" >
+﻿<div [formGroup]="questionGroup">
     <!--<div class="form-group">
         <label>Title</label>
         <input type="text" class="form-control" formControlName="name">
     </div>-->
-    <div class="form-group">
-        <label>Type</label>
+    <div class="form-group" style="width: 50%; margin: 0 auto;">
+        <label  style="margin-top:10px">Type</label>
         <select class="form-control" name="type" formControlName="type" [(ngModel)]="selectedType" (change)="onChange(selectedType)">
             <option *ngFor="let questionType of questionTypes" [ngValue]="questionType">
-                {{questionType}}
+                {{questionType | capitalize }}
             </option>
         </select>
     </div>
     <div [ngSwitch]="selectedType">
         <!--Text-->
         <div class="form-group" *ngSwitchCase="'text'">
-            <label>Question Name</label>
-            <input type="text" class="form-control" formControlName="name">
+            <hr />
+            <div class="row">
+                <div class="col-xs-6">
+                    <label>Question Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="col-xs-6">
+
+                    <label style="display: inline-block">Answer required?</label>
+                    <input type="checkbox" class="checkmark" formControlName="isRequired">
+                </div>
+
+            </div>
+
             <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
-            <label>Answer required?</label>
-            <input type="checkbox" class="checkbox" formControlName="isRequired">
+
         </div>
         <!--Radiogroup-->
         <div class="form-group" *ngSwitchCase="'radiogroup'">
             <hr />
-            <label>Question Name</label>
-            <input type="text" class="form-control" formControlName="name">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label>Question Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="col-xs-6">
+
+                    <label style="display: inline-block">Answer required?</label>
+                    <input type="checkbox" class="checkmark" formControlName="isRequired">
+                </div>
+            </div>
             <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
-            <label>Answer required?</label>
-            <input type="checkbox" class="checkbox" formControlName="isRequired">
+
             <label>Choices</label>
             <div formArrayName="choices">
-                <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index" class="panel panel-default">
-                    <div>
-                        <input type="text" class="form-control" formControlName="{{i}}">
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 0"
+                <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index">
+                    <div class="col-xs-6">
+                        <label class="choice">{{i+1}}. Choice</label>
+                        <input type="choiceInput" class="choiceInput" formControlName="{{i}}">
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 2"
                             (click)="removeChoice(i)"></span>
                     </div>
                 </div>
-                <div class="margin-20">
-                    <button (click)="addChoice()" class="btn btn-primary">
-                        Add choice +
-                    </button>
-                </div>
+                <button (click)="addChoice()" class="addChoice">
+                    Add choice +
+                </button>
             </div>
         </div>
         <!--Checkbox-->
         <div class="form-group" *ngSwitchCase="'checkbox'">
             <hr />
-            <label>Question Name</label>
-            <input type="text" class="form-control" formControlName="name">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label>Question Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="col-xs-6">
+
+                    <label style="display: inline-block">Answer required?</label>
+                    <input type="checkbox" class="checkmark" formControlName="isRequired">
+                </div>
+
+            </div>
+            
             <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
-            <label>Answer required?</label>
-            <input type="checkbox" class="checkbox" formControlName="isRequired">
+
             <label>Choices</label>
             <div formArrayName="choices">
-                <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index" class="panel panel-default">
-                    <div>
-                        <input type="text" class="form-control" formControlName="{{i}}">
-                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 0"
+                <div *ngFor="let choice of questionGroup.controls.choices.controls; let i=index">
+                    <div class="col-xs-6">
+                        <label class="choice">{{i+1}}. Choice</label>
+                        <input type="choiceInput" class="choiceInput" formControlName="{{i}}">
+                        <span class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" *ngIf="questionGroup.controls.choices.controls.length > 2"
                             (click)="removeChoice(i)"></span>
                     </div>
                 </div>
-                <div class="margin-20">
-                    <button (click)="addChoice()" class="btn btn-primary">
-                        Add choice +
-                    </button>
-                </div>
             </div>
+            <button (click)="addChoice()" class="addChoice">
+                Add choice +
+            </button>
         </div>
         <!--Rating-->
         <div class="form-group" *ngSwitchCase="'rating'">
             <hr />
-            <label>Question Name</label>
-            <input type="text" class="form-control" formControlName="name">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label>Question Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="col-xs-6">
+
+                    <label style="display: inline-block">Answer required?</label>
+                    <input type="checkbox" class="checkmark" formControlName="isRequired">
+                </div>
+            </div>
+
             <label>Question Title</label>
             <input type="text" class="form-control" formControlName="title">
-            <label>Answer required?</label>
-            <input type="checkbox" class="checkbox" formControlName="isRequired">
-            <label>Minimum Rate Description</label>
-            <input type="text" class="form-control" formControlName="mininumRateDescription" />
-            <label>Maximum Rate Description</label>
-            <input type="text" class="form-control" formControlName="maximumRateDescription" />
+            
+            <div class="row">
+                    <div class="col-xs-6">
+                            <label>Minimum Rate Description</label>
+                            <input type="text" class="form-control" formControlName="mininumRateDescription" />
+                    </div>
+                    <div class="col-xs-6">
+                            <label>Maximum Rate Description</label>
+                            <input type="text" class="form-control" formControlName="maximumRateDescription" />
+                    </div>
+                </div>
+           
         </div>
         <!--Matrix-->
         <div class="form-group" *ngSwitchCase="'matrix'">
             <hr />
-            <label>Question Name</label>
-            <input type="text" class="form-control" formControlName="name">
-            <label>Question Title</label>
-            <input type="text" class="form-control" formControlName="title">
-            <label>Answer required?</label>
-            <input type="checkbox" class="checkbox" formControlName="isRequired">
+            <div class="row">
+                <div class="col-xs-6">
+                    <label>Question Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="col-xs-6">
+
+                    <label style="display: inline-block">Answer required?</label>
+                    <input type="checkbox" class="checkmark" formControlName="isRequired">
+                </div>
+
+            </div>
             <label>Columns</label>
             <div formArrayName="columns">
                 <div *ngFor="let column of questionGroup.controls.columns.controls; let i=index" class="panel panel-default">
@@ -111,7 +160,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <label>Rows</label>
             <div formArrayName="rows">

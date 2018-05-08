@@ -1,4 +1,5 @@
-﻿import { Component, Input, OnInit } from '@angular/core';
+﻿import { CapitalizePipe } from './../../../shared/capitalize.pipe';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { NgSwitch } from '@angular/common';
 import * as Survey from 'survey-angular';
@@ -6,9 +7,10 @@ import { DataStorageService } from '../../../shared/data-storage.service';
 import { SurveyModel } from '../../models/survey.model';
 import { Params, ActivatedRoute } from '@angular/router';
 
+
 @Component({
     selector: 'app-my-surveys-results',
-    templateUrl: './my-surveys-results.component.html',
+    templateUrl: './my-surveys-results.component.html'
 })
 export class MySurveysResultsComponent implements OnInit {
 

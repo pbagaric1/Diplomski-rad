@@ -1,3 +1,4 @@
+import { IspitivacGuard } from './auth/ispitivac-guard.service';
 import { QuestionResults } from './survey/my-surveys/my-surveys-results/question-results/question-results.component';
 import { MySurveysResultsComponent } from './survey/my-surveys/my-surveys-results/my-surveys-results.component';
 import { MySurveysComponent } from './survey/my-surveys/my-surveys.component';
@@ -13,18 +14,18 @@ import { DashboardComponent } from "./dashboard/dashboard.component"
 import { SurveyTakeComponent } from './survey/survey-list/survey-take/survey-take.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: '/signin', pathMatch: 'full' },
+    { path: 'dashboard', component: DashboardComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
-    { path: 'createsurvey', component: SurveyCreateComponent },
+    { path: 'createsurvey', component: SurveyCreateComponent, canActivate: [IspitivacGuard] },
     { path: 'test', component: TestComponent },
     { path: 'surveys', component: SurveyListComponent },
-    { path: 'surveys/details', component: SurveyItemComponent },
+    { path: 'surveys/preview', component: SurveyItemComponent },
     { path: 'surveys/takesurvey', component: SurveyTakeComponent },
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'mysurveys', component: MySurveysComponent },
-    { path: 'mysurveys/details', component: MySurveysResultsComponent },
-    { path: 'mysurveys/details/questionresults', component: QuestionResults },
+    { path: 'mysurveys', component: MySurveysComponent, canActivate: [IspitivacGuard] },
+    { path: 'mysurveys/details', component: MySurveysResultsComponent, canActivate: [IspitivacGuard] },
+    { path: 'mysurveys/details/questionresults', component: QuestionResults, canActivate: [IspitivacGuard] },
     //{ path: 'mysurveys/id/:id/questionId/:id', component: QuestionResults }
 
 ];

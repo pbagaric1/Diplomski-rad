@@ -51,11 +51,12 @@ namespace Survey.Business.Mapping.DtoToView
             return new PollView()
             {
                 Id = item.Id,
-                userId = item.AspNetUserId,
+                //userId = item.AspNetUserId,
                 createdOn = item.CreatedOn,
                 instructions = item.Instructions,
                 title = item.Name,
-                pages = pageViewList
+                pages = pageViewList,
+                userName = item.AspNetUser.UserName
             };
         }
     }

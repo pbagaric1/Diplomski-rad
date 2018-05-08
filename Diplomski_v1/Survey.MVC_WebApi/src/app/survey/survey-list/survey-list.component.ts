@@ -23,7 +23,7 @@ export class SurveyListComponent implements OnInit {
     private _data: Observable<SurveyModel[]>;
     private itemsPerPage : number =  5;
 
-    surveys: SurveyModel[];
+    surveys: any[];
 
     showSpinner : boolean = true;
 
