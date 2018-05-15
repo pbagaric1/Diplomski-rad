@@ -33,6 +33,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/token.interceptor';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { AlertModule } from 'ngx-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
     imports: [BrowserModule,
@@ -46,6 +48,8 @@ import { AlertModule } from 'ngx-bootstrap';
         BrowserAnimationsModule,
         LoadingBarHttpClientModule,
         AlertModule.forRoot(),
+        NgbModule.forRoot(),
+        BsDatepickerModule.forRoot()
     ],
 
     declarations: [AppComponent, HeaderComponent, SignupComponent, SigninComponent, SurveyCreateComponent, TestComponent,

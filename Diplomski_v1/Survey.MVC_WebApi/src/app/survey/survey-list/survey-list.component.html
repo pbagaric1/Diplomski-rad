@@ -8,14 +8,16 @@
         <th></th>
         <th *ngIf="authService.isIspitanik()"></th>
     </tr>
-    <tr *ngFor="let survey of surveys
-                        | paginate: {
-                        id: 'server',
-                        itemsPerPage: itemsPerPage,
-                        currentPage: currentPage, 
-                        totalItems: totalItems
-                        }; 
-                        let i = index">
+    <ng-container *ngFor="let survey of surveys
+    | paginate: {
+    id: 'server',
+    itemsPerPage: itemsPerPage,
+    currentPage: currentPage, 
+    totalItems: totalItems
+    }; 
+    let i = index">
+
+    <tr>
         <td>{{survey.title}}</td>
         <td>{{survey.userName}}</td>
         <td>{{survey.createdOn | date:'dd-MM-yyyy HH:mm:ss a'}}</td>
@@ -29,6 +31,8 @@
             <a [routerLink]="['takesurvey']" (click)="onDetails(survey)">Take Survey</a>
         </td>
     </tr>
+</ng-container>
+    
 </table>
 <pagination-controls (pageChange)="pageChange($event)" id="server" maxSize="5" directionLinks="true">
 </pagination-controls>`

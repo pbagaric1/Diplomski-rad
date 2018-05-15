@@ -12,8 +12,9 @@ export class QuestionResults implements OnInit {
   constructor(private dataStorageService: DataStorageService, private route: ActivatedRoute) { }
 
   data: any[] = [];
-  question : any;
+  question: any;
   questionType: string;
+  textAnswers : any[] = [];
 
   ngOnInit() {
 
@@ -22,13 +23,14 @@ export class QuestionResults implements OnInit {
     console.log(this.question.type);
     this.questionType = this.question.type;
 
-          this.dataStorageService.getQuestionResults(this.question.id)
-              .subscribe(
-                  (data : any[]) => {
-                      this.data = data;
+    this.dataStorageService.getQuestionResults(this.question.id)
+      .subscribe(
+        (data: any[]) => {
+          this.data = data;
+          this.textAnswers = data[0].TextAnswers;
 
-                      console.log(this.data);
-                  });
+          console.log(this.data);
+        });
   }
 
   single: any[];
@@ -48,11 +50,6 @@ export class QuestionResults implements OnInit {
   colorScheme = {
     domain: ['#F44336', '#3F51B5', '#8BC34A', '#2196F3', '#009688', '#FF5722', '#CDDC39', '#00BCD4', '#FFC107', '#795548', '#607D8B']
   };
-
-  data2 = [ {
-    "name": "Rating",
-    "value": 3.4
-  }]
 
   data1 = [
     {
@@ -80,7 +77,4 @@ export class QuestionResults implements OnInit {
       "value": 35925
     }
   ];
-
-
-  asd = [{"name":"Monthly","value":2},{"name":"Weekly","value":0},{"name":"Daily","value":1},{"name":"Yearly","value":0}]
 }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\QuestionTypes.cs" />
     <Compile Include="Enums\QuestionTypeEnum.cs" />
     <Compile Include="Mapping\DtoToView\PollToViewMap.cs" />
     <Compile Include="Mapping\DtoToView\ChkboxRadioToViewMap.cs" />
@@ -64,5 +65,6 @@
       <Name>Survey.DAL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

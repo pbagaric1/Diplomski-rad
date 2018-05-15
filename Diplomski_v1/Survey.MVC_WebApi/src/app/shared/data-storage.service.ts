@@ -35,10 +35,10 @@ export class DataStorageService {
     }
 
     addSurvey(survey: SurveyModel) {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        const token = localStorage.getItem('auth_token');
-        headers.append('Authorization', 'Bearer ' + token);
-        return this.http.post(this.url + 'poll/add', survey, { headers : headers} )
+        // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // const token = localStorage.getItem('auth_token');
+        // headers.append('Authorization', 'Bearer ' + token);
+        return this.http.post(this.url + 'poll/add', survey )
             .subscribe(
                 (res) => {
                     console.log(res);
@@ -114,6 +114,14 @@ export class DataStorageService {
     getQuestionResults(questionId: string) {
         return this.http.get(this.url + 'answer/getquestionresults?questionId=' + questionId)
           //  .map(res => res.json());
+    }
+
+    deleteSurvey(surveyId: string) {
+        return this.http.delete(this.url + 'poll/delete?id=' + surveyId )
+    }
+
+    editSurvey(survey: SurveyModel) {
+        return this.http.put(this.url + 'poll/edit',  survey )
     }
 
 

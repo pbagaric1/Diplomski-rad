@@ -7,9 +7,11 @@
     //public instructions: string;
     public createdOn : string;
     public questions: string[];
+    public visibility: boolean;
  //   public userName: string;
 
-    constructor(id: string, userId: string, name: string, organization: string, createdOn: string, questions: string[]) {
+    constructor(id: string, userId: string, name: string, organization: string, createdOn: string, questions: string[],
+                visibility: boolean) {
 
         this.id = id;
         this.userId = userId;
@@ -18,6 +20,7 @@
         //this.instructions = instructions;
         this.createdOn = createdOn;
         this.questions = questions;
+        this.visibility = visibility;
        // this.userName = userName;
     }
 }

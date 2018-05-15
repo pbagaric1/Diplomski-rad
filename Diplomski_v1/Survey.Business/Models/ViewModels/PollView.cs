@@ -17,6 +17,9 @@ namespace Survey.Business.Models.ViewModels
         public string organization { get; set; }
         public DateTime createdOn { get; set; }
         public string userName { get; set; }
+        public bool visibility { get; set; }
+        public DateTime? activityStartTime { get; set; }
+        public DateTime? activityEndTime { get; set; }
 
         //public virtual AspNetUser AspNetUser { get; set; }
         //public ICollection<UserPoll> UserPolls { get; set; }

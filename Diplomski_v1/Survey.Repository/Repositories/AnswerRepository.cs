@@ -11,6 +11,7 @@ using Survey.Business.Models.ViewModels;
 using Survey.DAL.Models;
 using Survey.Repository.Common.IRepositories;
 using System.Globalization;
+using Survey.Business.Constants;
 
 namespace Survey.Repository.Repositories
 {
@@ -124,98 +125,103 @@ namespace Survey.Repository.Repositories
 
                 var firstAnswer = answers.First();
 
-                switch (firstAnswer.Type)
+                if (firstAnswer.Type == QuestionTypes.Rating)
                 {
-                    case "rating":
+                    foreach (var choice in firstAnswer.Text)
                     {
-                        foreach (var choice in firstAnswer.Text)
+                        var answersSum = answers.Select(x => x.Text).Select(decimal.Parse).Sum();
+                        var answersCount = answers.Select(x => x.Text).Count();
+                        decimal averageRating = answersSum / answersCount;
+
+                        string output = averageRating.ToString("0.00");
+
+
+                        var dataView = new DataView()
                         {
-                            var answersSum = answers.Select(x => x.Text).Select(decimal.Parse).Sum();
-                            var answersCount = answers.Select(x => x.Text).Count();
-                            decimal averageRating = answersSum / answersCount;
+                            name = "Rating",
+                            value = decimal.Round(averageRating, 2, MidpointRounding.AwayFromZero)
+                        };
 
-                            string output = averageRating.ToString("0.00");
-
-
-                                var dataView = new DataView()
-                            {
-                                name = "Rating",
-                                value = decimal.Round(averageRating, 2, MidpointRounding.AwayFromZero)
-                            };
-
-                            data.Add(dataView);
-                        }
-                        break;
+                        data.Add(dataView);
                     }
-
-                    case "radiogroup":
-                    {
-                        foreach (var choice in firstAnswer.QuestionChoices)
-                        {
-                            var dataView = new DataView()
-                            {
-                                name = choice.Name,
-                                value = answers.Where(x => x.Text == choice.Name).Count()
-                            };
-                            data.Add(dataView);
-                        }
-                        break;
-                    }
-
-                    case "checkbox":
-                    {
-                        foreach (var choice in firstAnswer.QuestionChoices)
-                        {
-                            var dataView = new DataView()
-                            {
-                                name = choice.Name,
-                                value = answers.Where(x => x.Text == choice.Name).Count()
-                            };
-                            data.Add(dataView);
-                        }
-                        break;
-                    }
-
-                    default:
-
-                        break;
                 }
 
-                //        foreach (var answer in answers)
-                //{
-                //    if (data.Any())
-                //        break;
+                else if (firstAnswer.Type == QuestionTypes.Radiogroup)
+                {
+                    foreach (var choice in firstAnswer.QuestionChoices)
+                    {
+                        var dataView = new DataView()
+                        {
+                            name = choice.Name,
+                            value = answers.Where(x => x.Text == choice.Name).Count()
+                        };
+                        data.Add(dataView);
+                    }
+                }
 
-                //    switch (answer.Type)
-                //    {
-                //        case "rating":
+                else if (firstAnswer.Type == QuestionTypes.Checkbox)
+                {
+                    foreach (var choice in firstAnswer.QuestionChoices)
+                    {
+                        var dataView = new DataView()
+                        {
+                            name = choice.Name,
+                            value = answers.Where(x => x.Text == choice.Name).Count()
+                        };
+                        data.Add(dataView);
+                    }
+                }
 
-                //            break;
+                else if (firstAnswer.Type == QuestionTypes.Text)
+                {
+                    var textAnswers = answers.Select(x => x.Text).ToList();
 
-                //        case "radiogroup":
-                //        {
+                    var dataView = new DataView()
+                    {
+                        TextAnswers = textAnswers
+                    };
 
-                //            foreach (var choice in answer.QuestionChoices)
-                //            {
-                //                var dataView = new DataView()
-                //                {
-                //                    name = choice.Name,
-                //                    value = answers.Where(x => x.Text == choice.Name).Count()
-                //                };
-                //                    data.Add(dataView);
-                //            }
-                //            }
-
-                //            break;
-
-                //        default:
-
-                //            break;
-                //    }
-                //}
+                    data.Add(dataView);
+                }
 
                 return data;
             }
+
+
+
+        //        foreach (var answer in answers)
+        //{
+        //    if (data.Any())
+        //        break;
+
+        //    switch (answer.Type)
+        //    {
+        //        case "rating":
+
+        //            break;
+
+        //        case "radiogroup":
+        //        {
+
+        //            foreach (var choice in answer.QuestionChoices)
+        //            {
+        //                var dataView = new DataView()
+        //                {
+        //                    name = choice.Name,
+        //                    value = answers.Where(x => x.Text == choice.Name).Count()
+        //                };
+        //                    data.Add(dataView);
+        //            }
+        //            }
+
+        //            break;
+
+        //        default:
+
+        //            break;
+        //    }
+        //}
+
             catch (Exception ex)
             {
                 throw ex;

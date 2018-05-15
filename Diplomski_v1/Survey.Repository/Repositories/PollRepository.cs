@@ -135,7 +135,7 @@ namespace Survey.Repository.Repositories
             {
                 var response = await GenericRepository.GetAll<Poll>();
 
-                var orderedList = response.Select(x => new Poll
+                var orderedList = response.Where(x =>x.Visibility == true).Select(x => new Poll
                 {
                     Id = x.Id,
                     CreatedOn = x.CreatedOn,
@@ -144,7 +144,10 @@ namespace Survey.Repository.Repositories
                     Name = x.Name,
                     OrganizationId = x.OrganizationId,
                     Questions = x.Questions.OrderBy(q => q.QuestionOrder).ToList(),
-                    AspNetUser = x.AspNetUser
+                    AspNetUser = x.AspNetUser,
+                    Visibility = x.Visibility,
+                    ActivityEndTime = x.ActivityEndTime,
+                    ActivityStartTime = x.ActivityStartTime
                 }).ToList();
 
                 var pollViewList = orderedList

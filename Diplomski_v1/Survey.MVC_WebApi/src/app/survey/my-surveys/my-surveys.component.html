@@ -1,17 +1,70 @@
 ﻿<h1>My Surveys</h1>
 <hr />
 <table class="table table-striped table-bordered">
-            <tr>
-                    <th>Survey</th>
-                <th>Created On</th>
-                <th></th>
-                </tr>
-        <tr *ngFor="let survey of surveys; let i = index">
-            <td>{{survey.title}}</td>
-            <td>{{survey.createdOn  | date:'dd-MM-yyyy HH:mm:ss a'}}</td><td>
-                            <a 
-                               style="cursor: pointer; text-align:center; display:block;" [routerLink]="['details']"
-                               (click)="onDetails(survey)">Details</a>
-                        </td> 
-        </tr>
+    <tr>
+        <th>Survey</th>
+        <th>Created On</th>
+        <th width="25%"></th>
+    </tr>
+    <tr *ngFor="let survey of surveys; let i = index">
+        <td>{{survey.title}}</td>
+        <td>{{survey.createdOn | date:'dd-MM-yyyy HH:mm:ss a'}}</td>
+        <td>
+            <a title="Details" [routerLink]="['details']" (click)="onDetails(survey)">
+                <span class="fa fa-info-circle" aria-hidden="true" style="font-size: 20px; margin: 0 10px;"></span>
+            </a>
+            <a title="Delete" style="cursor: pointer; " data-toggle="modal" data-target="#deleteModal" (click)="onDelete(survey.Id, i)">
+                <i class="fa fa-trash-o fa-fw" aria-hidden="true" style="font-size: 20px; margin: 0 10px;"></i>
+            </a>
+            <a title="Edit" style="cursor: pointer;" data-toggle="modal" data-target="#editModal" (click)="onEdit(survey, i)">
+                <i class="fa fa-edit" aria-hidden="true" style="font-size: 20px; margin: 0 10px;"></i>
+            </a>
+        </td>
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:auto;height:auto">
+                    <div class="modal-header">
+                        <!-- <h5 class="modal-title" id="previewModalLabel">Preview Survey</h5> -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="survey-container contentcontainer codecontainer">
+                            Are you sure you want to delete this survey?
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" #closeBtn>No</button>
+                        <button type="submit" class="btn btn-success" (click)="onDeleteModal()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          <!-- Edit Modal -->
+          <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:auto;height:auto">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="previewModalLabel">Edit Survey</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="survey-container contentcontainer codecontainer">
+                            <input #visibilityCheckbox type="checkbox" [checked]="isVisible" id="visibilityCheckbox" (change)="logAsd(visibilityCheckbox.checked)">Visibility
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" #closeEdit>Close</button>
+                        <button type="submit" class="btn btn-success" (click)="onEditModal()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tr>
 </table>

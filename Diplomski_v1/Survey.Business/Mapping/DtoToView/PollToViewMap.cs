@@ -56,7 +56,10 @@ namespace Survey.Business.Mapping.DtoToView
                 instructions = item.Instructions,
                 title = item.Name,
                 pages = pageViewList,
-                userName = item.AspNetUser.UserName
+                userName = item.AspNetUser.UserName,
+                visibility = item.Visibility,
+                activityEndTime = item.ActivityEndTime,
+                activityStartTime = item.ActivityStartTime
             };
         }
     }

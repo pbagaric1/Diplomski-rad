@@ -1,3 +1,4 @@
+import { fadeInAnimation } from './../animations/fade-in.animation';
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { SurveyModel } from "./models/survey.model";
@@ -15,7 +16,7 @@ type Orientation = ( "prev" | "next" | "none");
     selector: 'app-survey-create',
     templateUrl: './survey-create.component.html',
     styleUrls: ['./survey-create.component.css'],
-    animations: [slideInOutAnimation]
+    animations: [slideInOutAnimation, fadeInAnimation]
 })
 
 export class SurveyCreateComponent implements OnInit{
@@ -135,7 +136,7 @@ export class SurveyCreateComponent implements OnInit{
         const asd = this.surveyForm.controls;
 
         const newSurvey = new SurveyModel("", userId, this.surveyForm.value['title'],
-            this.surveyForm.value['organization'], createdOn, this.surveyForm.value['pages'][0]['questions']);
+            this.surveyForm.value['organization'], createdOn, this.surveyForm.value['pages'][0]['questions'], true);
 
 
         console.log(this.surveyForm);

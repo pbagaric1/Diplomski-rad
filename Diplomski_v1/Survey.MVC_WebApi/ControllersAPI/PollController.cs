@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -55,6 +55,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
         }
 
+        [System.Web.Http.Authorize(Roles = "Ispitanik")]
         [System.Web.Http.Route("getnumberofpolls")]
         [System.Web.Http.HttpGet]
         public async Task<HttpResponseMessage> GetNumberOfPolls(int pageIndex, int pageSize)
@@ -117,7 +118,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
         }
 
-        [System.Web.Http.Authorize(Roles = "Admin, Ispitivac")]
+        [System.Web.Http.Authorize(Roles = "Ispitivac")]
         [System.Web.Http.Route("add")]
         [System.Web.Http.HttpPost]
         public async Task<HttpResponseMessage> Add(ReceivedPollView receivedPoll)
@@ -165,7 +166,7 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error adding poll");
             }
         }
-
+        [System.Web.Http.Authorize(Roles = "Admin, Ispitivac")]
         [System.Web.Http.Route("delete")]
         [System.Web.Http.HttpDelete]
         public async Task<HttpResponseMessage> Delete(Guid id)
@@ -180,10 +181,10 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
             }
         }
-
+        [System.Web.Http.Authorize(Roles = "Ispitivac")] 
         [System.Web.Http.Route("edit")]
         [System.Web.Http.HttpPut]
-        public async Task<HttpResponseMessage> Edit(Poll poll)
+        public async Task<HttpResponseMessage> Edit(PollView poll)
         {
             try
             {
@@ -192,9 +193,14 @@ namespace Survey.MVC_WebApi.ControllersAPI
                 if (toBeUpdated == null)
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Entry not found");
 
-                toBeUpdated.Name = poll.Name;
+              toBeUpdated.Visibility = poll.visibility;
+              toBeUpdated.ActivityEndTime = poll.activityEndTime;
+              toBeUpdated.ActivityStartTime = poll.activityStartTime;
+              toBeUpdated.CreatedOn = poll.createdOn;
+              toBeUpdated.AspNetUserId = poll.userId;
+              toBeUpdated.Name = poll.title;
 
-                var response = await PollRepository.Update((toBeUpdated));
+                var response = await PollRepository.Update(toBeUpdated);
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
             catch (Exception e)

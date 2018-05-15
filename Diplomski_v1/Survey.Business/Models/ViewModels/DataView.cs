@@ -10,5 +10,6 @@ namespace Survey.Business.Models.ViewModels
     {
         public string name { get; set; }
         public decimal value { get; set; }
+        public List<string> TextAnswers { get; set; }
     }
 }

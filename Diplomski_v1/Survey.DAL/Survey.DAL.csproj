@@ -91,6 +91,14 @@
     <Compile Include="Migrations\201803260951196_ChangedAnswerDto1.Designer.cs">
       <DependentUpon>201803260951196_ChangedAnswerDto1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805101316175_AddedActivityAndVisibility.cs" />
+    <Compile Include="Migrations\201805101316175_AddedActivityAndVisibility.Designer.cs">
+      <DependentUpon>201805101316175_AddedActivityAndVisibility.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805150940292_ModifiedActivitySpan.cs" />
+    <Compile Include="Migrations\201805150940292_ModifiedActivitySpan.Designer.cs">
+      <DependentUpon>201805150940292_ModifiedActivitySpan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AspNetRole.cs" />
@@ -151,6 +159,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803260951196_ChangedAnswerDto1.resx">
       <DependentUpon>201803260951196_ChangedAnswerDto1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805101316175_AddedActivityAndVisibility.resx">
+      <DependentUpon>201805101316175_AddedActivityAndVisibility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805150940292_ModifiedActivitySpan.resx">
+      <DependentUpon>201805150940292_ModifiedActivitySpan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

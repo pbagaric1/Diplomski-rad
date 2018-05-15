@@ -14,6 +14,15 @@ namespace Survey.DAL.Models
         public string Instructions { get; set; }
         public DateTime CreatedOn { get; set; }
 
+        //Survey not visible in listed surveys, but user that completed it should still be able to see it 
+        public bool Visibility { get; set; }
+
+        //Time period when survey is active and can be completed
+        public DateTime? ActivityStartTime { get; set; }
+
+        //Time period when survey is ending and can't be completed anymore
+        public DateTime? ActivityEndTime { get; set; }
+
         //public ICollection<UserPoll> UserPolls { get; set; }
         private ICollection<Question> _questions;
 

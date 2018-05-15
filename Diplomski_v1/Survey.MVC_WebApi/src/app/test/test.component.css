@@ -1,25 +1,17 @@
-#container{
-    padding: 2em;
-}
-
-    #list {
-        padding:1em;
-        display: block;
-        background: #fff;
-        margin-bottom: 10px;
-    }
-
-    button {
-        border:none;
-        margin-bottom:20px;
-        padding:10px;
-        background:blueviolet;
-        color: #fff;
-    }
-
-    .col {
-        width:33%;
-        display:inline-block;
-        padding:40px 0;
-        color: gray;
-    }
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+  }
+  .custom-day.focused {
+    background-color: #e6e6e6;
+  }
+  .custom-day.range, .custom-day:hover {
+    background-color: rgb(2, 117, 216);
+    color: white;
+  }
+  .custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+  }
