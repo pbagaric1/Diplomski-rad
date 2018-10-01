@@ -99,6 +99,38 @@
     <Compile Include="Migrations\201805150940292_ModifiedActivitySpan.Designer.cs">
       <DependentUpon>201805150940292_ModifiedActivitySpan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808301410232_SavedPolls.cs" />
+    <Compile Include="Migrations\201808301410232_SavedPolls.Designer.cs">
+      <DependentUpon>201808301410232_SavedPolls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808301415036_SavedPolls1.cs" />
+    <Compile Include="Migrations\201808301415036_SavedPolls1.Designer.cs">
+      <DependentUpon>201808301415036_SavedPolls1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808301532282_SavedPolls2.cs" />
+    <Compile Include="Migrations\201808301532282_SavedPolls2.Designer.cs">
+      <DependentUpon>201808301532282_SavedPolls2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809011542093_SavedPolls3.cs" />
+    <Compile Include="Migrations\201809011542093_SavedPolls3.Designer.cs">
+      <DependentUpon>201809011542093_SavedPolls3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809141157458_ChoiceOrder.cs" />
+    <Compile Include="Migrations\201809141157458_ChoiceOrder.Designer.cs">
+      <DependentUpon>201809141157458_ChoiceOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809170844180_ChangedOrganization.cs" />
+    <Compile Include="Migrations\201809170844180_ChangedOrganization.Designer.cs">
+      <DependentUpon>201809170844180_ChangedOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809171211387_AddedTakesCount.cs" />
+    <Compile Include="Migrations\201809171211387_AddedTakesCount.Designer.cs">
+      <DependentUpon>201809171211387_AddedTakesCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809171359561_AddedIsFinal.cs" />
+    <Compile Include="Migrations\201809171359561_AddedIsFinal.Designer.cs">
+      <DependentUpon>201809171359561_AddedIsFinal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AspNetRole.cs" />
@@ -118,6 +150,7 @@
     <Compile Include="Models\QuestionOptionGroup.cs" />
     <Compile Include="Models\QuestionType.cs" />
     <Compile Include="Models\QuestionOption.cs" />
+    <Compile Include="Models\SavedPoll.cs" />
     <Compile Include="SurveyDatabaseContext.cs" />
     <Compile Include="Models\UserPoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +198,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805150940292_ModifiedActivitySpan.resx">
       <DependentUpon>201805150940292_ModifiedActivitySpan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808301410232_SavedPolls.resx">
+      <DependentUpon>201808301410232_SavedPolls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808301415036_SavedPolls1.resx">
+      <DependentUpon>201808301415036_SavedPolls1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808301532282_SavedPolls2.resx">
+      <DependentUpon>201808301532282_SavedPolls2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809011542093_SavedPolls3.resx">
+      <DependentUpon>201809011542093_SavedPolls3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809141157458_ChoiceOrder.resx">
+      <DependentUpon>201809141157458_ChoiceOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809170844180_ChangedOrganization.resx">
+      <DependentUpon>201809170844180_ChangedOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809171211387_AddedTakesCount.resx">
+      <DependentUpon>201809171211387_AddedTakesCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809171359561_AddedIsFinal.resx">
+      <DependentUpon>201809171359561_AddedIsFinal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

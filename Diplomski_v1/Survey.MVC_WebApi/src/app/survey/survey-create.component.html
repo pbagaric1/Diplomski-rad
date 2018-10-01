@@ -3,17 +3,21 @@
         <h3>Add survey</h3>
         <hr />
         <div class="row" style="margin-bottom: 40px">
-            <div class="col-xs-6">
+            <div class="col-xs-6 mirko" >
                 <label>* Name</label>
                 <input type="text" class="form-control" formControlName="title">
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-6 mirko">
                 <label>* Organization</label>
                 <input type="text" class="form-control" formControlName="organization">
             </div>
+            <div class="col-xs-12 mirko">
+                <label>Description</label>
+                <textarea type="text" class="form-control" formControlName="description" rows="3"></textarea>
+            </div>
             <div class="col-xs-6">
                     <label>Activity period</label>
-                    <input type="text" bsDaterangepicker class="form-control">
+                    <input type="text" bsDaterangepicker class="form-control" [minDate]="minDate" [bsValue]="bsRangeValue" formControlName="activityDateRange" [(ngModel)]="activityRange">
                 </div>
         </div>
 
@@ -26,18 +30,19 @@
 
         <!--questions-->
         <div formArrayName="pages">
+           <h4>Questions: </h4>
             <div [formGroupName]="i" *ngFor="let page of getPages(surveyForm); let i = index; let last = last" class="panel panel-default">
 
                 <div class="panel-body" formArrayName="questions">
-                    <div *ngFor="let question of questionsArray; let j = index" class="panel panel-default" [@slideInOutAnimation]="state" [hidden]="question.hidden">
+                    <div *ngFor="let question of questionsArray; let j = index" class="panel panel-default">
                         <div class="panel-heading">
                             <span>Question {{j + 1}}</span>
-                            <span *ngIf="j!=0" class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" (click)="removeQuestion(i, j); questionsArray[j-1].hidden = !questionsArray[j-1].hidden"></span>
+                            <span *ngIf="questionsArray.length > 1" class="glyphicon glyphicon-remove pull-right" style="cursor: pointer" (click)="removeQuestion(i, j);"></span>
                         </div>
                         <!-- <app-question *ngIf='prevItem' [group]="questionsArray[j-1]"></app-question> -->
-                        <app-question [group]="questionsArray[j]"></app-question>
+                        <app-question [group]="questionsArray[j]" [element]="elements[j]"></app-question>
                         <div class="margin-20">
-                            <div *ngIf="j!=lastIndex">
+                            <!-- <div *ngIf="j!=lastIndex">
                                 <button (click)="nextQuestion(); question.hidden = !question.hidden; questionsArray[j+1].hidden = !questionsArray[j+1].hidden"
                                     class="btn btn-primary" style="float: right">
                                     Next question
@@ -48,27 +53,59 @@
                                     class="btn btn-primary" style="float: left">
                                     Previous question
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
-            <button (click)="addQuestion(0); selectedQuestion.hidden = !selectedQuestion.hidden;" class="btn btn-success">
+            <button (click)="addQuestion(0); " class="btn btn-secondary">
                 Add question +
             </button>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#previewModal" (click)="onModalClick()" style="float: right;">
+            
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#previewModal" (click)="onModalClick()" style="float: right;">
                 Preview Survey
             </button>
+            <button (click)="saveForm(); " class="btn btn-primary" style="float: right; margin-right: 10px;">
+                Save Current Form
+            </button>
+           
         </div>
 
     </form>
 
     <!-- Button trigger modal -->
+    <button id="openModal" #openModal [hidden]="true" data-toggle="modal" data-target="#continueModal"></button>
 
 
-    <!-- Modal -->
+    <!-- Continue Survey Modal -->
+            <div class="modal fade" id="continueModal" tabindex="-1" role="dialog"
+             aria-labelledby="continueModalLabel" aria-hidden="true"
+            data-backdrop="static"> 
+                    <div class="modal-dialog" role="document"  *ngIf="showContinuedModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title" id="previewModalLabel">Continue Survey</h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" [hidden]="true"  #closeBtn1>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="contentcontainer codecontainer">
+                                   <h2 >Do you want to continue the survey "{{ continuedSurvey.title}}" you started on {{ continuedSurvey.createdOn | date:'dd-MM-yyyy HH:mm:ss a' }}?</h2>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" (click)="removeSavedSurvey()" data-dismiss="modal">No</button>
+                                <button type="submit" class="btn btn-success" (click)="loadItems()">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+
+
+    <!-- Submit Modal -->
     <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document" style="width:70%; height:auto">
+        <div class="modal-dialog" role="document" style="width:50%; height:auto">
             <div class="modal-content" style="width:auto;height:auto">
                 <div class="modal-header">
                     <h5 class="modal-title" id="previewModalLabel">Preview Survey</h5>
@@ -88,7 +125,7 @@
             </div>
         </div>
     </div>
-    <!-- 
+<!--     
     <h5>Details</h5>
     <pre>{{ surveyForm.value | json }}</pre> -->
 </div>

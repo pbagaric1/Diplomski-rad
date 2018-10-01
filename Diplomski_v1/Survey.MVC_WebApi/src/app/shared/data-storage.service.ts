@@ -1,11 +1,12 @@
 ﻿import { SurveyModel } from './../survey/models/survey.model';
 import { Injectable, OnInit } from '@angular/core';
 //import {  Response, Headers, RequestOptions } from '@angular/http';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SavedSurvey } from '../survey/models/saved-survey.model';
 
 @Injectable()
 export class DataStorageService {
@@ -19,8 +20,7 @@ export class DataStorageService {
 
     url: string = 'http://localhost:56645/api/';
 
-    constructor(private http: HttpClient,
-                private route: ActivatedRoute) {
+    constructor(private http: HttpClient, private router: Router) {
     }
 
     ngOnInit() {
@@ -43,6 +43,7 @@ export class DataStorageService {
                 (res) => {
                     console.log(res);
                     window.alert("Survey added!")
+                    this.router.navigate(['/dashboard']);
                 },
                 (error) => {
                     console.log(error);
@@ -51,14 +52,16 @@ export class DataStorageService {
             );
     }
 
-    addSurveyJson(survey: any) {
+    addSurveyJson(survey: SurveyModel) {
+
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const token = localStorage.getItem('auth_token');
         headers.append('Authorization', 'Bearer ' + token);
-        return this.http.post(this.url + 'poll/add', survey, { headers: headers })
+        return this.http.post(this.url + 'poll/addsavedpoll', survey, { headers: headers })
             .subscribe(
                 (res) => {
                     console.log(res);
+                    window.alert("Survey successfully saved so you can continue next time.")
                 },
                 (error) => {
                     console.log(error);
@@ -88,6 +91,16 @@ export class DataStorageService {
            // .map(res => res.json());
     }
 
+    getSurveyJson(userId: string) {
+        return this.http.get(this.url + 'poll/getsavedpoll?userId=' + userId)
+           // .map(res => res.json());
+    }
+
+    removeSavedSurvey(userId: string) {
+        return this.http.delete(this.url + 'poll/removesavedpoll?userId=' + userId)
+           // .map(res => res.json());
+    }
+
     getInputTypes() {
         return this.http.get(this.url + 'inputtype/getall')
            // .map(res => res.json());
@@ -95,6 +108,25 @@ export class DataStorageService {
 
     getSurveys(pageIndex: number, pageSize: number) {
         return this.http.get(this.url + 'poll/getnumberofpolls?pageIndex=' + pageIndex + '&pageSize=' + pageSize)
+          //  .map(res => res.json());
+        
+    }
+
+    getAllUsers() {
+        return this.http.get(this.url + 'user/getall')
+          //  .map(res => res.json());
+        
+    }
+
+
+    getAllSurveys() {
+        return this.http.get(this.url + 'poll/getallview')
+          //  .map(res => res.json());
+        
+    }
+
+    checkIfVoted(userId: string, surveyId: string) {
+        return this.http.get(this.url + 'answer/checkifvoted?userId=' + userId + '&surveyId=' + surveyId)
           //  .map(res => res.json());
         
     }
@@ -120,9 +152,17 @@ export class DataStorageService {
         return this.http.delete(this.url + 'poll/delete?id=' + surveyId )
     }
 
+    deleteUser(userId: string) {
+        return this.http.delete(this.url + 'user/delete?id=' + userId )
+    }
+
+
     editSurvey(survey: SurveyModel) {
         return this.http.put(this.url + 'poll/edit',  survey )
     }
 
+    changeVisibility(survey: SurveyModel) {
+        return this.http.put(this.url + 'poll/changevisibility',  survey )
+    }
 
 }

@@ -21,18 +21,23 @@ namespace Survey.Business.Mapping
             var questionOptionGroup = new QuestionOptionGroup();
             var questionOptionList = new List<QuestionOption>();
 
+            var questionName = item.title;
+        
             var questionId = Guid.NewGuid();
 
             if (item.choices != null)
             {
+              int i = 1;
                 foreach (var choice in item.choices)
                 {
+
                     var questionChoiceId = Guid.NewGuid();
 
                     QuestionChoice questionChoice = new QuestionChoice()
                     {
                         Id = questionChoiceId,
-                        Name = choice
+                        Name = choice,
+                        ChoiceOrder = i
                     };
 
                     QuestionOption questionOption = new QuestionOption()
@@ -43,6 +48,8 @@ namespace Survey.Business.Mapping
                     };
                     choiceList.Add(questionChoice);
                     questionOptionList.Add(questionOption);
+
+                  i++;
                 }
             }
 
@@ -51,7 +58,7 @@ namespace Survey.Business.Mapping
             return new Question()
             {
                 Title = item.title,
-                Name = item.name,
+                Name = questionName,
                 AnswerRequired = item.isRequired,
                 Id = questionId,
                 QuestionChoices = choiceList,

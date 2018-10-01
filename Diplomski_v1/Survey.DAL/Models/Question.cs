@@ -18,6 +18,7 @@ namespace Survey.DAL.Models
         public string Name { get; set; }
         public bool AnswerRequired { get; set; }
         public int QuestionOrder { get; set; }
+        public int TakesCount { get; set; }
         //public QuestionType Type { get; set; }
 
         public virtual QuestionType QuestionType { get; set; }

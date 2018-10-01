@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -14,7 +15,7 @@ namespace Survey.MVC_WebApi.App_Start
     public static void Register(HttpConfiguration config)
     {
       // TODO: Add any additional configuration code.
-      //var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+      //var cors = new EnableCorsAttribute("*", "*", "*");
       //config.EnableCors(cors);
 
       // Web API routes

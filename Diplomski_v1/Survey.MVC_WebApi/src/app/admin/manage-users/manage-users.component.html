@@ -1,0 +1,42 @@
+<h1>Manage Users</h1>
+<hr />
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>User role</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let user of users; let i = index">
+        <td>{{user.UserName}}</td>
+        <td>{{user.Email}}</td>
+        <td *ngIf="user.UserRole == 'Ispitivac'"><span style="font-weight: bold; color: red">{{user.UserRole}}</span></td>
+        <td *ngIf="user.UserRole == 'Ispitanik'"><span style="font-weight: bold; color: blue">{{user.UserRole}}</span></td>
+        <!-- <td>{{user.UserRole}}</td> -->
+        <td><a style="cursor: pointer" data-toggle="modal" data-target="#deleteModal" (click)="onDelete(user.Id, i)">Delete</a></td>
+    </tr>
+    
+</table>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:auto;height:auto">
+            <div class="modal-header">
+                <!-- <h5 class="modal-title" id="previewModalLabel">Preview Survey</h5> -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="survey-container contentcontainer codecontainer">
+                    Are you sure you want to delete this user?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" #closeBtn>No</button>
+                <button type="submit" class="btn btn-success" (click)="onDeleteModal()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

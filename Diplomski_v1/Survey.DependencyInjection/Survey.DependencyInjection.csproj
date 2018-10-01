@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoMapperConfig\MappingProfile.cs" />
     <Compile Include="DIConfig\BottomLayer.cs" />
     <Compile Include="DIConfig\MiddleLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

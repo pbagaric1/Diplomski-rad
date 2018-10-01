@@ -13,13 +13,21 @@
 
             <ul class="nav navbar-nav">
                 <li routerLinkActive="active">
-                    <a routerLink="/surveys" *ngIf="authService.isAdmin() || authService.isIspitanik()">Surveys</a>
+                    <a routerLink="/surveys" *ngIf="authService.isIspitanik()">Surveys</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li routerLinkActive="active">
+                    <a routerLink="/managesurveys" *ngIf="authService.isAdmin()">Manage Surveys</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li routerLinkActive="active">
+                    <a routerLink="/manageusers" *ngIf="authService.isAdmin()">Manage Users</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li routerLinkActive="active">
-                    <a routerLink="/mysurveys" *ngIf="authService.isIspitivac()">My Surveys</a>
-                </li>
+
                 <ng-template [ngIf]="!authService.isAuthenticated()">
                     <li routerLinkActive="active">
                         <a routerLink="/signup">Register</a>
@@ -29,12 +37,27 @@
                     </li>
                 </ng-template>
                 <li>
-                    <a *ngIf="authService.isAuthenticated()" disabled>Logged as
-                        <span style="font-weight: bold">{{loggedUser}}</span>
+                    <a *ngIf="authService.isAuthenticated()" disabled>
+                        <span style="font-weight: bolder; font-size: 15px">{{userRole | uppercase}}</span>
                     </a>
                 </li>
-                <li>
-                    <a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile
+                        <span class="fa fa-user" style="font-size: 25px; float:left; margin-right: 10px;"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a disabled style="pointer-events: none;
+                            cursor: default;">Logged as
+                                <span style="font-weight: bold">{{ loggedUser }}</span>
+                            </a>
+                        </li>
+                        <hr>
+                        <li>
+                            <a routerLink="/mysurveys" *ngIf="authService.isIspitivac()">My Surveys</a>
+                        </li>
+                        <li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

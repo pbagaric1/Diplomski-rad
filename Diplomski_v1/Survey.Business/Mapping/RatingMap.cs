@@ -26,10 +26,12 @@ namespace Survey.Business.Mapping
 
             var questionType = (int)Enum.Parse(typeof(QuestionTypeEnum), item.type);
 
-            return new Question()
+          var questionName = item.title;
+
+      return new Question()
             {
                 Title = item.title,
-                Name = item.name,
+                Name = questionName,
                 AnswerRequired = item.isRequired,
                 Id = Guid.NewGuid(),
                 QuestionOptionGroup = questionOptionGroup,

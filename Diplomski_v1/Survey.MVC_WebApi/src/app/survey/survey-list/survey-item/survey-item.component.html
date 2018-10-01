@@ -1,1 +1,44 @@
-﻿<div id="surveyElement"></div>
+﻿<div class="row">
+    <div class="card col-xs-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h3>{{ survey.title}} </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label>Organization:</label>
+                    <p>{{ survey.organization}} </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label>Created on:</label>
+                    <p>{{ survey.activityStartTime | date:'dd-MM-yyyy'}} </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label>Expires on:</label>
+                    <p>{{ survey.activityEndTime | date:'dd-MM-yyyy'}} </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label>Description:</label>
+                    <p>{{ survey.description}} </p>
+                </div>
+            </div>
+            <button class="btn btn-primary" (click)="showQuestions()">Show/hide questions</button>
+        </div>
+
+    </div>
+    <div *ngIf="showSurvey"  class="col-xs-8">
+        <div id="surveyElement" [hidden]="!questionsShown"></div>
+    </div>
+    <div *ngIf="!showSurvey"  class="col-xs-8">
+        <h3>You already responded to this survey!</h3>>
+    </div>
+
+</div>

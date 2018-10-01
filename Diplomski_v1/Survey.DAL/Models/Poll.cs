@@ -8,10 +8,11 @@ namespace Survey.DAL.Models
     {
         public Guid Id { get; set; }
         public string AspNetUserId { get; set; }
-        public Guid OrganizationId { get; set; }
+        public string Organization { get; set; }
 
         public string Name { get; set; }
-        public string Instructions { get; set; }
+        public string Description { get; set; }
+        public int TakesCount { get; set; }
         public DateTime CreatedOn { get; set; }
 
         //Survey not visible in listed surveys, but user that completed it should still be able to see it 
@@ -22,6 +23,8 @@ namespace Survey.DAL.Models
 
         //Time period when survey is ending and can't be completed anymore
         public DateTime? ActivityEndTime { get; set; }
+
+        public bool IsFinal { get; set; }
 
         //public ICollection<UserPoll> UserPolls { get; set; }
         private ICollection<Question> _questions;

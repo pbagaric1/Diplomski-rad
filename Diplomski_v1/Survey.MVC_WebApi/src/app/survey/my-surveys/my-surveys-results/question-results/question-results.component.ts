@@ -6,6 +6,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 @Component({
   selector: 'app-question-results',
   templateUrl: './question-results.component.html',
+  styleUrls: ['./question-results.component.css']
 })
 export class QuestionResults implements OnInit {
 
@@ -15,21 +16,26 @@ export class QuestionResults implements OnInit {
   question: any;
   questionType: string;
   textAnswers : any[] = [];
+  noResults: boolean;
 
   ngOnInit() {
 
     this.dataStorageService.currentQuestion.subscribe(question => this.question = question);
 
-    console.log(this.question.type);
+    console.log(this.question);
     this.questionType = this.question.type;
 
     this.dataStorageService.getQuestionResults(this.question.id)
       .subscribe(
         (data: any[]) => {
           this.data = data;
-          this.textAnswers = data[0].TextAnswers;
-
           console.log(this.data);
+          if (this.data == null)
+          this.noResults = true;
+
+          else 
+          this.textAnswers = data[0].TextAnswers;
+          
         });
   }
 

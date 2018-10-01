@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Subscription } from 'rxjs';
+import { AuthService } from './auth/auth.service';
 
 export interface LoaderState {
   show: boolean;
@@ -8,7 +9,8 @@ export interface LoaderState {
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 
 export class AppComponent implements OnInit {
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
 
   showSpinner: boolean;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private authService: AuthService) {
   }
 
   ngOnInit(): void {

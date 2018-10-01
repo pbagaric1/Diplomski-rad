@@ -17,7 +17,6 @@ namespace Survey.DAL.Models
         public string Text { get; set; }
 
         public virtual Question Question { get; set; }
-        //public virtual AspNetUser AspNetUser { get; set; }
         public virtual QuestionOption QuestionOption { get; set; }
     }
 }

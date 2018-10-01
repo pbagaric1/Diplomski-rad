@@ -1,3 +1,4 @@
+import { AdminGuard } from './auth/admin-guard.service';
 import { IspitivacGuard } from './auth/ispitivac-guard.service';
 import { QuestionResults } from './survey/my-surveys/my-surveys-results/question-results/question-results.component';
 import { MySurveysResultsComponent } from './survey/my-surveys/my-surveys-results/my-surveys-results.component';
@@ -12,12 +13,16 @@ import { SurveyCreateComponent } from "./survey/survey-create.component";
 import { TestComponent } from "./test/test.component";
 import { DashboardComponent } from "./dashboard/dashboard.component"
 import { SurveyTakeComponent } from './survey/survey-list/survey-take/survey-take.component';
+import { ManageSurveysComponent } from './admin/manage-surveys/manage-surveys.component';
+import { AuthGuard } from './auth/auth.guard';
+import { ManageUsersComponent } from './admin/manage-users/manage-users.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: '/signin', pathMatch: 'full' },
+    // { path: '', redirectTo: '/signin', pathMatch: 'full' },
+    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'signin', component: SigninComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'signup', component: SignupComponent },
-    { path: 'signin', component: SigninComponent },
     { path: 'createsurvey', component: SurveyCreateComponent, canActivate: [IspitivacGuard] },
     { path: 'test', component: TestComponent },
     { path: 'surveys', component: SurveyListComponent },
@@ -26,7 +31,12 @@ const appRoutes: Routes = [
     { path: 'mysurveys', component: MySurveysComponent, canActivate: [IspitivacGuard] },
     { path: 'mysurveys/details', component: MySurveysResultsComponent, canActivate: [IspitivacGuard] },
     { path: 'mysurveys/details/questionresults', component: QuestionResults, canActivate: [IspitivacGuard] },
+    { path: 'managesurveys', component: ManageSurveysComponent, canActivate: [AdminGuard] },
+    { path: 'manageusers', component: ManageUsersComponent, canActivate: [AdminGuard]  },
     //{ path: 'mysurveys/id/:id/questionId/:id', component: QuestionResults }
+    
+    // otherwise redirect to home
+    { path: '**', redirectTo: '' }
 
 ];
 

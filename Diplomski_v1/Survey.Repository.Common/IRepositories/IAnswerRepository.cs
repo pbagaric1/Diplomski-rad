@@ -13,6 +13,7 @@ namespace Survey.Repository.Common.IRepositories
         Task<int> Add(Answer entity);
         Task<int> Delete(Guid id);
         Task<int> Delete(Answer entity);
+        Task<bool> CheckIfUserVoted(string userId, Guid surveyId);
         Task<int> Update(Answer entity);
         Task<Answer> Get(Guid id);
         Task<IEnumerable<Answer>> GetAll();

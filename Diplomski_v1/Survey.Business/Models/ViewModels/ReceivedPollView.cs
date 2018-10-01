@@ -12,12 +12,12 @@ namespace Survey.Business.Models.ViewModels
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string UserId { get; set; }
-        public string Instructions { get; set; }
+        public string Description { get; set; }
         public string Organization { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool Visibility { get; set; }
         public DateTime ActivityStartTime { get; set; }
-        public TimeSpan ActivityDuration { get; set; }
+        public DateTime ActivityEndTime { get; set; }
 
         //public virtual AspNetUser AspNetUser { get; set; }
         //public ICollection<UserPoll> UserPolls { get; set; }

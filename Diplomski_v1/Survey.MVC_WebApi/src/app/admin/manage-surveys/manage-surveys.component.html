@@ -1,0 +1,36 @@
+<h1>Manage Surveys</h1>
+<hr />
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Survey Name</th>
+        <th>Status</th>
+        <th>Created by</th>
+        <th>Created On</th>
+        <th>Visibility</th>
+    </tr>
+    <ng-container *ngFor="let survey of surveys
+    | paginate: {
+    id: 'server',
+    itemsPerPage: itemsPerPage,
+    currentPage: currentPage, 
+    totalItems: totalItems
+    }; 
+    let i = index">
+
+    <tr>
+        <td>{{survey.title}}</td>
+        <td *ngIf="compareDates(survey.activityEndTime)">Active</td>
+        <td *ngIf="!compareDates(survey.activityEndTime)">Inactive</td>
+        <td>{{survey.userName}}</td>
+        <td>{{survey.createdOn | date:'dd-MM-yyyy'}}</td>
+        <td>
+            <span>Hidden</span>
+            <ui-switch [checked]="survey.visibility" size="small" (change)="onChange(survey)" defaultBgColor="red"></ui-switch>
+            <span>Shown</span>
+        </td>
+    </tr>
+</ng-container>
+    
+</table>
+<pagination-controls (pageChange)="pageChange($event)" id="server" maxSize="5" directionLinks="true">
+</pagination-controls>`

@@ -35,6 +35,10 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { AlertModule } from 'ngx-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ManageSurveysComponent } from './admin/manage-surveys/manage-surveys.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { AuthGuard } from './auth/auth.guard';
+import { ManageUsersComponent } from './admin/manage-users/manage-users.component';
 
 @NgModule({
     imports: [BrowserModule,
@@ -49,14 +53,15 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         LoadingBarHttpClientModule,
         AlertModule.forRoot(),
         NgbModule.forRoot(),
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        UiSwitchModule
     ],
 
     declarations: [AppComponent, HeaderComponent, SignupComponent, SigninComponent, SurveyCreateComponent, TestComponent,
         AnswerComponent, QuestionComponent, DashboardComponent, SurveyListComponent, SurveyItemComponent, SurveyTakeComponent,
-        MySurveysComponent, MySurveysResultsComponent, QuestionResults, CustomChartComponent, CapitalizePipe],
+        MySurveysComponent, MySurveysResultsComponent, QuestionResults, CustomChartComponent, CapitalizePipe, ManageSurveysComponent, ManageUsersComponent],
 
-    providers: [AuthService, DataStorageService, DatePipe, AsyncPipe, CapitalizePipe, AdminGuard, IspitivacGuard,
+    providers: [AuthService, DataStorageService, DatePipe, AsyncPipe, CapitalizePipe, AdminGuard, IspitivacGuard, AuthGuard,
          { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
         ],
 

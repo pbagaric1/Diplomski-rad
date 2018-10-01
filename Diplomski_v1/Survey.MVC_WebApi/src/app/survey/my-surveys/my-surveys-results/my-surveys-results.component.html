@@ -1,16 +1,18 @@
 ﻿<h1>Questions</h1>
 <hr />
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered"  style="width:70%; 
+margin-left:15%; 
+margin-right:15%;">
     <tr>
+        <th></th>
         <th>Question Title</th>
         <th>Question Type</th>
-        <th>Answer required</th>
         <th></th>
     </tr>
     <tr *ngFor="let question of questions; let i = index">
-        <td>{{question.title}}</td>
+        <td>{{i+1}}.</td>
+        <td style="word-wrap: break-word;max-width: 550px;">{{question.title}}</td>
         <td>{{question.type | capitalize }}</td>
-        <td>{{question.isRequired ? "True" : "False"}}</td>
             <td>
                 <a style="cursor: pointer; text-align:center; display:block;" [routerLink]="['questionresults']" (click)="onDetails(question)">View results</a>
             </td>

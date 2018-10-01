@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Survey.Business.Models.ViewModels;
 using Survey.DAL.Models;
+using System.Linq;
 
 namespace Survey.Business.Mapping.DtoToView
 {
@@ -13,11 +14,10 @@ namespace Survey.Business.Mapping.DtoToView
                 return null;
 
             var choiceList = new List<string>();
-            var questionOptionGroup = new QuestionOptionGroup();
 
             if (item.QuestionChoices != null)
             {
-                foreach (var choice in item.QuestionChoices)
+                foreach (var choice in item.QuestionChoices.OrderBy(x => x.ChoiceOrder))
                 {
                     choiceList.Add(choice.Name);
                 }

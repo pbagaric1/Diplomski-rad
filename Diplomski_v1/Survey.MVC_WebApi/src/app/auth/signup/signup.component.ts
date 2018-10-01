@@ -41,7 +41,8 @@ export class SignupComponent implements OnInit {
                     
                 },
             (error) => {
-                window.alert(error.statusText);
+                window.alert(error.error.Message);
+                console.log(error);
             }
                 );
         }

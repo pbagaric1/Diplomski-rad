@@ -9,8 +9,9 @@ namespace Survey.DAL.Models
         public Guid QuestionId { get; set; }
         //public Guid QuestionOptionGroupId { get; set; }
         public string Name { get; set; }
+        public int ChoiceOrder { get; set; }
 
-        //public ICollection<QuestionOption> QuestionOptions { get; set; }
-        //public virtual QuestionOptionGroup QuestionOptionGroup { get; set; }
-    }
+    //public ICollection<QuestionOption> QuestionOptions { get; set; }
+    //public virtual QuestionOptionGroup QuestionOptionGroup { get; set; }
+  }
 }

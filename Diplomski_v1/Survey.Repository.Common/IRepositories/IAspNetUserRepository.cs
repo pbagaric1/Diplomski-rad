@@ -14,8 +14,8 @@ namespace Survey.Repository.Common.IRepositories
         Task<int> Update(AspNetUser entity);
         Task<AspNetUser> Get(string id);
         Task<IEnumerable<AspNetUser>> GetAll();
-        Task<IEnumerable<AspNetUser>> GetAllUsernames();
-        Task<IEnumerable<AspNetUser>> GetAllEmails();
+        Task<bool> CheckIfUsernameTaken(AspNetUser user);
+        Task<bool> CheckIfEmailTaken(AspNetUser user);
         Task<AspNetUser> GetByUsername(string username);
     }
 }

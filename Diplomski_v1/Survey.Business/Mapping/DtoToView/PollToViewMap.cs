@@ -17,7 +17,7 @@ namespace Survey.Business.Mapping.DtoToView
 
             var questionList = new List<ReceivedQuestionView>();
 
-            foreach (var receivedQuestion in item.Questions)
+            foreach (var receivedQuestion in item.Questions.OrderBy(x => x.QuestionOrder))
             {
                 switch (receivedQuestion.QuestionType.Type)
                 {
@@ -53,13 +53,15 @@ namespace Survey.Business.Mapping.DtoToView
                 Id = item.Id,
                 //userId = item.AspNetUserId,
                 createdOn = item.CreatedOn,
-                instructions = item.Instructions,
+                description = item.Description,
                 title = item.Name,
                 pages = pageViewList,
                 userName = item.AspNetUser.UserName,
                 visibility = item.Visibility,
                 activityEndTime = item.ActivityEndTime,
-                activityStartTime = item.ActivityStartTime
+                activityStartTime = item.ActivityStartTime,
+                organization = item.Organization,
+                takesCount = item.TakesCount
             };
         }
     }

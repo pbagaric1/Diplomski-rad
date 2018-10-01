@@ -10,6 +10,7 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class QuestionComponent implements OnInit {
     @Input('group') questionGroup: FormGroup;
+    @Input('element') someData: any;
     questionTypes: string[] = ['text', 'radiogroup', 'checkbox', 'rating'];
     selectedType: string;
     choices: FormArray[];
@@ -23,167 +24,137 @@ export class QuestionComponent implements OnInit {
         //         console.log(this.questionTypes);
         //     }
         // );
+        //this.questionGroup.addControl("title", new FormControl(""));
+        console.log(this.questionGroup);
 
-        this.questionGroup.addControl("title", new FormControl(""));
-        //console.log(this.questionGroup)
-    }
-
-    
-
-    //CHOICES
-    initChoices() {
-        return this.fb.group({
-            formArray: this.fb.array([
-                this.fb.control('')
-            ])
+        //this.questionGroup.get('type');
+        this.selectedType = this.questionGroup.get('type').value;
+        this.questionGroup.valueChanges.subscribe(value => {
+            this.selectedType = this.questionGroup.get('type').value;
         });
-    }
+        if (this.someData) {
+            this.questionGroup.patchValue({ title: this.someData.title })
 
-    initAnswer() {
-        return this.fb.group({
-            text: ''
-        });
-    }
+            // if(this.someData.choices == null)
+            // {
+            //     this.questionGroup.removeControl("choices");
+            // }
 
-    addChoice() {
-        const choiceArray = <FormArray>this.questionGroup.controls['choices'];
-        const newChoice = this.initChoices();
+            if (this.someData.choices != null) {
+                const choiceArray = <FormArray>this.questionGroup.controls['choices'];
+                this.someData.choices.forEach(element => {
+                    choiceArray.push(this.fb.control(element));
+                });
 
-        choiceArray.push(this.fb.control(''));
+            }
 
-    }
+            // if(this.someData.mininumRateDescription == null)
+            //     {
+            //         this.questionGroup.removeControl("mininumRateDescription");
+            //     }
 
-    removeChoice(idx: number) {
-        const choiceArray = <FormArray>this.questionGroup.controls['choices'];
-        choiceArray.removeAt(idx);
-    }
-
-    //COLUMNS
-    addColumn() {
-        //const columnArray = <FormArray>this.questionGroup.controls['columns'];
-        const columnArray = <FormArray>this.questionGroup.get('columns')['controls'];
-        const newColumn = this.initColumns();
-
-        columnArray.push(newColumn);
-    }
-
-    removeColumn(idx: number) {
-        const columnArray = <FormArray>this.questionGroup.controls['columns'];
-        columnArray.removeAt(idx);
-    }
-
-    initColumns() {
-        return this.fb.group({
-            text: '',
-            value: ''
-        });
-    }
-
-    //ROWS
-    addRow() {
-        const rowArray = <FormArray>this.questionGroup.controls['rows'];
-        const newRow = this.initRows();
-
-        rowArray.push(newRow);
-    }
-
-    removeRow(idx: number) {
-        const rowArray = <FormArray>this.questionGroup.controls['rows'];
-        rowArray.removeAt(idx);
-    }
-
-    initRows() {
-        return this.fb.group({
-            text: '',
-            value: ''
-        });
-    }
-
-    onChange(selectedType: string) {
-        console.log(selectedType);
-        this.questionGroup.controls['title'].reset();
-        this.questionGroup.controls['name'].reset();
-        switch (selectedType) {
-        case 'radiogroup':
-        {
-            this.questionGroup.removeControl("mininumRateDescription");
-            this.questionGroup.removeControl("maximumRateDescription");
-            this.questionGroup.removeControl("columns");
-            this.questionGroup.removeControl("rows");
-            this.questionGroup.removeControl("choices");
-
-            let fa = new FormArray([]);
-            fa.push(this.fb.control(''));
-            fa.push(this.fb.control(''));
-            this.questionGroup.addControl("choices", fa);
-
-            break;
+            //     if(this.someData.maximumRateDescription == null)
+            //     {
+            //         this.questionGroup.removeControl("maximumRateDescription");
+            //     }
+            // }
+            console.log(this.someData);
         }
-        case 'rating':
-        {
+    }
 
-            this.questionGroup.removeControl("mininumRateDescription");
-            this.questionGroup.removeControl("maximumRateDescription");
-            this.questionGroup.removeControl("columns");
-            this.questionGroup.removeControl("rows");
-            this.questionGroup.removeControl("choices");
-            this.questionGroup.addControl("mininumRateDescription", new FormControl(""));
-            this.questionGroup.addControl("maximumRateDescription", new FormControl(""));
-            break;
+
+
+        // //CHOICES
+        // initChoices() {
+        //     return this.fb.group({
+        //         formArray: this.fb.array([
+        //             this.fb.control('')
+        //         ])
+        //     });
+        // }
+
+        addChoice() {
+            const choiceArray = <FormArray>this.questionGroup.controls['choices'];
+            choiceArray.push(this.fb.control(''));
+
         }
 
-        case 'comment':
-        {
-
-            this.questionGroup.removeControl("mininumRateDescription");
-            this.questionGroup.removeControl("maximumRateDescription");
-            this.questionGroup.removeControl("columns");
-            this.questionGroup.removeControl("rows");
-            this.questionGroup.removeControl("choices");
-            break;
+        removeChoice(idx: number) {
+            const choiceArray = <FormArray>this.questionGroup.controls['choices'];
+            choiceArray.removeAt(idx);
         }
 
-        case 'checkbox':
-        {
+        onChange() {
+            //onsole.log(selectedType);
+            this.questionGroup.controls['title'].reset();
+            switch (this.selectedType) {
+                case 'radiogroup':
+                    {
+                        this.questionGroup.removeControl("mininumRateDescription");
+                        this.questionGroup.removeControl("maximumRateDescription");
+                        this.questionGroup.removeControl("columns");
+                        this.questionGroup.removeControl("rows");
+                        this.questionGroup.removeControl("choices");
 
-            this.questionGroup.removeControl("mininumRateDescription");
-            this.questionGroup.removeControl("maximumRateDescription");
-            this.questionGroup.removeControl("columns");
-            this.questionGroup.removeControl("rows");
-            this.questionGroup.removeControl("choices");
-            
-            let fa = new FormArray([]);
-            fa.push(this.fb.control(''));
-            fa.push(this.fb.control(''));
-            this.questionGroup.addControl("choices", fa);
+                        let fa = new FormArray([]);
+                        fa.push(this.fb.control(''));
+                        fa.push(this.fb.control(''));
+                        this.questionGroup.addControl("choices", fa);
 
-            break;
+                        break;
+                    }
+                case 'rating':
+                    {
+
+                        this.questionGroup.removeControl("mininumRateDescription");
+                        this.questionGroup.removeControl("maximumRateDescription");
+                        this.questionGroup.removeControl("columns");
+                        this.questionGroup.removeControl("rows");
+                        this.questionGroup.removeControl("choices");
+                        this.questionGroup.addControl("mininumRateDescription", new FormControl(""));
+                        this.questionGroup.addControl("maximumRateDescription", new FormControl(""));
+                        break;
+                    }
+
+                case 'comment':
+                    {
+
+                        this.questionGroup.removeControl("mininumRateDescription");
+                        this.questionGroup.removeControl("maximumRateDescription");
+                        this.questionGroup.removeControl("columns");
+                        this.questionGroup.removeControl("rows");
+                        this.questionGroup.removeControl("choices");
+                        break;
+                    }
+
+                case 'checkbox':
+                    {
+
+                        this.questionGroup.removeControl("mininumRateDescription");
+                        this.questionGroup.removeControl("maximumRateDescription");
+                        this.questionGroup.removeControl("columns");
+                        this.questionGroup.removeControl("rows");
+                        this.questionGroup.removeControl("choices");
+
+                        let fa = new FormArray([]);
+                        fa.push(this.fb.control(''));
+                        fa.push(this.fb.control(''));
+                        this.questionGroup.addControl("choices", fa);
+
+                        break;
+                    }
+
+                case 'Text':
+                    {
+
+                        this.questionGroup.removeControl("mininumRateDescription");
+                        this.questionGroup.removeControl("maximumRateDescription");
+                        this.questionGroup.removeControl("columns");
+                        this.questionGroup.removeControl("rows");
+                        this.questionGroup.removeControl("choices");
+                        break;
+                    }
+            }
+
         }
-
-        //case 'Matrix':
-        //{
-
-        //    this.questionGroup.removeControl("minimumRateDescription");
-        //    this.questionGroup.removeControl("maximumRateDescription");
-        //    this.questionGroup.removeControl("columns");
-        //    this.questionGroup.removeControl("rows");
-        //    this.questionGroup.removeControl("choices");
-        //    this.questionGroup.addControl("columns", new FormArray([]));
-        //    this.questionGroup.addControl("rows", new FormArray([]));
-        //    break;
-        //        }
-
-        case 'Text':
-        {
-
-            this.questionGroup.removeControl("mininumRateDescription");
-            this.questionGroup.removeControl("maximumRateDescription");
-            this.questionGroup.removeControl("columns");
-            this.questionGroup.removeControl("rows");
-            this.questionGroup.removeControl("choices");
-            break;
-        }
-        }
-
     }
-}

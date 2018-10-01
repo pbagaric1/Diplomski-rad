@@ -1,12 +1,78 @@
-<h1>Surveys</h1>
-<hr />
-<table class="table table-striped table-bordered">
+<!-- <div>
+    <mat-form-field>
+      <input matInput #filter placeholder="Search">
+    </mat-form-field>
+  
+    <mat-table [dataSource]="dataSource" matSort>
+  
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.title}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="activityEndTime">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.activityEndTime}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="userName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created by</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.userName}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="createdOn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Time of Creation</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.createdOn | date: 'MM-dd-yyyy HH:mm:ss a'}}</mat-cell>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+        </mat-header-cell>
+  
+        <mat-cell *matCellDef="let survey; let i=index;">
+          <button mat-icon-button color="primary" routerLink="/details" (click)="onDetails(task)">
+            Details
+          </button>
+          <button mat-icon-button color="primary" (click)="editTask(task.key, task.data.id, task.data.name,
+           task.data.description, task.data.timeOfCreation)">
+            Edit
+          </button>
+  
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  
+  
+    <!-- Add/Delete Task Modal -->
+<!-- <div>
+      <button mat-icon-button color="primary" (click)="addNewTask()">Add
+      </button>
+      <button mat-icon-button color="primary" (click)="deleteTask()">Delete
+      </button>
+    </div> -->
+
+
+<!-- Show pagination if 5 or more tasks -->
+<!-- <div [hidden]="!(dataSource.filteredData.length> itemsPerPage)"> -->
+<!-- <div *ngIf="tasks.length >= itemsPerPage"> -->
+<!-- <mat-paginator #paginator [pageIndex]="0" [length]="dataSource?.filteredData.length" [pageSize]="itemsPerPage"> -->
+<!-- </mat-paginator>
+    </div>
+  </div> -->
+
+
+
+<div class="col-xs-12">
+  <h1>Surveys</h1>
+  <hr />
+  <table class="table table-striped table-bordered">
     <tr>
-        <th>Survey Name</th>
-        <th>Created by</th>
-        <th>Created On</th>
-        <th></th>
-        <th *ngIf="authService.isIspitanik()"></th>
+      <th>Name</th>
+      <th>Organization</th>
+      <th>Status</th>
+      <th></th>
+      <!-- <th *ngIf="authService.isIspitanik()"></th> -->
     </tr>
     <ng-container *ngFor="let survey of surveys
     | paginate: {
@@ -17,22 +83,28 @@
     }; 
     let i = index">
 
-    <tr>
+      <tr>
         <td>{{survey.title}}</td>
-        <td>{{survey.userName}}</td>
-        <td>{{survey.createdOn | date:'dd-MM-yyyy HH:mm:ss a'}}</td>
+        <td>{{survey.organization}}</td>
+        <td *ngIf="compareDates(survey.activityStartTime, survey.activityEndTime) == 'Expired'"><span style="font-weight: bold; color: red">{{compareDates(survey.activityStartTime, survey.activityEndTime)}}</span></td>
+        <td *ngIf="compareDates(survey.activityStartTime, survey.activityEndTime) == 'Active'"><span style="font-weight: bold; color: #5cb85c">{{compareDates(survey.activityStartTime, survey.activityEndTime)}}</span></td>
+        <td *ngIf="compareDates(survey.activityStartTime, survey.activityEndTime) == 'Inactive'"><span style="font-weight: bold;">{{compareDates(survey.activityStartTime, survey.activityEndTime)}}</span></td>
+        <!-- <td *ngIf="compareDates(survey.activityEndTime)"><span style="font-weight: bold; color: 	#5cb85c">Active</span></td> -->
+        <!-- <td>{{survey.userName}}</td> -->
         <td>
-            <a style="cursor: pointer" [routerLink]="['preview']" (click)="onDetails(survey)">Preview</a>
-            <!-- <ng-template [ngIf]="authService.isIspitanik()">
+          <a style="cursor: pointer" [routerLink]="['preview']" (click)="onDetails(survey)">Details</a>
+          <!-- <ng-template [ngIf]="authService.isIspitanik()">
                                 <a [routerLink]="['takesurvey']" (click)="onDetails(survey)">Take Survey</a>
                             </ng-template> -->
         </td>
-        <td *ngIf="authService.isIspitanik()">
-            <a [routerLink]="['takesurvey']" (click)="onDetails(survey)">Take Survey</a>
-        </td>
-    </tr>
-</ng-container>
-    
-</table>
-<pagination-controls (pageChange)="pageChange($event)" id="server" maxSize="5" directionLinks="true">
-</pagination-controls>`
+        <!-- <td *ngIf="authService.isIspitanik()">
+            <a [routerLink]="['takesurvey']" (click)="onDetails(survey)"
+            >Take Survey</a>
+        </td> -->
+      </tr>
+    </ng-container>
+
+  </table>
+  <pagination-controls (pageChange)="pageChange($event)" id="server" maxSize="5" directionLinks="true">
+  </pagination-controls>`
+</div>

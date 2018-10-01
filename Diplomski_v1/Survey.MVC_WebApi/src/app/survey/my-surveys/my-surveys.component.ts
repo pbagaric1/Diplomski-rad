@@ -14,17 +14,24 @@ export class MySurveysComponent implements OnInit {
     constructor(private dataStorageService: DataStorageService) { }
 
     @ViewChild('closeBtn') closeBtn: ElementRef;
-   // @ViewChild('closeEdit') closeEdit: ElementRef;
+    @ViewChild('closeEdit') closeEdit: ElementRef;
     surveys: SurveyModel[];
     surveyId: string;
     selectedIndex: number;
     survey: SurveyModel;
     isVisible: boolean;
     userId : string;
+    initialEndDate: any;
+    activityEndDate: any;
+
+    minDate: Date;
 
     ngOnInit() {
         this.getSurveysByUser();
         this.userId = localStorage.getItem("userId");
+
+        this.minDate = new Date();
+        this.minDate.setDate(this.minDate.getDate() + 1);
     }
 
     private closeModal() {
@@ -39,6 +46,7 @@ export class MySurveysComponent implements OnInit {
     onDelete(id: string, index: number) {
         this.surveyId = id;
         this.selectedIndex = index;
+        console.log(this.selectedIndex)
         console.log(id);
     }
 
@@ -51,10 +59,13 @@ export class MySurveysComponent implements OnInit {
     }
 
     onEdit(survey: any, index: number) {
+        console.log(survey);
         this.survey = survey;
         this.isVisible = survey.visibility;
         this.selectedIndex = index;
-        console.log(this.isVisible);
+        let endDate = new Date(survey.activityEndTime);
+        this.initialEndDate = endDate;
+       
     }
 
     onDeleteModal() {
@@ -63,7 +74,7 @@ export class MySurveysComponent implements OnInit {
                 (res) => {
                     console.log(res);
                     window.alert("Survey deleted!")
-                    this.surveys.splice(this.selectedIndex);
+                    this.surveys.splice(this.selectedIndex, 1);
                     //this.getSurveysByUser();
                 },
                 (error) => {
@@ -76,6 +87,7 @@ export class MySurveysComponent implements OnInit {
     }
 
     onEditModal() {
+        this.survey.activityEndTime = this.activityEndDate;
         this.dataStorageService.editSurvey(this.survey)
         .subscribe(
             (res) => {
@@ -89,7 +101,7 @@ export class MySurveysComponent implements OnInit {
             }
         );
 
-    this.closeModal();
+        this.closeEdit.nativeElement.click();
     }
 
     getSurveysByUser() {
@@ -100,5 +112,12 @@ export class MySurveysComponent implements OnInit {
                 console.log(data);
             });
     }
+
+    onChange(survey) {
+        if (this.survey.visibility == true)
+          this.survey.visibility = false;
+        else if (this.survey.visibility == false)
+          this.survey.visibility = true;
+      }
 
 }
