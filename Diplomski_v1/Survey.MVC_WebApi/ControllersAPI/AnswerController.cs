@@ -111,6 +111,12 @@ namespace Survey.MVC_WebApi.ControllersAPI
         var surveyId = receivedObject["surveyId"].ToString();
         Guid pollId = new Guid(surveyId);
 
+        var checkIfVoted = await AnswerRepository.CheckIfUserVoted(userId, pollId);
+        if (checkIfVoted)
+        {
+          return Request.CreateResponse(HttpStatusCode.BadRequest, "User already responded to this survey.");
+        }
+        
         var questions = await QuestionRepository.GetQuestionsByPoll(pollId);
 
         int i = 0;
@@ -154,18 +160,18 @@ namespace Survey.MVC_WebApi.ControllersAPI
             }
           }
 
-          var userPoll = new UserPoll()
-          {
-            Id = Guid.NewGuid(),
-            AspNetUserId = userId,
-            PollId = pollId,
-            CompletedOn = DateTime.Now
-          };
-
           i++;
         }
+        var userPoll = new UserPoll()
+        {
+          Id = Guid.NewGuid(),
+          AspNetUserId = userId,
+          PollId = pollId,
+          CompletedOn = DateTime.Now
+        };
+
         await PollRepository.UpdateTakeCount(pollId);
-        //await PollRepository.UpdateUserPoll(userPoll);
+        await AnswerRepository.UpdateUserPoll(userPoll);
 
         return Request.CreateResponse(HttpStatusCode.OK, 1);
       }

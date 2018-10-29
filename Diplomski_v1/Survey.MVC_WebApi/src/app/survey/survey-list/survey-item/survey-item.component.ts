@@ -20,48 +20,60 @@ export class SurveyItemComponent implements OnInit {
     isExpired: boolean = false;
     surveyId: any;
     userId: string;
-    showSurvey: boolean;
+    showSurvey: boolean = true ;
 
     ngOnInit() {
         const self = this;
         this.userId = localStorage.getItem("userId");
+        this.currentTime = Date.now();
+        this.currentTime = new Date(this.currentTime).getTime();
+        
         this.dataStorageService.currentSurvey.subscribe(survey => {
             console.log(survey)
             this.survey = survey;
             this.surveyId = survey.Id;
         });
 
-        this.dataStorageService.checkIfVoted(this.surveyId, this.userId).subscribe((response: boolean) => {
+        this.dataStorageService.checkIfVoted(this.userId, this.surveyId).subscribe((response: boolean) => {
             console.log(response);
-            this.showSurvey = response;
-        });
-        if (!this.showSurvey) {
-            let surveyModel = new Survey.Model(this.survey);
+            this.showSurvey = !response;
+
+            if (!this.showSurvey) {
+                let surveyModel = new Survey.Model(this.survey)
+                surveyModel.mode = 'display';
+                Survey.SurveyNG.render('surveyElement', { model: surveyModel });
+            }
+    
+            else {
+                this.compareDates(this.survey.activityStartTime, this.survey.activityEndTime);
+                let surveyModel = new Survey.Model(this.survey)
             if (this.isExpired) {
                 surveyModel.mode = 'display';
             }
             Survey.SurveyNG.render('surveyElement', { model: surveyModel });
-
+    
             surveyModel
                 .onComplete
                 .add(function (result) {
                     document
-                    console.log(result.data);
                     const userId = localStorage.getItem("userId");
-                    console.log(userId);
-                    console.log(self.surveyId);
                     let resultsData = {
                         results: result.data,
                         userId: userId,
                         surveyId: self.surveyId
                     };
                     self.dataStorageService.addSurveyResults(resultsData);
-
+    
                 });
+            }
+        });
 
-        }
+        
+
+        
 
     }
+
 
     showQuestions() {
         if (this.questionsShown == true)
@@ -71,15 +83,22 @@ export class SurveyItemComponent implements OnInit {
     }
 
     compareDates(startTime: any, endTime: any) {
+        console.log(this.currentTime)
         if (this.getMillies(endTime) > this.currentTime && this.getMillies(startTime) < this.currentTime) {
             //console.log("end: ", this.getMillies(endTime), "current: ", this.currentTime);
-            return "Active";
+            console.log("aktiv")
+            this.isExpired = false;
         }
         else if (this.getMillies(endTime) > this.currentTime && this.getMillies(startTime) > this.currentTime) {
             //console.log("end: ", this.getMillies(endTime), "current: ", this.currentTime);
-            return "Inactive";
+            console.log("inaktiv")
+            this.isExpired = true;
         }
-        else return "Expired";
+        else
+        {
+            this.isExpired = true;
+            console.log("expir")
+        } 
     }
 
     getMillies(input: any): number {

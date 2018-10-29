@@ -14,6 +14,7 @@
                             </div>
                         </div>
             
+                        <br>
                         <div class="row">
                             <div class="col-xs-6">
                                 <label>Type:</label>
@@ -47,7 +48,7 @@
                 </div>
                 <div *ngSwitchCase="'rating'">
                     <ngx-charts-gauge [view]="view" [scheme]="colorScheme" [results]="data" [min]="1" [max]="5" [angleSpan]="240" [startAngle]="-120"
-                        [bigSegments]="2" [smallSegments]="1" [animations]="true" (select)="onSelect($event)">
+                        [bigSegments]="2" [smallSegments]="1" [animations]="true" (select)="onSelect($event)" >
                     </ngx-charts-gauge>
                 </div>
                 <div *ngSwitchCase="'text'">

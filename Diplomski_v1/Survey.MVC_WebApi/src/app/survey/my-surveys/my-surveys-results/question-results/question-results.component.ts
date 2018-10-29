@@ -15,7 +15,7 @@ export class QuestionResults implements OnInit {
   data: any[] = [];
   question: any;
   questionType: string;
-  textAnswers : any[] = [];
+  textAnswers: any[] = [];
   noResults: boolean;
 
   ngOnInit() {
@@ -29,15 +29,31 @@ export class QuestionResults implements OnInit {
       .subscribe(
         (data: any[]) => {
           this.data = data;
+          if(this.questionType == 'rating')
+          {
+            if(this.data[0].value %1 == 0)
+            {
+              console.log("dobar")
+              this.data[0].value = this.data[0].value.toFixed(2);
+            }
+            console.log(this.data[0].value)
+          }
           console.log(this.data);
           if (this.data == null)
-          this.noResults = true;
+            this.noResults = true;
+          else
+            this.textAnswers = data[0].TextAnswers;
 
-          else 
-          this.textAnswers = data[0].TextAnswers;
-          
         });
   }
+
+  someValueFormat(val: any): string {
+    if (val instanceof Array) {
+        return val[0]['name'] + ' ' + val[0]['value'].toLocaleString();
+    } else {
+        return val.toLocaleString();
+    }
+}
 
   single: any[];
   multi: any[];
@@ -56,31 +72,4 @@ export class QuestionResults implements OnInit {
   colorScheme = {
     domain: ['#F44336', '#3F51B5', '#8BC34A', '#2196F3', '#009688', '#FF5722', '#CDDC39', '#00BCD4', '#FFC107', '#795548', '#607D8B']
   };
-
-  data1 = [
-    {
-      "name": "Germany",
-      "value": 46268
-    },
-    {
-      "name": "USA",
-      "value": 53041
-    },
-    {
-      "name": "France",
-      "value": 42503
-    },
-    {
-      "name": "United Kingdom",
-      "value": 41787
-    },
-    {
-      "name": "Spain",
-      "value": 29863
-    },
-    {
-      "name": "Italy",
-      "value": 35925
-    }
-  ];
 }

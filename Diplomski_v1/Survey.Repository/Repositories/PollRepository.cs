@@ -82,20 +82,20 @@ namespace Survey.Repository.Repositories
         if (entity == null)
           return 0;
 
-        foreach (var question in entity.Questions)
-        {
-          var answers = (await GenericRepository
-            .GetQueryable<Answer>().Where(x => x.QuestionId == question.Id)
-            .ToListAsync());
+        //foreach (var question in entity.Questions)
+        //{
+        //  var answers = (await GenericRepository
+        //    .GetQueryable<Answer>().Where(x => x.QuestionId == question.Id)
+        //    .ToListAsync());
 
-          if (answers.Count != 0)
-          {
-            foreach (var answer in answers)
-            {
-              await GenericRepository.Delete(answer);
-            }
-          }
-        }
+        //  if (answers.Count != 0)
+        //  {
+        //    foreach (var answer in answers)
+        //    {
+        //      await GenericRepository.Delete(answer);
+        //    }
+        //  }
+        //}
         
 
         return await GenericRepository.Delete(entity);

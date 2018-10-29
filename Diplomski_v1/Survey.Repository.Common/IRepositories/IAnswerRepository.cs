@@ -15,6 +15,7 @@ namespace Survey.Repository.Common.IRepositories
         Task<int> Delete(Answer entity);
         Task<bool> CheckIfUserVoted(string userId, Guid surveyId);
         Task<int> Update(Answer entity);
+        Task<int> UpdateUserPoll(UserPoll userPoll);
         Task<Answer> Get(Guid id);
         Task<IEnumerable<Answer>> GetAll();
         Task<IEnumerable<Answer>> GetAnswersByQuestion(Guid questionId);

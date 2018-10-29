@@ -103,6 +103,8 @@ namespace Survey.Repository.Repositories
       }
     }
 
+
+
     public async Task<int> UpdateUserPoll(UserPoll userPoll)
     {
       try
@@ -119,6 +121,7 @@ namespace Survey.Repository.Repositories
     {
       try
       {
+
         var response = await GenericRepository
           .GetQueryable<UserPoll>().Where(x => x.AspNetUserId == userId && x.PollId == surveyId)
           .FirstOrDefaultAsync();
